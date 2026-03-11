@@ -141,7 +141,6 @@ import { NotificationService } from '../../../../../services/notification';
                     <div class="space-y-2">
                         <label class="text-[11px] font-black text-burgundy uppercase tracking-widest pl-1">Base Premium*</label>
                         <div class="relative">
-                            <span class="absolute left-5 top-1/2 -translate-y-1/2 font-bold text-slate-400">$</span>
                             <input type="number" [(ngModel)]="currentPolicy().basePremium" name="premium" required
                                 class="w-full pl-10 pr-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-burgundy/5 focus:border-burgundy focus:bg-white transition-all outline-none">
                         </div>
@@ -150,7 +149,6 @@ import { NotificationService } from '../../../../../services/notification';
                     <div class="space-y-2">
                          <label class="text-[11px] font-black text-burgundy uppercase tracking-widest pl-1">Min Coverage Amount*</label>
                          <div class="relative">
-                             <span class="absolute left-5 top-1/2 -translate-y-1/2 font-bold text-slate-400">$</span>
                              <input type="number" [(ngModel)]="currentPolicy().minCoverageAmount" name="minCoverage" required
                                  class="w-full pl-10 pr-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-burgundy/5 focus:border-burgundy focus:bg-white transition-all outline-none">
                          </div>
@@ -159,7 +157,6 @@ import { NotificationService } from '../../../../../services/notification';
                      <div class="space-y-2">
                          <label class="text-[11px] font-black text-burgundy uppercase tracking-widest pl-1">Max Coverage Amount*</label>
                          <div class="relative">
-                             <span class="absolute left-5 top-1/2 -translate-y-1/2 font-bold text-slate-400">$</span>
                              <input type="number" [(ngModel)]="currentPolicy().maxCoverageAmount" name="maxCoverage" required
                                  class="w-full pl-10 pr-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-burgundy/5 focus:border-burgundy focus:bg-white transition-all outline-none">
                          </div>

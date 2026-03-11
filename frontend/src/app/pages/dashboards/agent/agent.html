@@ -25,7 +25,16 @@
     </aside>
 
     <main class="dashboard-main">
-        <router-outlet></router-outlet>
+        <header class="agent-header">
+            <h1 class="agent-header-title">Agent Console</h1>
+            <div class="agent-header-right">
+                <app-notification-bell></app-notification-bell>
+                <div class="agent-avatar">AG</div>
+            </div>
+        </header>
+        <div class="agent-content">
+            <router-outlet></router-outlet>
+        </div>
     </main>
 </div>
 

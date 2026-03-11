@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PolicyService, Policy } from '../../../../services/policy';
 import { AuthService } from '../../../../services/auth';
-import { BusinessProfileService, BusinessProfile } from '../../../../services/business-profile.service';
-import { PolicyApplicationService } from '../../../../services/policy-application.service';
+import { BusinessProfileService, BusinessProfile } from '../../../../services/business-profile';
+import { PolicyApplicationService } from '../../../../services/policy-application';
 import { NotificationService } from '../../../../services/notification';
 
 @Component({
@@ -31,6 +31,19 @@ export class PoliciesComponent implements OnInit {
     calculatedPremium = signal<number | null>(null);
     selectedCoverageAmount = signal<number>(0);
     selectedPaymentPlan = signal<'MONTHLY' | 'SIX_MONTHS' | 'ANNUALLY'>('MONTHLY');
+
+    coverageError = computed(() => {
+        const amount = this.selectedCoverageAmount();
+        const policy = this.selectedPolicyForApp();
+        if (!policy) return null;
+        if (policy.minCoverageAmount != null && amount < policy.minCoverageAmount) {
+            return `Coverage amount must be at least ${policy.minCoverageAmount}`;
+        }
+        if (policy.maxCoverageAmount != null && amount > policy.maxCoverageAmount) {
+            return `Coverage amount cannot exceed ${policy.maxCoverageAmount}`;
+        }
+        return null;
+    });
 
     // Pagination
     currentPage = signal(1);
@@ -158,6 +171,15 @@ export class PoliciesComponent implements OnInit {
         const policy = this.selectedPolicyForApp();
         const profile = this.businessProfile();
         if (policy && profile && profile.id) {
+            const amount = this.selectedCoverageAmount();
+            if (
+                (policy.minCoverageAmount != null && amount < policy.minCoverageAmount) ||
+                (policy.maxCoverageAmount != null && amount > policy.maxCoverageAmount)
+            ) {
+                this.calculatedPremium.set(null); // Clear premium to disable submit
+                return;
+            }
+
             this.policyAppService.calculatePremiumPreview({
                 planId: policy.id!,
                 coverageAmount: this.selectedCoverageAmount(),
@@ -180,6 +202,16 @@ export class PoliciesComponent implements OnInit {
         const user = this.authService.currentUser();
 
         if (policy && profile && user) {
+            const amount = this.selectedCoverageAmount();
+            if (policy.minCoverageAmount != null && amount < policy.minCoverageAmount) {
+                this.notificationService.show(`Coverage amount must be at least ${policy.minCoverageAmount}`, 'error');
+                return;
+            }
+            if (policy.maxCoverageAmount != null && amount > policy.maxCoverageAmount) {
+                this.notificationService.show(`Coverage amount cannot exceed ${policy.maxCoverageAmount}`, 'error');
+                return;
+            }
+
             this.policyAppService.createApplication({
                 userId: user.id,
                 planId: policy.id!,

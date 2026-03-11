@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../../services/auth';
+import { NotificationBellComponent } from '../../../shared/notification-bell/notification-bell.component';
 
 @Component({
   selector: 'app-claim-officer',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, NotificationBellComponent],
   template: `
     <div class="flex h-screen overflow-hidden bg-slate-50 font-sans">
       <!-- Sidebar -->
@@ -48,6 +49,7 @@ import { AuthService } from '../../../services/auth';
             <h1 class="text-xl font-black text-burgundy tracking-tight uppercase">Claims Officer Dashboard</h1>
           </div>
           <div class="flex items-center gap-4">
+            <app-notification-bell></app-notification-bell>
             <div class="text-right hidden sm:block">
               <span class="text-sm font-bold text-slate-500 block">{{ currentUser()?.fullName || 'Claims Specialist' }}</span>
               <span class="text-xs text-pink font-semibold uppercase tracking-tighter">Claims Officer</span>

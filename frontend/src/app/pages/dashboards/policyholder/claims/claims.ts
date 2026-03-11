@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal, OnInit } from '@angular/core';
-import { ClaimService, Claim } from '../../../../services/claim.service';
+import { ClaimService, Claim } from '../../../../services/claim';
 import { AuthService } from '../../../../services/auth';
 
 @Component({

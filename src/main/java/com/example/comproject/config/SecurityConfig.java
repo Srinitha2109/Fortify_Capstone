@@ -29,7 +29,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/users/**", "/h2-console/**", "/api/auth/**", "/uploads/**").permitAll()
+                .requestMatchers("/api/users/**", "/h2-console/**", "/api/auth/**", "/uploads/**", "/api/notifications/**").permitAll()
                 .anyRequest().authenticated()
             )
             .headers(headers -> headers.frameOptions(frame -> frame.disable()))

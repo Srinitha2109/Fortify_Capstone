@@ -1,7 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { PolicyApplication } from './policy-application.service';
+import { PolicyApplication } from './policy-application';
 
 export interface Agent {
     id: number;

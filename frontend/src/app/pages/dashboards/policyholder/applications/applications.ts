@@ -1,10 +1,10 @@
 import { Component, inject, signal, OnInit, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PolicyApplicationService, PolicyApplication } from '../../../../services/policy-application.service';
-import { PaymentService } from '../../../../services/payment.service';
+import { PolicyApplicationService, PolicyApplication } from '../../../../services/policy-application';
+import { PaymentService } from '../../../../services/payment';
 import { AuthService } from '../../../../services/auth';
 import { NotificationService } from '../../../../services/notification';
-import { ClaimService, Claim } from '../../../../services/claim.service';
+import { ClaimService, Claim } from '../../../../services/claim';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -111,7 +111,7 @@ import { FormsModule } from '@angular/forms';
             </div>
             } @empty {
             <div class="col-span-full py-20 flex flex-col items-center justify-center bg-white rounded-xl border-2 border-dashed border-slate-200 gap-4">
-                <div class="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center text-4xl opacity-50">📄</div>
+                <div class="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center text-4xl opacity-50"></div>
                 <div class="text-center">
                     <h3 class="text-lg font-black text-slate-700 mb-1">No Applications</h3>
                     <p class="text-slate-400 text-xs font-semibold">Browse available policies to get started.</p>
@@ -264,6 +264,8 @@ export class ApplicationsComponent implements OnInit {
     }
   }
 
+  //checks if payment button should be active or not
+
   isPaymentRequired(app: PolicyApplication): boolean {
     if (!app.status) return false;
     if (app.status === 'APPROVED') return true;
@@ -278,6 +280,7 @@ export class ApplicationsComponent implements OnInit {
     return false;
   }
 
+  //it is called when policyholder clicks on pay premium button
   payPremium(app: PolicyApplication) {
     if (!app.id || !app.premiumAmount) return;
 
@@ -302,6 +305,7 @@ export class ApplicationsComponent implements OnInit {
     return available > 0 ? available : 0;
   }
 
+  //when user clicks raise claim button
   openClaimModal(app: PolicyApplication) {
     this.selectedApp.set(app);
     this.showClaimModal.set(true);

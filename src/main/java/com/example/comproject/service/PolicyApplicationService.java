@@ -33,15 +33,16 @@ public class PolicyApplicationService {
     private final AgentRepository agentRepository;
     private final ClaimOfficerRepository claimOfficerRepository;
     private final ClaimRepository claimRepository;
+    private final AppNotificationService notificationService;
 
     public PolicyApplicationService(PolicyApplicationRepository policyApplicationRepository,
                                    UserRepository userRepository,
                                    PolicyRepository policyRepository,
                                    BusinessProfileRepository businessProfileRepository,
                                    AgentRepository agentRepository,
-                                  
                                    ClaimOfficerRepository claimOfficerRepository,
-                                   ClaimRepository claimRepository) {
+                                   ClaimRepository claimRepository,
+                                   AppNotificationService notificationService) {
         this.policyApplicationRepository = policyApplicationRepository;
         this.userRepository = userRepository;
         this.policyRepository = policyRepository;
@@ -49,6 +50,7 @@ public class PolicyApplicationService {
         this.agentRepository = agentRepository;
         this.claimOfficerRepository = claimOfficerRepository;
         this.claimRepository = claimRepository;
+        this.notificationService = notificationService;
     }
 
     // Step 1: Policyholder submits application
@@ -104,7 +106,28 @@ public class PolicyApplicationService {
             application.setClaimOfficer(businessProfile.getClaimOfficer());
         }
 
-        return toDTO(policyApplicationRepository.save(application));
+        PolicyApplicationDTO saved = toDTO(policyApplicationRepository.save(application));
+
+        // Notify assigned agent
+        if (application.getAgent() != null && application.getAgent().getUser() != null) {
+            notificationService.notify(
+                application.getAgent().getUser(),
+                "New policy application (" + application.getPolicyNumber() + ") for \""
+                    + policy.getPolicyName() + "\" has been submitted and requires your review.",
+                "APPLICATION_SUBMITTED"
+            );
+        }
+        // Notify assigned claim officer
+        if (application.getClaimOfficer() != null && application.getClaimOfficer().getUser() != null) {
+            notificationService.notify(
+                application.getClaimOfficer().getUser(),
+                "A new policy application (" + application.getPolicyNumber() + ") has been submitted by "
+                    + user.getFullName() + ". You are assigned as claims officer.",
+                "APPLICATION_SUBMITTED"
+            );
+        }
+
+        return saved;
     }
 
     public List<PolicyApplicationDTO> getAllApplications() {
@@ -172,10 +195,18 @@ public class PolicyApplicationService {
         }
 
         application.setStatus(PolicyApplication.ApplicationStatus.APPROVED);
-        // Premium is already calculated at submission, but can be adjusted here if needed.
-        // For now, we keep the submitted premium.
+        PolicyApplicationDTO result = toDTO(policyApplicationRepository.save(application));
 
-        return toDTO(policyApplicationRepository.save(application));
+        // Notify the policyholder
+        if (application.getUser() != null) {
+            notificationService.notify(
+                application.getUser(),
+                "Great news! Your policy application (" + application.getPolicyNumber() + ") has been approved.",
+                "APPLICATION_APPROVED"
+            );
+        }
+
+        return result;
     }
 
     public PolicyApplicationDTO rejectApplication(Long applicationId, String reason) {
@@ -184,8 +215,18 @@ public class PolicyApplicationService {
 
         application.setStatus(PolicyApplication.ApplicationStatus.REJECTED);
         application.setRejectionReason(reason);
+        PolicyApplicationDTO result = toDTO(policyApplicationRepository.save(application));
 
-        return toDTO(policyApplicationRepository.save(application));
+        // Notify the policyholder
+        if (application.getUser() != null) {
+            notificationService.notify(
+                application.getUser(),
+                "Your policy application (" + application.getPolicyNumber() + ") has been rejected. Reason: " + reason,
+                "APPLICATION_REJECTED"
+            );
+        }
+
+        return result;
     }
 
     public PolicyApplicationDTO getApplicationById(Long id) {
@@ -240,6 +281,7 @@ public class PolicyApplicationService {
     }
 
     private BigDecimal calculatePremium(Policy policy, BigDecimal selectedCoverage, BusinessProfile businessProfile, PolicyApplication.PaymentPlan plan) {
+        //if policy does not have max coverage then it return base premium
         if (policy.getMaxCoverageAmount() == null || policy.getMaxCoverageAmount().compareTo(BigDecimal.ZERO) == 0) {
             return policy.getBasePremium();
         }

@@ -54,7 +54,7 @@
                 <div class="flex flex-col gap-3 mb-6 bg-slate-50 p-4 rounded-xl border border-slate-100">
                     <div class="flex justify-between items-center">
                         <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Base Premium</span>
-                        <span class="text-lg font-black text-burgundy">{{ policy.basePremium | currency }}</span>
+                        <span class="text-lg font-black text-burgundy">{{ policy.basePremium }}</span>
                     </div>
                     <div class="w-full h-px bg-slate-200"></div>
                     <div class="flex justify-between items-center">
@@ -72,7 +72,7 @@
                 <button
                     class="w-full py-3 bg-burgundy/10 text-burgundy border border-burgundy/20 font-black rounded-xl hover:bg-burgundy hover:text-white transition-all duration-300 shadow-sm group-hover:shadow-burgundy/20"
                     (click)="$event.stopPropagation(); selectPolicy(policy)">
-                    Review & Buy Policy
+                    Review and Buy Policy
                 </button>
                 }
             </div>
@@ -156,7 +156,7 @@
                 <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
                     <span class="block text-[10px] font-black uppercase text-slate-400 tracking-widest mb-1">Base
                         Premium</span>
-                    <span class="text-lg font-bold text-slate-700">{{ selectedPolicyForApp()?.basePremium | currency
+                    <span class="text-lg font-bold text-slate-700">{{ selectedPolicyForApp()?.basePremium
                         }}</span>
                 </div>
                 <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
@@ -171,7 +171,7 @@
                 <label class="block text-xs font-black text-burgundy uppercase tracking-widest">Select Coverage
                     Amount</label>
                 <div class="relative">
-                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
+
                     <input type="number" [ngModel]="selectedCoverageAmount()"
                         (ngModelChange)="selectedCoverageAmount.set($event); previewPremium()"
                         [min]="selectedPolicyForApp()?.minCoverageAmount || null"
@@ -179,9 +179,14 @@
                         class="w-full pl-8 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-4 focus:ring-pink/10 focus:border-pink transition-all font-bold text-slate-700">
                 </div>
                 <div class="flex justify-between text-[10px] font-bold text-slate-400 uppercase">
-                    <span>Min: {{ selectedPolicyForApp()?.minCoverageAmount | currency }}</span>
-                    <span>Max: {{ selectedPolicyForApp()?.maxCoverageAmount | currency }}</span>
+                    <span>Min: {{ selectedPolicyForApp()?.minCoverageAmount }}</span>
+                    <span>Max: {{ selectedPolicyForApp()?.maxCoverageAmount }}</span>
                 </div>
+                @if (coverageError()) {
+                <div class="text-xs font-bold text-red-500 mt-1 animate-in slide-in-from-top-1 duration-200">
+                    {{ coverageError() }}
+                </div>
+                }
             </div>
 
             <div class="space-y-3">
@@ -209,13 +214,12 @@
                     <div>
                         <span class="block text-[11px] font-black uppercase text-burgundy tracking-widest mb-1">Your
                             Dynamic Premium</span>
-                        <p class="text-xs font-bold text-slate-500 max-w-[200px]">Calculated based on your business
-                            profile risk factors.</p>
+
                     </div>
                     @if (calculatedPremium() !== null) {
                     <div class="text-right flex flex-col items-end">
-                        <span class="text-4xl font-black text-burgundy tracking-tighter">{{ calculatedPremium() |
-                            currency
+                        <span class="text-4xl font-black text-burgundy tracking-tighter">{{ calculatedPremium()
+
                             }}</span>
                         <span class="text-[10px] font-bold text-slate-400 uppercase mt-1">
                             {{ selectedPaymentPlan() === 'MONTHLY' ? 'Monthly Payment' :

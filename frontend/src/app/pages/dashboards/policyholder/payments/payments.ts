@@ -1,8 +1,8 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PaymentService, Payment } from '../../../../services/payment.service';
+import { PaymentService, Payment } from '../../../../services/payment';
 import { AuthService } from '../../../../services/auth';
-import { InvoiceGeneratorService } from '../../../../services/invoice-generator.service';
+import { InvoiceGeneratorService } from '../../../../services/invoice-generator';
 
 @Component({
     selector: 'app-policyholder-payments',

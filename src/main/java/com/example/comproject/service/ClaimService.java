@@ -21,17 +21,20 @@ public class ClaimService {
     private final ClaimOfficerRepository claimOfficerRepository;
     private final FileStorageService fileStorageService;
     private final ClaimDocumentService claimDocumentService;
+    private final AppNotificationService notificationService;
 
     public ClaimService(ClaimRepository claimRepository,
                        PolicyApplicationRepository policyApplicationRepository,
                        ClaimOfficerRepository claimOfficerRepository,
                        FileStorageService fileStorageService,
-                       ClaimDocumentService claimDocumentService) {
+                       ClaimDocumentService claimDocumentService,
+                       AppNotificationService notificationService) {
         this.claimRepository = claimRepository;
         this.policyApplicationRepository = policyApplicationRepository;
         this.claimOfficerRepository = claimOfficerRepository;
         this.fileStorageService = fileStorageService;
         this.claimDocumentService = claimDocumentService;
+        this.notificationService = notificationService;
     }
 
     public ClaimDTO createClaim(ClaimDTO dto, List<org.springframework.web.multipart.MultipartFile> documents) {
@@ -82,7 +85,28 @@ public class ClaimService {
             }
         }
         
-        return toDTO(savedClaim);
+        ClaimDTO result = toDTO(savedClaim);
+
+        // Notify assigned claim officer
+        if (savedClaim.getClaimOfficer() != null && savedClaim.getClaimOfficer().getUser() != null) {
+            notificationService.notify(
+                savedClaim.getClaimOfficer().getUser(),
+                "New claim (" + savedClaim.getClaimNumber() + ") has been raised by "
+                    + app.getUser().getFullName() + " under policy " + app.getPolicyNumber() + ". Please review.",
+                "CLAIM_RAISED"
+            );
+        }
+        // Notify assigned agent
+        if (app.getAgent() != null && app.getAgent().getUser() != null) {
+            notificationService.notify(
+                app.getAgent().getUser(),
+                "A claim (" + savedClaim.getClaimNumber() + ") has been raised by your client "
+                    + app.getUser().getFullName() + " under policy " + app.getPolicyNumber() + ".",
+                "CLAIM_RAISED"
+            );
+        }
+
+        return result;
     }
 
     public ClaimDTO assignClaimOfficer(Long claimId, Long claimOfficerId) {
@@ -125,7 +149,18 @@ public class ClaimService {
         }
 
         claim.setStatus(Claim.ClaimStatus.APPROVED);
-        return toDTO(claimRepository.save(claim));
+        ClaimDTO result = toDTO(claimRepository.save(claim));
+
+        // Notify the policyholder
+        if (claim.getPolicyApplication() != null && claim.getPolicyApplication().getUser() != null) {
+            notificationService.notify(
+                claim.getPolicyApplication().getUser(),
+                "Your claim (" + claim.getClaimNumber() + ") has been approved by the claims officer.",
+                "CLAIM_APPROVED"
+            );
+        }
+
+        return result;
     }
 
     public ClaimDTO rejectClaim(Long claimId, String reason) {
@@ -138,7 +173,18 @@ public class ClaimService {
 
         claim.setStatus(Claim.ClaimStatus.REJECTED);
         claim.setRejectionReason(reason);
-        return toDTO(claimRepository.save(claim));
+        ClaimDTO result = toDTO(claimRepository.save(claim));
+
+        // Notify the policyholder
+        if (claim.getPolicyApplication() != null && claim.getPolicyApplication().getUser() != null) {
+            notificationService.notify(
+                claim.getPolicyApplication().getUser(),
+                "Your claim (" + claim.getClaimNumber() + ") has been rejected. Reason: " + reason,
+                "CLAIM_REJECTED"
+            );
+        }
+
+        return result;
     }
 
     private String generateClaimNumber() {

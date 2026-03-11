@@ -1,7 +1,7 @@
 import { Component, inject, signal, OnInit, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PolicyApplicationService, PolicyApplication } from '../../../../../services/policy-application.service';
+import { PolicyApplicationService, PolicyApplication } from '../../../../../services/policy-application';
 import { AuthService } from '../../../../../services/auth';
 import { NotificationService } from '../../../../../services/notification';
 

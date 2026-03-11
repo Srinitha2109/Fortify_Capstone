@@ -2,7 +2,7 @@ import { Component, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminService, UserRequest } from '../../../../../services/admin';
 import { PolicyService } from '../../../../../services/policy';
-import { PolicyApplicationService } from '../../../../../services/policy-application.service';
+import { PolicyApplicationService } from '../../../../../services/policy-application';
 import { NotificationService } from '../../../../../services/notification';
 import { Router } from '@angular/router';
 

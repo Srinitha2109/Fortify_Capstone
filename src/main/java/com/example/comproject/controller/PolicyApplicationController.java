@@ -42,7 +42,8 @@ public class PolicyApplicationController {
     @PostMapping("/calculate-premium")
     public ResponseEntity<BigDecimal> calculatePremiumPreview(@RequestBody PremiumRequest request) {
         return ResponseEntity.ok(policyApplicationService.calculatePremiumPreview(
-                request.getPlanId(), request.getCoverageAmount(), request.getBusinessProfileId(), request.getPaymentPlan()));
+                request.getPlanId(), request.getCoverageAmount(), request.getBusinessProfileId(),
+                request.getPaymentPlan()));
     }
 
     @PreAuthorize("hasAnyRole('POLICYHOLDER', 'AGENT', 'ADMIN')")
@@ -66,7 +67,8 @@ public class PolicyApplicationController {
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/{id}")
-    public ResponseEntity<PolicyApplicationDTO> updateApplication(@PathVariable Long id, @RequestBody PolicyApplicationDTO application) {
+    public ResponseEntity<PolicyApplicationDTO> updateApplication(@PathVariable Long id,
+            @RequestBody PolicyApplicationDTO application) {
         PolicyApplicationDTO updated = policyApplicationService.updateApplication(id, application);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
@@ -74,13 +76,11 @@ public class PolicyApplicationController {
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}/assign-staff")
     public ResponseEntity<PolicyApplicationDTO> assignStaff(
-            @PathVariable Long id, 
+            @PathVariable Long id,
             @RequestParam Long agentId,
             @RequestParam Long claimOfficerId) {
         return ResponseEntity.ok(policyApplicationService.assignStaff(id, agentId, claimOfficerId));
     }
-
-   
 
     @PreAuthorize("hasRole('AGENT')")
     @PutMapping("/{id}/approve")
@@ -114,13 +114,36 @@ public class PolicyApplicationController {
         private Long businessProfileId;
         private com.example.comproject.entity.PolicyApplication.PaymentPlan paymentPlan;
 
-        public Long getPlanId() { return planId; }
-        public void setPlanId(Long planId) { this.planId = planId; }
-        public BigDecimal getCoverageAmount() { return coverageAmount; }
-        public void setCoverageAmount(BigDecimal coverageAmount) { this.coverageAmount = coverageAmount; }
-        public Long getBusinessProfileId() { return businessProfileId; }
-        public void setBusinessProfileId(Long businessProfileId) { this.businessProfileId = businessProfileId; }
-        public com.example.comproject.entity.PolicyApplication.PaymentPlan getPaymentPlan() { return paymentPlan; }
-        public void setPaymentPlan(com.example.comproject.entity.PolicyApplication.PaymentPlan paymentPlan) { this.paymentPlan = paymentPlan; }
+        public Long getPlanId() {
+            return planId;
+        }
+
+        public void setPlanId(Long planId) {
+            this.planId = planId;
+        }
+
+        public BigDecimal getCoverageAmount() {
+            return coverageAmount;
+        }
+
+        public void setCoverageAmount(BigDecimal coverageAmount) {
+            this.coverageAmount = coverageAmount;
+        }
+
+        public Long getBusinessProfileId() {
+            return businessProfileId;
+        }
+
+        public void setBusinessProfileId(Long businessProfileId) {
+            this.businessProfileId = businessProfileId;
+        }
+
+        public com.example.comproject.entity.PolicyApplication.PaymentPlan getPaymentPlan() {
+            return paymentPlan;
+        }
+
+        public void setPaymentPlan(com.example.comproject.entity.PolicyApplication.PaymentPlan paymentPlan) {
+            this.paymentPlan = paymentPlan;
+        }
     }
 }
