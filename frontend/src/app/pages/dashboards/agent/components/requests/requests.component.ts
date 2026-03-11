@@ -134,8 +134,6 @@ import { NotificationService } from '../../../../../services/notification';
                     </div>
                 </div>
 
-               
-
                 <!-- Action field: Reason for rejection -->
                 <div class="space-y-3" *ngIf="isRejecting()">
                     <label class="block text-xs font-black text-rose-600 uppercase tracking-widest">Reason for Rejection</label>

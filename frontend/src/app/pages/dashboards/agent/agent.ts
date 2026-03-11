@@ -14,6 +14,7 @@ import { NotificationBellComponent } from '../../../shared/notification-bell/not
 export class AgentComponent {
   private authService = inject(AuthService);
   isSidebarCollapsed = signal(false);
+  currentUser = this.authService.currentUser;
 
   toggleSidebar() {
     this.isSidebarCollapsed.set(!this.isSidebarCollapsed());
@@ -21,5 +22,10 @@ export class AgentComponent {
 
   logout() {
     this.authService.logout();
+  }
+
+  getInitials(name: string | null | undefined): string {
+    if (!name) return 'AG';
+    return name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
   }
 }

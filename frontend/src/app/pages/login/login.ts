@@ -27,7 +27,6 @@ export class LoginComponent {
   roles = [
     { value: 'POLICYHOLDER', label: 'Policyholder' },
     { value: 'AGENT', label: 'Agent' },
-    // { value: 'UNDERWRITER', label: 'Underwriter' },
     { value: 'CLAIM_OFFICER', label: 'Claim Officer' },
     { value: 'ADMIN', label: 'Administrator' }
   ];
