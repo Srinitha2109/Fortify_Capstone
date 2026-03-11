@@ -1,12 +1,12 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { AdminService, UserRequest } from '../../../../../services/admin';
 import { NotificationService } from '../../../../../services/notification';
 
 @Component({
     selector: 'app-admin-users',
     standalone: true,
-    imports: [CommonModule],
+    imports: [],
     template: `
     <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden animate-in fade-in duration-300">
         <div class="px-6 py-5 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4">

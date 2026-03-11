@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../../services/auth';
 import { NotificationBellComponent } from '../../../shared/notification-bell/notification-bell.component';
@@ -7,7 +7,7 @@ import { NotificationBellComponent } from '../../../shared/notification-bell/not
 @Component({
   selector: 'app-claim-officer',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, NotificationBellComponent],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, NotificationBellComponent],
   template: `
     <div class="flex h-screen overflow-hidden bg-slate-50 font-sans">
       <!-- Sidebar -->

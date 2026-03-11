@@ -1,13 +1,13 @@
 import {
   Component, inject, signal, HostListener, OnInit, OnDestroy
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { InAppNotificationService, InAppNotification } from '../../services/in-app-notification.service';
 
 @Component({
   selector: 'app-notification-bell',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: `
     <div class="notif-bell-wrapper" style="position:relative;display:inline-block;">
     

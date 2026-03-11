@@ -1,358 +1,396 @@
 <div class="auth-container">
-    <div class="auth-card">
-        <div class="auth-header">
-            <!-- <div class="shield-logo"></div> -->
-            <h1>Fortify INSURANCE</h1>
-            <p>Secure Your Business with the Best</p>
+  <div class="auth-card">
+    <div class="auth-header">
+      <!-- <div class="shield-logo"></div> -->
+      <h1>Fortify INSURANCE</h1>
+      <p>Secure Your Business with the Best</p>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="auth-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" formControlName="fullName" placeholder="Enter your full name"
+            class="form-control" [ngClass]="{'is-invalid': registerForm.get('fullName')?.touched}">
+            @if (registerForm.get('fullName')?.touched && registerForm.get('fullName')?.invalid) {
+              <div class="error-msg"
+                >
+                Please fill the name
+              </div>
+            }
+          </div>
         </div>
 
-        <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="auth-form">
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="fullName">Full Name</label>
-                    <input type="text" id="fullName" formControlName="fullName" placeholder="Enter your full name"
-                        class="form-control" [ngClass]="{'is-invalid': registerForm.get('fullName')?.touched}">
-                    <div class="error-msg"
-                        *ngIf="registerForm.get('fullName')?.touched && registerForm.get('fullName')?.invalid">
-                        Please fill the name
-                    </div>
+        <div class="form-row two-cols">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" formControlName="email" placeholder="email@example.com"
+              class="form-control"
+              [ngClass]="{'is-invalid': registerForm.get('email')?.touched && registerForm.get('email')?.invalid}">
+              <!-- <div class="error-msg"
+              *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
+              Please enter a valid email address
+            </div> -->
+            @if (registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['required']) {
+              <div class="error-msg"
+                >
+                Email is required
+              </div>
+            }
+
+            @if (registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['pattern']) {
+              <div class="error-msg"
+                >
+                Please enter a valid Gmail address
+              </div>
+            }
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" formControlName="phone" placeholder="+91 xxx- xxx-xxxx"
+              class="form-control"
+              [ngClass]="{'is-invalid': registerForm.get('phone')?.touched && registerForm.get('phone')?.invalid}">
+              @if (registerForm.get('phone')?.touched && registerForm.get('phone')?.invalid) {
+                <div class="error-msg"
+                  >
+                  Phone number is required
                 </div>
+              }
             </div>
+          </div>
 
-            <div class="form-row two-cols">
+          <div class="form-group">
+            <label for="role">I am joining as:</label>
+            <select id="role" formControlName="role" class="form-control role-select"
+              [ngClass]="{'is-invalid': registerForm.get('role')?.touched && registerForm.get('role')?.invalid}">
+              @for (r of roles; track r) {
+                <option [value]="r.value">{{ r.label }}</option>
+              }
+            </select>
+            @if (registerForm.get('role')?.touched && registerForm.get('role')?.invalid) {
+              <div class="error-msg">
+                Please select a role
+              </div>
+            }
+          </div>
+
+          <!-- Policyholder Specific Fields -->
+          @if (role === 'POLICYHOLDER') {
+            <div class="conditional-section">
+              <div class="section-header">Business Details</div>
+              <div class="form-row">
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" formControlName="email" placeholder="email@example.com"
-                        class="form-control"
-                        [ngClass]="{'is-invalid': registerForm.get('email')?.touched && registerForm.get('email')?.invalid}">
-                    <!-- <div class="error-msg"
-                        *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
-                        Please enter a valid email address
-                    </div> -->
-                    <div class="error-msg"
-                        *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['required']">
-                        Email is required
-                    </div>
-
-                    <div class="error-msg"
-                        *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['pattern']">
-                        Please enter a valid Gmail address
-                    </div>
+                  <label for="businessName">Business Name</label>
+                  <input type="text" id="businessName" formControlName="businessName"
+                    placeholder="Legal Entity Name" class="form-control"
+                    [ngClass]="{'is-invalid': registerForm.get('businessName')?.touched && registerForm.get('businessName')?.invalid}">
+                    @if (registerForm.get('businessName')?.touched && registerForm.get('businessName')?.invalid) {
+                      <div class="error-msg"
+                        >
+                        Business name is required
+                      </div>
+                    }
+                  </div>
                 </div>
-                <div class="form-group">
-                    <label for="phone">Phone</label>
-                    <input type="tel" id="phone" formControlName="phone" placeholder="+91 xxx- xxx-xxxx"
-                        class="form-control"
-                        [ngClass]="{'is-invalid': registerForm.get('phone')?.touched && registerForm.get('phone')?.invalid}">
-                    <div class="error-msg"
-                        *ngIf="registerForm.get('phone')?.touched && registerForm.get('phone')?.invalid">
-                        Phone number is required
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="role">I am joining as:</label>
-                <select id="role" formControlName="role" class="form-control role-select"
-                    [ngClass]="{'is-invalid': registerForm.get('role')?.touched && registerForm.get('role')?.invalid}">
-                    <option *ngFor="let r of roles" [value]="r.value">{{ r.label }}</option>
-                </select>
-                <div class="error-msg" *ngIf="registerForm.get('role')?.touched && registerForm.get('role')?.invalid">
-                    Please select a role
-                </div>
-            </div>
-
-            <!-- Policyholder Specific Fields -->
-            <div *ngIf="role === 'POLICYHOLDER'" class="conditional-section">
-                <div class="section-header">Business Details</div>
                 <div class="form-row">
-                    <div class="form-group">
-                        <label for="businessName">Business Name</label>
-                        <input type="text" id="businessName" formControlName="businessName"
-                            placeholder="Legal Entity Name" class="form-control"
-                            [ngClass]="{'is-invalid': registerForm.get('businessName')?.touched && registerForm.get('businessName')?.invalid}">
+                  <div class="form-group">
+                    <label for="industry">Industry</label>
+                    <input type="text" id="industry" formControlName="industry" placeholder="e.g. Technology"
+                      class="form-control"
+                      [ngClass]="{'is-invalid': registerForm.get('industry')?.touched && registerForm.get('industry')?.invalid}">
+                      @if (registerForm.get('industry')?.touched && registerForm.get('industry')?.invalid) {
                         <div class="error-msg"
-                            *ngIf="registerForm.get('businessName')?.touched && registerForm.get('businessName')?.invalid">
-                            Business name is required
+                          >
+                          Please fill the industry
                         </div>
+                      }
                     </div>
-                </div>
-                <div class="form-row">
+                  </div>
+                  <div class="form-row two-cols">
                     <div class="form-group">
-                        <label for="industry">Industry</label>
-                        <input type="text" id="industry" formControlName="industry" placeholder="e.g. Technology"
-                            class="form-control"
-                            [ngClass]="{'is-invalid': registerForm.get('industry')?.touched && registerForm.get('industry')?.invalid}">
-                        <div class="error-msg"
-                            *ngIf="registerForm.get('industry')?.touched && registerForm.get('industry')?.invalid">
-                            Please fill the industry
-                        </div>
-                    </div>
-                </div>
-                <div class="form-row two-cols">
-                    <div class="form-group">
-                        <label for="annualRevenue">Annual Revenue ($)</label>
-                        <input type="number" id="annualRevenue" formControlName="annualRevenue"
-                            placeholder="Estimated Revenue" class="form-control"
-                            [ngClass]="{'is-invalid': registerForm.get('annualRevenue')?.touched && registerForm.get('annualRevenue')?.invalid}">
-                        <div class="error-msg"
-                            *ngIf="registerForm.get('annualRevenue')?.touched && registerForm.get('annualRevenue')?.invalid">
+                      <label for="annualRevenue">Annual Revenue ($)</label>
+                      <input type="number" id="annualRevenue" formControlName="annualRevenue"
+                        placeholder="Estimated Revenue" class="form-control"
+                        [ngClass]="{'is-invalid': registerForm.get('annualRevenue')?.touched && registerForm.get('annualRevenue')?.invalid}">
+                        @if (registerForm.get('annualRevenue')?.touched && registerForm.get('annualRevenue')?.invalid) {
+                          <div class="error-msg"
+                            >
                             Revenue is required
-                        </div>
-                    </div>
-                    <div class="form-group">
+                          </div>
+                        }
+                      </div>
+                      <div class="form-group">
                         <label for="employeeCount">Employees</label>
                         <input type="number" id="employeeCount" formControlName="employeeCount" placeholder="Count"
-                            class="form-control"
-                            [ngClass]="{'is-invalid': registerForm.get('employeeCount')?.touched && registerForm.get('employeeCount')?.invalid}">
-                        <div class="error-msg"
-                            *ngIf="registerForm.get('employeeCount')?.touched && registerForm.get('employeeCount')?.invalid">
-                            Employee count required
+                          class="form-control"
+                          [ngClass]="{'is-invalid': registerForm.get('employeeCount')?.touched && registerForm.get('employeeCount')?.invalid}">
+                          @if (registerForm.get('employeeCount')?.touched && registerForm.get('employeeCount')?.invalid) {
+                            <div class="error-msg"
+                              >
+                              Employee count required
+                            </div>
+                          }
                         </div>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="city">City</label>
-                        <input type="text" id="city" formControlName="city" placeholder="Business City"
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group">
+                          <label for="city">City</label>
+                          <input type="text" id="city" formControlName="city" placeholder="Business City"
                             class="form-control"
                             [ngClass]="{'is-invalid': registerForm.get('city')?.touched && registerForm.get('city')?.invalid}">
-                        <div class="error-msg"
-                            *ngIf="registerForm.get('city')?.touched && registerForm.get('city')?.invalid">
-                            Please enter city
+                            @if (registerForm.get('city')?.touched && registerForm.get('city')?.invalid) {
+                              <div class="error-msg"
+                                >
+                                Please enter city
+                              </div>
+                            }
+                          </div>
                         </div>
-                    </div>
-                </div>
-            </div>
+                      </div>
+                    }
 
-            <!-- Agent  / Claim Officer Specific Fields -->
-            <div *ngIf="role !== 'POLICYHOLDER'" class="conditional-section">
-                <div class="section-header">Professional Background</div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="experience">Years of Experience</label>
-                        <input type="number" id="experience" formControlName="experience" placeholder="Years"
-                            class="form-control"
-                            [ngClass]="{'is-invalid': registerForm.get('experience')?.touched && registerForm.get('experience')?.invalid}">
-                        <div class="error-msg"
-                            *ngIf="registerForm.get('experience')?.touched && registerForm.get('experience')?.invalid">
-                            Experience is required
+                    <!-- Agent  / Claim Officer Specific Fields -->
+                    @if (role !== 'POLICYHOLDER') {
+                      <div class="conditional-section">
+                        <div class="section-header">Professional Background</div>
+                        <div class="form-row">
+                          <div class="form-group">
+                            <label for="experience">Years of Experience</label>
+                            <input type="number" id="experience" formControlName="experience" placeholder="Years"
+                              class="form-control"
+                              [ngClass]="{'is-invalid': registerForm.get('experience')?.touched && registerForm.get('experience')?.invalid}">
+                              @if (registerForm.get('experience')?.touched && registerForm.get('experience')?.invalid) {
+                                <div class="error-msg"
+                                  >
+                                  Experience is required
+                                </div>
+                              }
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="specialization">Insurance Type Specialization</label>
+                            <select id="specialization" formControlName="specialization" class="form-control"
+                              [ngClass]="{'is-invalid': registerForm.get('specialization')?.touched && registerForm.get('specialization')?.invalid}">
+                              <option value="" disabled selected>Select specialization</option>
+                              @for (opt of specializationOptions; track opt) {
+                                <option [value]="opt.value">{{ opt.label }}</option>
+                              }
+                            </select>
+                            @if (registerForm.get('specialization')?.touched && registerForm.get('specialization')?.invalid) {
+                              <div class="error-msg"
+                                >
+                                Please select specialization
+                              </div>
+                            }
+                          </div>
+                          @if (role === 'AGENT') {
+                            <div class="form-row">
+                              <div class="form-group">
+                                <label for="territory">Operating Territory</label>
+                                <input type="text" id="territory" formControlName="territory" placeholder="e.g. North Zone"
+                                  class="form-control"
+                                  [ngClass]="{'is-invalid': registerForm.get('territory')?.touched && registerForm.get('territory')?.invalid}">
+                                  @if (registerForm.get('territory')?.touched && registerForm.get('territory')?.invalid) {
+                                    <div class="error-msg"
+                                      >
+                                      Territory is required
+                                    </div>
+                                  }
+                                </div>
+                              </div>
+                            }
+                            @if (role === 'CLAIM_OFFICER') {
+                              <div class="form-row">
+                                <div class="form-group">
+                                  <label for="region">Assigned Region</label>
+                                  <input type="text" id="region" formControlName="region" placeholder="e.g. West Coast"
+                                    class="form-control"
+                                    [ngClass]="{'is-invalid': registerForm.get('region')?.touched && registerForm.get('region')?.invalid}">
+                                    @if (registerForm.get('region')?.touched && registerForm.get('region')?.invalid) {
+                                      <div class="error-msg"
+                                        >
+                                        Region info required
+                                      </div>
+                                    }
+                                  </div>
+                                </div>
+                              }
+                            </div>
+                          }
+
+                          <button type="submit" class="btn btn-primary auth-btn">
+                            Submit Request
+                          </button>
+                        </form>
+
+                        <div class="auth-footer">
+                          <p>Already have an account? <a routerLink="/login">Sign In</a></p>
                         </div>
+                      </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="specialization">Insurance Type Specialization</label>
-                    <select id="specialization" formControlName="specialization" class="form-control"
-                        [ngClass]="{'is-invalid': registerForm.get('specialization')?.touched && registerForm.get('specialization')?.invalid}">
-                        <option value="" disabled selected>Select specialization</option>
-                        <option *ngFor="let opt of specializationOptions" [value]="opt.value">{{ opt.label }}</option>
-                    </select>
-                    <div class="error-msg"
-                        *ngIf="registerForm.get('specialization')?.touched && registerForm.get('specialization')?.invalid">
-                        Please select specialization
-                    </div>
-                </div>
 
-                <div class="form-row" *ngIf="role === 'AGENT'">
-                    <div class="form-group">
-                        <label for="territory">Operating Territory</label>
-                        <input type="text" id="territory" formControlName="territory" placeholder="e.g. North Zone"
-                            class="form-control"
-                            [ngClass]="{'is-invalid': registerForm.get('territory')?.touched && registerForm.get('territory')?.invalid}">
-                        <div class="error-msg"
-                            *ngIf="registerForm.get('territory')?.touched && registerForm.get('territory')?.invalid">
-                            Territory is required
-                        </div>
-                    </div>
-                </div>
+                    <style>
+                      .auth-container {
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                      min-height: calc(100vh - 100px);
+                      padding: 2rem 1rem;
+                      background: var(--bg-secondary);
+                    }
 
-                <div class="form-row" *ngIf="role === 'CLAIM_OFFICER'">
-                    <div class="form-group">
-                        <label for="region">Assigned Region</label>
-                        <input type="text" id="region" formControlName="region" placeholder="e.g. West Coast"
-                            class="form-control"
-                            [ngClass]="{'is-invalid': registerForm.get('region')?.touched && registerForm.get('region')?.invalid}">
-                        <div class="error-msg"
-                            *ngIf="registerForm.get('region')?.touched && registerForm.get('region')?.invalid">
-                            Region info required
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    .auth-card {
+                    background: var(--bg-primary);
+                    border: 2px solid var(--primary-burgundy);
+                    border-radius: 12px;
+                    padding: 3rem;
+                    width: 100%;
+                    max-width: 600px;
+                    box-shadow: 0 25px 50px -12px rgba(122, 0, 25, 0.15);
+                  }
 
-            <button type="submit" class="btn btn-primary auth-btn">
-                Submit Request
-            </button>
-        </form>
+                  .shield-logo {
+                  font-size: 3rem;
+                  margin-bottom: 1rem;
+                }
 
-        <div class="auth-footer">
-            <p>Already have an account? <a routerLink="/login">Sign In</a></p>
-        </div>
-    </div>
-</div>
+                .auth-header {
+                text-align: center;
+                margin-bottom: 3rem;
+              }
 
-<style>
-    .auth-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: calc(100vh - 100px);
-        padding: 2rem 1rem;
-        background: var(--bg-secondary);
-    }
+              .auth-header h1 {
+              font-size: 1.75rem;
+              letter-spacing: 2px;
+              color: var(--primary-burgundy);
+              margin: 0;
+              font-weight: 900;
+            }
 
-    .auth-card {
-        background: var(--bg-primary);
-        border: 2px solid var(--primary-burgundy);
-        border-radius: 12px;
-        padding: 3rem;
-        width: 100%;
-        max-width: 600px;
-        box-shadow: 0 25px 50px -12px rgba(122, 0, 25, 0.15);
-    }
+            .auth-header p {
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+            font-style: italic;
+          }
 
-    .shield-logo {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-    }
+          .auth-form {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+        }
 
-    .auth-header {
-        text-align: center;
-        margin-bottom: 3rem;
-    }
-
-    .auth-header h1 {
-        font-size: 1.75rem;
-        letter-spacing: 2px;
-        color: var(--primary-burgundy);
-        margin: 0;
-        font-weight: 900;
-    }
-
-    .auth-header p {
-        color: var(--text-secondary);
-        margin-top: 0.5rem;
-        font-style: italic;
-    }
-
-    .auth-form {
+        .form-row {
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
-    }
+      }
 
-    .form-row {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-    }
-
-    .two-cols {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1.5rem;
+      .two-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
     }
 
     .form-group {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 
-    label {
-        font-weight: 700;
-        font-size: 0.85rem;
-        text-transform: uppercase;
-        color: var(--text-secondary);
-        letter-spacing: 1px;
-    }
+  label {
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+}
 
-    .error-msg {
-        color: #e53935;
-        font-size: 0.85rem;
-        font-weight: 600;
-        margin-top: 4px;
-    }
+.error-msg {
+color: #e53935;
+font-size: 0.85rem;
+font-weight: 600;
+margin-top: 4px;
+}
 
-    .form-control {
-        padding: 1rem;
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
-        background: var(--bg-secondary);
-        color: var(--text-primary);
-        font-size: 1rem;
-        transition: all 0.2s;
-    }
+.form-control {
+padding: 1rem;
+border: 1px solid var(--border-color);
+border-radius: 6px;
+background: var(--bg-secondary);
+color: var(--text-primary);
+font-size: 1rem;
+transition: all 0.2s;
+}
 
-    .form-control:focus {
-        outline: none;
-        border-color: var(--primary-burgundy);
-        background: var(--bg-primary);
-        box-shadow: 0 0 0 4px rgba(122, 0, 25, 0.05);
-    }
+.form-control:focus {
+outline: none;
+border-color: var(--primary-burgundy);
+background: var(--bg-primary);
+box-shadow: 0 0 0 4px rgba(122, 0, 25, 0.05);
+}
 
-    .role-select {
-        border-left: 5px solid var(--primary-burgundy);
-        font-weight: 600;
-    }
+.role-select {
+border-left: 5px solid var(--primary-burgundy);
+font-weight: 600;
+}
 
-    .conditional-section {
-        background: rgba(122, 0, 25, 0.03);
-        border: 1px solid var(--border-color);
-        padding: 24px;
-        border-radius: 8px;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
+.conditional-section {
+background: rgba(122, 0, 25, 0.03);
+border: 1px solid var(--border-color);
+padding: 24px;
+border-radius: 8px;
+display: flex;
+flex-direction: column;
+gap: 20px;
+}
 
-    .section-header {
-        font-weight: 800;
-        font-size: 0.85rem;
-        text-transform: uppercase;
-        color: var(--primary-burgundy);
-        border-bottom: 1px solid var(--border-color);
-        padding-bottom: 10px;
-        margin-bottom: 5px;
-    }
+.section-header {
+font-weight: 800;
+font-size: 0.85rem;
+text-transform: uppercase;
+color: var(--primary-burgundy);
+border-bottom: 1px solid var(--border-color);
+padding-bottom: 10px;
+margin-bottom: 5px;
+}
 
-    .form-control {
-        padding: 12px 16px;
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
-        background: var(--bg-secondary);
-        color: var(--text-primary);
-        font-size: 1rem;
-        width: 100%;
-        box-sizing: border-box;
-        /* Crucial to fix overflow */
-        transition: all 0.2s;
-    }
+.form-control {
+padding: 12px 16px;
+border: 1px solid var(--border-color);
+border-radius: 6px;
+background: var(--bg-secondary);
+color: var(--text-primary);
+font-size: 1rem;
+width: 100%;
+box-sizing: border-box;
+/* Crucial to fix overflow */
+transition: all 0.2s;
+}
 
-    .auth-btn {
-        width: 100%;
-        padding: 1.25rem;
-        font-size: 1.1rem;
-        margin-top: 1rem;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-    }
+.auth-btn {
+width: 100%;
+padding: 1.25rem;
+font-size: 1.1rem;
+margin-top: 1rem;
+font-weight: 800;
+text-transform: uppercase;
+letter-spacing: 2px;
+}
 
-    .auth-footer {
-        margin-top: 2rem;
-        text-align: center;
-        color: var(--text-secondary);
-    }
+.auth-footer {
+margin-top: 2rem;
+text-align: center;
+color: var(--text-secondary);
+}
 
-    .auth-footer a {
-        color: var(--primary-burgundy);
-        font-weight: 700;
-    }
+.auth-footer a {
+color: var(--primary-burgundy);
+font-weight: 700;
+}
 
-    @media (max-width: 600px) {
-        .two-cols {
-            grid-template-columns: 1fr;
-        }
-    }
+@media (max-width: 600px) {
+.two-cols {
+grid-template-columns: 1fr;
+}
+}
 </style>

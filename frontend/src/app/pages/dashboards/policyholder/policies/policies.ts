@@ -1,5 +1,5 @@
 import { Component, inject, signal, OnInit, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { PolicyService, Policy } from '../../../../services/policy';
 import { AuthService } from '../../../../services/auth';
@@ -10,7 +10,7 @@ import { NotificationService } from '../../../../services/notification';
 @Component({
     selector: 'app-policyholder-policies',
     standalone: true,
-    imports: [CommonModule, FormsModule],
+    imports: [FormsModule],
     templateUrl: './policies.html',
     // styleUrl: './policies.css'
 })

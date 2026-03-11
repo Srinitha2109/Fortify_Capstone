@@ -1,12 +1,12 @@
 import { Component, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth';
 import { NotificationBellComponent } from '../../../shared/notification-bell/notification-bell.component';
 
 @Component({
   selector: 'app-policyholder',
-  imports: [CommonModule, RouterModule, NotificationBellComponent],
+  imports: [RouterModule, NotificationBellComponent],
   templateUrl: './policyholder.html',
   styleUrl: './policyholder.css',
 })
