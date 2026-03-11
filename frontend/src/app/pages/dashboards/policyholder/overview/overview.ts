@@ -19,7 +19,7 @@ interface PolicyApplication {
     imports: [CommonModule, RouterLink],
     template: `
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col items-center justify-center">
+        <div routerLink="/policyholder/policies" class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col items-center justify-center">
             <span class="text-xs text-slate-500 font-bold uppercase tracking-widest text-center">Active Policies</span>
             <span class="text-4xl font-black text-burgundy mt-2 text-center">
                 @if (isLoading()) {
@@ -29,7 +29,7 @@ interface PolicyApplication {
                 }
             </span>
         </div>
-        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col items-center justify-center">
+        <div routerLink="/policyholder/applications" class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col items-center justify-center">
             <span class="text-xs text-slate-500 font-bold uppercase tracking-widest text-center">Pending Applications</span>
             <span class="text-4xl font-black text-burgundy mt-2 text-center">
                 @if (isLoading()) {
@@ -49,7 +49,7 @@ interface PolicyApplication {
                 <button routerLink="/policyholder/policies" class="px-6 py-3 bg-burgundy text-white text-sm font-bold rounded-xl hover:bg-burgundy-secondary transition-colors shadow-sm">
                     Browse New Policies
                 </button>
-                <button routerLink="/policyholder/claims" class="px-6 py-3 bg-white border-2 border-slate-200 text-slate-700 text-sm font-bold rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-colors">
+                <button routerLink="/policyholder/applications" class="px-6 py-3 bg-white border-2 border-slate-200 text-slate-700 text-sm font-bold rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-colors">
                     File a Claim
                 </button>
             </div>

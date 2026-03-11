@@ -45,6 +45,24 @@ export class PoliciesComponent implements OnInit {
             this.currentPage.set(page);
         }
     }
+    ngOnInit() {
+        this.loadPolicies();
+        this.loadBusinessProfile();
+        this.loadUserApplications();
+    }
+    loadPolicies() {
+        this.policyService.getAllPolicies().subscribe({
+            next: (policies) => {
+                setTimeout(() => {
+                    this.allPolicies.set(policies.filter(p => p.isActive));
+                    this.isLoading.set(false);
+                }, 3000)
+            },
+            error: () => {
+                this.isLoading.set(false);
+            }
+        });
+    }
 
     filteredPolicies = computed(() => {
         const query = this.searchQuery().toLowerCase().trim();
@@ -68,24 +86,7 @@ export class PoliciesComponent implements OnInit {
 
     totalPages = computed(() => Math.ceil(this.filteredPolicies().length / this.pageSize()));
 
-    ngOnInit() {
-        this.loadPolicies();
-        this.loadBusinessProfile();
-        this.loadUserApplications();
-    }
-    loadPolicies() {
-        this.policyService.getAllPolicies().subscribe({
-            next: (policies) => {
-                setTimeout(() => {
-                    this.allPolicies.set(policies.filter(p => p.isActive));
-                    this.isLoading.set(false);
-                }, 3000)
-            },
-            error: () => {
-                this.isLoading.set(false);
-            }
-        });
-    }
+
 
     loadBusinessProfile() {
         const user = this.authService.currentUser();

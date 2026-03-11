@@ -178,7 +178,7 @@ import { NotificationService } from '../../../../../services/notification';
     }
   `
 })
-export class AgentRequestsComponent implements OnInit {
+export class RequestsComponent implements OnInit {
     private policyAppService = inject(PolicyApplicationService);
     private authService = inject(AuthService);
     private notificationService = inject(NotificationService);

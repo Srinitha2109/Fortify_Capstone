@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Policyholder } from './policyholder';
+import { PolicyholderComponent } from './policyholder';
 
 describe('Policyholder', () => {
-  let component: Policyholder;
-  let fixture: ComponentFixture<Policyholder>;
+  let component: PolicyholderComponent;
+  let fixture: ComponentFixture<PolicyholderComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Policyholder]
+      imports: [PolicyholderComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
-    fixture = TestBed.createComponent(Policyholder);
+    fixture = TestBed.createComponent(PolicyholderComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

@@ -33,6 +33,11 @@ export class LoginComponent {
   ];
 
   isRecaptchaLoading = false;
+  showPassword = false;
+
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
 
   onLogin() {
     if (this.loginForm.valid) {

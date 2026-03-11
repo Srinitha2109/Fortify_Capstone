@@ -48,8 +48,8 @@ export const routes: Routes = [
         component: AgentComponent,
         children: [
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-            { path: 'dashboard', loadComponent: () => import('./pages/dashboards/agent/components/overview/overview.component').then(m => m.AgentOverviewComponent) },
-            { path: 'requests', loadComponent: () => import('./pages/dashboards/agent/components/requests/requests.component').then(m => m.AgentRequestsComponent) },
+            { path: 'dashboard', loadComponent: () => import('./pages/dashboards/agent/components/overview/overview.component').then(m => m.OverviewComponent) },
+            { path: 'requests', loadComponent: () => import('./pages/dashboards/agent/components/requests/requests.component').then(m => m.RequestsComponent) },
         ]
     },
 

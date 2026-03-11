@@ -119,7 +119,7 @@ import { NotificationService } from '../../../../../services/notification';
     </section>
     `
 })
-export class AgentOverviewComponent implements OnInit {
+export class OverviewComponent implements OnInit {
     private policyAppService = inject(PolicyApplicationService);
     private authService = inject(AuthService);
     private notificationService = inject(NotificationService);
