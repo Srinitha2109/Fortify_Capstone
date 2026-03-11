@@ -1,0 +1,36 @@
+<div class="app-container">
+  <nav class="navbar" *ngIf="!isDashboard()">
+    <div class="nav-content">
+      <a routerLink="/" class="logo">
+        <span class="logo-text">COMMERCIAL<span class="logo-accent">INSURANCE</span></span>
+      </a>
+      <div class="nav-links">
+        <a routerLink="/landing" routerLinkActive="active" class="nav-item">Home</a>
+        <button (click)="themeService.toggleTheme()" class="theme-toggle"
+          [attr.aria-label]="themeService.isDark() ? 'Switch to light mode' : 'Switch to dark mode'">
+          <span class="icon">{{ themeService.isDark() ? '☀️' : '🌙' }}</span>
+        </button>
+        <a routerLink="/login" class="btn btn-primary login-btn">Login</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content" [class.full-page]="isDashboard()">
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer class="footer" *ngIf="!isDashboard()">
+    <div class="footer-content">
+      <p>&copy; 2026 Commercial Insurance Pro. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Notifications Overlay -->
+  <div class="notification-container">
+    <div *ngFor="let note of notifications()" [class]="'notification ' + note.type"
+      (click)="notificationService.remove(note.id)">
+      <span class="message">{{ note.message }}</span>
+      <button class="close-btn">&times;</button>
+    </div>
+  </div>
+</div>

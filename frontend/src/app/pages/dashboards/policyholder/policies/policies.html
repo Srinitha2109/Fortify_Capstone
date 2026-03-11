@@ -1,0 +1,253 @@
+<div class="flex flex-col gap-6 w-full max-w-7xl mx-auto h-full p-4">
+    <!-- Header & Search -->
+    <div
+        class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col md:flex-row gap-6 items-center justify-between z-10 sticky top-0">
+        <div>
+            <h1 class="text-2xl font-black text-burgundy tracking-tight">Available Policies</h1>
+            <p class="text-xs text-slate-500 font-bold uppercase mt-1">Browse and apply for coverage</p>
+        </div>
+        <div class="relative w-full md:w-96">
+
+            <input type="text" [ngModel]="searchQuery()" (ngModelChange)="onSearch($event)"
+                placeholder="Search policies by name, type or keyword..."
+                class="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-pink/10 focus:border-pink transition-all text-sm font-semibold text-slate-700 placeholder-slate-400 shadow-inner">
+        </div>
+    </div>
+
+    <!-- policy skeleton -->
+    <div class="flex-1 overflow-y-auto pb-8 pr-2 custom-scrollbar">
+        @if (isLoading()) {
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            @for (item of [1,2,3,4,5,6]; track item) {
+            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm animate-pulse flex flex-col gap-4">
+                <div class="h-6 bg-slate-200 rounded-md w-3/4"></div>
+                <div class="h-4 bg-slate-100 rounded-md w-1/4"></div>
+                <div class="h-16 bg-slate-50 rounded-md w-full mt-2"></div>
+                <div class="flex gap-4 mt-4">
+                    <div class="h-8 bg-slate-100 rounded-md w-1/2"></div>
+                    <div class="h-8 bg-slate-100 rounded-md w-1/2"></div>
+                </div>
+                <div class="h-10 bg-slate-200 rounded-xl w-full mt-auto"></div>
+            </div>
+            }
+        </div>
+        } @else {
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            @for (policy of paginatedPolicies(); track policy.id) {
+            <div
+                class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col group relative overflow-hidden">
+                <div
+                    class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-pink/5 to-transparent rounded-bl-full -z-10 group-hover:scale-110 transition-transform">
+                </div>
+
+                <div class="flex justify-between items-start mb-4">
+                    <h3
+                        class="text-xl font-black text-slate-800 leading-tight pr-4 group-hover:text-burgundy transition-colors">
+                        {{ policy.policyName }}</h3>
+                    <span
+                        class="px-2.5 py-1 bg-slate-100 text-slate-600 text-[10px] font-black uppercase rounded-lg shadow-sm shrink-0">{{
+                        policy.insuranceType }}</span>
+                </div>
+
+                <p class="text-sm text-slate-500 font-medium line-clamp-3 mb-6 flex-1">{{ policy.description }}</p>
+
+                <div class="flex flex-col gap-3 mb-6 bg-slate-50 p-4 rounded-xl border border-slate-100">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Base Premium</span>
+                        <span class="text-lg font-black text-burgundy">{{ policy.basePremium | currency }}</span>
+                    </div>
+                    <div class="w-full h-px bg-slate-200"></div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Term Duration</span>
+                        <span class="text-sm font-bold text-slate-700">{{ policy.durationMonths }} Months</span>
+                    </div>
+                </div>
+
+                @if (getPolicyStatus(policy.id)) {
+                <div
+                    class="w-full py-3 bg-slate-100 text-slate-500 font-black rounded-xl text-center border border-slate-200">
+                    Status: {{ getPolicyStatus(policy.id) }}
+                </div>
+                } @else {
+                <button
+                    class="w-full py-3 bg-burgundy/10 text-burgundy border border-burgundy/20 font-black rounded-xl hover:bg-burgundy hover:text-white transition-all duration-300 shadow-sm group-hover:shadow-burgundy/20"
+                    (click)="$event.stopPropagation(); selectPolicy(policy)">
+                    Review & Buy Policy
+                </button>
+                }
+            </div>
+            } @empty {
+            <div
+                class="col-span-full py-20 flex flex-col items-center justify-center bg-white rounded-3xl border border-dashed border-slate-300 gap-4">
+
+                <h3 class="text-xl font-black text-slate-700">No Policies Found</h3>
+                <p class="text-slate-500 font-medium">Try adjusting your search criteria</p>
+            </div>
+            }
+        </div>
+
+        <!-- Pagination -->
+        @if (totalPages() > 1) {
+        <div class="flex items-center justify-center gap-6 mt-10">
+            <button
+                class="px-6 py-2.5 bg-white border border-slate-200 text-slate-600 font-bold rounded-xl hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm flex items-center gap-2"
+                [disabled]="currentPage() === 1" (click)="changePage(currentPage() - 1)">
+                <span class="text-lg">←</span> Prev
+            </button>
+
+            <div class="flex items-center gap-2 bg-slate-100 px-4 py-2 rounded-lg font-semibold text-sm text-slate-600">
+                <span class="text-burgundy font-black">{{ currentPage() }}</span>
+                <span class="text-slate-400">/</span>
+                <span>{{ totalPages() }}</span>
+            </div>
+
+            <button
+                class="px-6 py-2.5 bg-white border border-slate-200 text-slate-600 font-bold rounded-xl hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm flex items-center gap-2"
+                [disabled]="currentPage() === totalPages()" (click)="changePage(currentPage() + 1)">
+                Next <span class="text-lg">→</span>
+            </button>
+        </div>
+        }
+        }
+    </div>
+</div>
+
+<style>
+    /* Optional custom scrollbar for the policies area to keep it clean */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #cbd5e1;
+        border-radius: 20px;
+    }
+</style>
+
+<!-- Application Modal -->
+@if (selectedPolicyForApp()) {
+<div
+    class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm animate-in fade-in duration-200">
+    <div
+        class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col animate-in zoom-in-95 duration-200">
+        <!-- Header -->
+        <div class="px-8 py-6 border-b border-slate-100 flex items-center justify-between bg-burgundy/5">
+            <div>
+                <h2 class="text-xl font-black text-burgundy tracking-tight">Apply for Policy</h2>
+                <p class="text-xs text-slate-500 font-bold mt-1">{{ selectedPolicyForApp()?.policyName }}</p>
+            </div>
+            <button (click)="closeModal()"
+                class="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors">
+                <span class="text-2xl leading-none">×</span>
+            </button>
+        </div>
+
+        <!-- Body -->
+        <div class="px-8 py-8 flex-1 overflow-y-auto space-y-6">
+            <p class="text-sm text-slate-600 font-medium leading-relaxed">
+                {{ selectedPolicyForApp()?.description }}
+            </p>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                    <span class="block text-[10px] font-black uppercase text-slate-400 tracking-widest mb-1">Base
+                        Premium</span>
+                    <span class="text-lg font-bold text-slate-700">{{ selectedPolicyForApp()?.basePremium | currency
+                        }}</span>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                    <span
+                        class="block text-[10px] font-black uppercase text-slate-400 tracking-widest mb-1">Duration</span>
+                    <span class="text-lg font-bold text-slate-700">{{ selectedPolicyForApp()?.durationMonths }}
+                        Months</span>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <label class="block text-xs font-black text-burgundy uppercase tracking-widest">Select Coverage
+                    Amount</label>
+                <div class="relative">
+                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
+                    <input type="number" [ngModel]="selectedCoverageAmount()"
+                        (ngModelChange)="selectedCoverageAmount.set($event); previewPremium()"
+                        [min]="selectedPolicyForApp()?.minCoverageAmount || null"
+                        [max]="selectedPolicyForApp()?.maxCoverageAmount || null"
+                        class="w-full pl-8 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-4 focus:ring-pink/10 focus:border-pink transition-all font-bold text-slate-700">
+                </div>
+                <div class="flex justify-between text-[10px] font-bold text-slate-400 uppercase">
+                    <span>Min: {{ selectedPolicyForApp()?.minCoverageAmount | currency }}</span>
+                    <span>Max: {{ selectedPolicyForApp()?.maxCoverageAmount | currency }}</span>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <label class="block text-xs font-black text-burgundy uppercase tracking-widest">Select Payment
+                    Plan</label>
+                <div class="relative">
+                    <select [ngModel]="selectedPaymentPlan()"
+                        (ngModelChange)="selectedPaymentPlan.set($event); previewPremium()"
+                        class="w-full pl-4 pr-10 py-3 bg-white border border-slate-200 rounded-xl focus:ring-4 focus:ring-pink/10 focus:border-pink transition-all font-bold text-slate-700 appearance-none cursor-pointer">
+                        <option value="MONTHLY">Monthly </option>
+                        <option value="SIX_MONTHS">6 Months </option>
+                        <option value="ANNUALLY">Annually </option>
+                    </select>
+                    <span
+                        class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xs">▼</span>
+                </div>
+            </div>
+
+            <!-- Calculated Premium Section -->
+            <div
+                class="bg-gradient-to-br from-burgundy/10 to-transparent p-6 rounded-2xl border border-burgundy/20 mt-6 relative overflow-hidden">
+                <div class="absolute right-0 top-0 w-32 h-32 bg-pink/10 rounded-full blur-3xl -z-10"></div>
+
+                <div class="flex items-center justify-between">
+                    <div>
+                        <span class="block text-[11px] font-black uppercase text-burgundy tracking-widest mb-1">Your
+                            Dynamic Premium</span>
+                        <p class="text-xs font-bold text-slate-500 max-w-[200px]">Calculated based on your business
+                            profile risk factors.</p>
+                    </div>
+                    @if (calculatedPremium() !== null) {
+                    <div class="text-right flex flex-col items-end">
+                        <span class="text-4xl font-black text-burgundy tracking-tighter">{{ calculatedPremium() |
+                            currency
+                            }}</span>
+                        <span class="text-[10px] font-bold text-slate-400 uppercase mt-1">
+                            {{ selectedPaymentPlan() === 'MONTHLY' ? 'Monthly Payment' :
+                            selectedPaymentPlan() === 'SIX_MONTHS' ? 'Total 6-Month Due' :
+                            'Total Annual Due' }}
+                        </span>
+                    </div>
+                    } @else {
+                    <div class="flex gap-1 items-center h-10">
+                        <div class="w-2 h-2 rounded-full bg-burgundy/40 animate-bounce" style="animation-delay: 0ms">
+                        </div>
+                        <div class="w-2 h-2 rounded-full bg-burgundy/60 animate-bounce" style="animation-delay: 150ms">
+                        </div>
+                        <div class="w-2 h-2 rounded-full bg-burgundy animate-bounce" style="animation-delay: 300ms">
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="px-8 py-5 border-t border-slate-100 bg-slate-50 flex justify-end gap-3 mt-auto">
+            <button (click)="closeModal()"
+                class="px-6 py-2.5 text-slate-600 font-bold text-sm hover:bg-slate-200/50 rounded-xl transition-colors">
+                Cancel
+            </button>
+            <button (click)="submitApplication()" [disabled]="calculatedPremium() === null"
+                class="px-8 py-2.5 bg-burgundy text-white font-black text-sm rounded-xl hover:bg-burgundy-secondary transition-all shadow-md shadow-burgundy/20 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transform hover:-translate-y-0.5 active:translate-y-0">
+                Submit for Review
+            </button>
+        </div>
+    </div>
+</div>
+}

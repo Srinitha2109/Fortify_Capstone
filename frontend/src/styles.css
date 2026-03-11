@@ -1,0 +1,117 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "tailwindcss";
+
+@theme {
+  --color-burgundy: #7A0019;
+  --color-burgundy-secondary: #A50021;
+  --color-pink: #D41E45;
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F8F9FA;
+  --color-border: #E0E0E0;
+}
+
+:root {
+  /* Burgundy & Pink Theme */
+  --primary-burgundy: #7A0019;
+  --secondary-burgundy: #A50021;
+  --accent-pink: #D41E45;
+  --text-primary: #1A1A1A;
+  --text-secondary: #4A4A4A;
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F8F9FA;
+  --white: #FFFFFF;
+  --black: #000000;
+  --error: #DC3545;
+  --success: #28A745;
+  --border-color: #E0E0E0;
+
+  --transition-speed: 0.3s;
+}
+
+
+[data-theme='dark'] {
+  --text-primary: #F8F9FA;
+  --text-secondary: #CED4DA;
+  --bg-primary: #121212;
+  --bg-secondary: #1E1E1E;
+  --border-color: #333333;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--primary-burgundy);
+  margin-top: 0;
+}
+
+a {
+  color: var(--accent-pink);
+  text-decoration: none;
+  transition: opacity var(--transition-speed);
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all var(--transition-speed);
+  display: inline-block;
+}
+
+.btn-primary {
+  background-color: var(--primary-burgundy);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background-color: var(--secondary-burgundy);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 2px solid var(--primary-burgundy);
+  color: var(--primary-burgundy);
+}
+
+.btn-outline:hover {
+  background-color: var(--primary-burgundy);
+  color: var(--white);
+}
+
+.card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}

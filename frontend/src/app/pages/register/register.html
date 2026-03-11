@@ -1,0 +1,279 @@
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <!-- <div class="shield-logo"></div> -->
+            <h1>Fortify INSURANCE</h1>
+            <p>Secure Your Business with the Best</p>
+        </div>
+
+        <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="auth-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" formControlName="fullName" placeholder="Enter your full name"
+                        class="form-control">
+                </div>
+            </div>
+
+            <div class="form-row two-cols">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" formControlName="email" placeholder="email@example.com"
+                        class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" formControlName="phone" placeholder="+91 xxx- xxx-xxxx"
+                        class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="role">I am joining as:</label>
+                <select id="role" formControlName="role" class="form-control role-select">
+                    <option *ngFor="let r of roles" [value]="r.value">{{ r.label }}</option>
+                </select>
+            </div>
+
+            <!-- Policyholder Specific Fields -->
+            <div *ngIf="role === 'POLICYHOLDER'" class="conditional-section">
+                <div class="section-header">Business Details</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="businessName">Business Name</label>
+                        <input type="text" id="businessName" formControlName="businessName"
+                            placeholder="Legal Entity Name" class="form-control">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="industry">Industry</label>
+                        <input type="text" id="industry" formControlName="industry" placeholder="e.g. Technology"
+                            class="form-control">
+                    </div>
+                </div>
+                <div class="form-row two-cols">
+                    <div class="form-group">
+                        <label for="annualRevenue">Annual Revenue ($)</label>
+                        <input type="number" id="annualRevenue" formControlName="annualRevenue"
+                            placeholder="Estimated Revenue" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="employeeCount">Employees</label>
+                        <input type="number" id="employeeCount" formControlName="employeeCount" placeholder="Count"
+                            class="form-control">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" id="city" formControlName="city" placeholder="Business City"
+                            class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agent  / Claim Officer Specific Fields -->
+            <div *ngIf="role !== 'POLICYHOLDER'" class="conditional-section">
+                <div class="section-header">Professional Background</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="experience">Years of Experience</label>
+                        <input type="number" id="experience" formControlName="experience" placeholder="Years"
+                            class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="specialization">Insurance Type Specialization</label>
+                    <select id="specialization" formControlName="specialization" class="form-control">
+                        <option value="" disabled selected>Select specialization</option>
+                        <option *ngFor="let opt of specializationOptions" [value]="opt.value">{{ opt.label }}</option>
+                    </select>
+                </div>
+
+                <div class="form-row" *ngIf="role === 'AGENT'">
+                    <div class="form-group">
+                        <label for="territory">Operating Territory</label>
+                        <input type="text" id="territory" formControlName="territory" placeholder="e.g. North Zone"
+                            class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-row" *ngIf="role === 'CLAIM_OFFICER'">
+                    <div class="form-group">
+                        <label for="region">Assigned Region</label>
+                        <input type="text" id="region" formControlName="region" placeholder="e.g. West Coast"
+                            class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary auth-btn">
+                Submit Request
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Already have an account? <a routerLink="/login">Sign In</a></p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .auth-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 100px);
+        padding: 2rem 1rem;
+        background: var(--bg-secondary);
+    }
+
+    .auth-card {
+        background: var(--bg-primary);
+        border: 2px solid var(--primary-burgundy);
+        border-radius: 12px;
+        padding: 3rem;
+        width: 100%;
+        max-width: 600px;
+        box-shadow: 0 25px 50px -12px rgba(122, 0, 25, 0.15);
+    }
+
+    .shield-logo {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .auth-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .auth-header h1 {
+        font-size: 1.75rem;
+        letter-spacing: 2px;
+        color: var(--primary-burgundy);
+        margin: 0;
+        font-weight: 900;
+    }
+
+    .auth-header p {
+        color: var(--text-secondary);
+        margin-top: 0.5rem;
+        font-style: italic;
+    }
+
+    .auth-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .form-row {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .two-cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    label {
+        font-weight: 700;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        color: var(--text-secondary);
+        letter-spacing: 1px;
+    }
+
+    .form-control {
+        padding: 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        font-size: 1rem;
+        transition: all 0.2s;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: var(--primary-burgundy);
+        background: var(--bg-primary);
+        box-shadow: 0 0 0 4px rgba(122, 0, 25, 0.05);
+    }
+
+    .role-select {
+        border-left: 5px solid var(--primary-burgundy);
+        font-weight: 600;
+    }
+
+    .conditional-section {
+        background: rgba(122, 0, 25, 0.03);
+        border: 1px solid var(--border-color);
+        padding: 24px;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .section-header {
+        font-weight: 800;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        color: var(--primary-burgundy);
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 10px;
+        margin-bottom: 5px;
+    }
+
+    .form-control {
+        padding: 12px 16px;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        font-size: 1rem;
+        width: 100%;
+        box-sizing: border-box;
+        /* Crucial to fix overflow */
+        transition: all 0.2s;
+    }
+
+    .auth-btn {
+        width: 100%;
+        padding: 1.25rem;
+        font-size: 1.1rem;
+        margin-top: 1rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .auth-footer {
+        margin-top: 2rem;
+        text-align: center;
+        color: var(--text-secondary);
+    }
+
+    .auth-footer a {
+        color: var(--primary-burgundy);
+        font-weight: 700;
+    }
+
+    @media (max-width: 600px) {
+        .two-cols {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

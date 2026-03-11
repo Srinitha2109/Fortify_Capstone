@@ -1,0 +1,179 @@
+<div class="landing-container">
+    <section class="hero">
+        <h1>Protecting Your Business with <span class="accent">Confidence</span></h1>
+        <p class="subtitle">Comprehensive commercial insurance solutions tailored for your industry. Reliable,
+            transparent, and built for growth.</p>
+        <div class="hero-actions">
+            <a routerLink="/login" class="btn btn-primary">Get Started</a>
+            <a routerLink="/register" class="btn btn-outline">Register Now</a>
+        </div>
+    </section>
+
+    <section class="details">
+        <div class="section-header">
+            <h2>Why Choose Us?</h2>
+            <p>We provide more than just insurance; we provide peace of mind.</p>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">🛡️</div>
+                <h3>Policy Management</h3>
+                <p>Easily browse, apply, and manage your commercial policies in one unified dashboard.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🤝</div>
+                <h3>Agent Support</h3>
+                <p>Connect with expert insurance agents who help you through every step of the process.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">⚡</div>
+                <h3>Fast Claims</h3>
+                <p>Submit and track claims with minimal effort. Our claim officers ensure quick processing.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <h3>Role-Based Access</h3>
+                <p>Tailored dashboards for Policyholders, Agents, Underwriters, and Claim Officers.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-banner">
+        <div class="cta-content">
+            <h2>Are you a new user?</h2>
+            <p>Join thousands of businesses that trust us for their insurance needs. Register today as a Policyholder or
+                Agent.</p>
+            <div class="cta-links">
+                <a routerLink="/register" class="btn btn-primary">Register Now</a>
+                <span class="divider-text">Already have an account?</span>
+                <a routerLink="/login" class="login-link">Sign In</a>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+    .landing-container {
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
+    }
+
+    .hero {
+        text-align: center;
+        padding: 4rem 1rem;
+        animation: fadeIn 0.8s ease-out;
+    }
+
+    .hero h1 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        line-height: 1.1;
+    }
+
+    .accent {
+        color: var(--accent-pink);
+    }
+
+    .subtitle {
+        font-size: 1.25rem;
+        color: var(--text-secondary);
+        max-width: 800px;
+        margin: 0 auto 2.5rem;
+    }
+
+    .hero-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .section-header h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+    }
+
+    .card-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .card h3 {
+        margin-bottom: 0.75rem;
+    }
+
+    .cta-banner {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        padding: 3rem;
+        margin-top: 2rem;
+        text-align: center;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    }
+
+    .cta-content h2 {
+        margin-bottom: 1rem;
+    }
+
+    .cta-content p {
+        margin-bottom: 2rem;
+        color: var(--text-secondary);
+        max-width: 600px;
+        margin-inline: auto;
+    }
+
+    .cta-links {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    .divider-text {
+        color: var(--text-secondary);
+        font-weight: 500;
+    }
+
+    .login-link {
+        font-weight: 600;
+        color: var(--primary-burgundy);
+        text-decoration: underline;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hero h1 {
+            font-size: 2.5rem;
+        }
+
+        .hero-actions {
+            flex-direction: column;
+        }
+    }
+</style>

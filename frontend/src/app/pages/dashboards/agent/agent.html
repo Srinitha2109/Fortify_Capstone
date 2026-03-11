@@ -1,0 +1,172 @@
+<div class="dashboard-layout" [class.collapsed]="isSidebarCollapsed()">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <button class="toggle-btn" (click)="toggleSidebar()">
+                <span class="menu-icon">☰</span>
+            </button>
+            <span class="header-text" *ngIf="!isSidebarCollapsed()">Agent Console</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a routerLink="/agent/dashboard" routerLinkActive="active" class="nav-item" title="Overview">
+                <span class="icon">📊</span>
+                <span class="label" *ngIf="!isSidebarCollapsed()">Overview</span>
+            </a>
+            <a routerLink="/agent/requests" routerLinkActive="active" class="nav-item" title="Assigned Applications">
+                <span class="icon">📥</span>
+                <span class="label" *ngIf="!isSidebarCollapsed()">Requests</span>
+            </a>
+
+            <div class="nav-spacer"></div>
+            <a class="nav-item logout-item" (click)="logout()" title="Logout">
+                <span class="icon">🚪</span>
+                <span class="label" *ngIf="!isSidebarCollapsed()">Logout</span>
+            </a>
+        </nav>
+    </aside>
+
+    <main class="dashboard-main">
+        <router-outlet></router-outlet>
+    </main>
+</div>
+
+<style>
+    .dashboard-layout {
+        display: flex;
+        min-height: 90vh;
+        gap: 0;
+        background: #f8fafc;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .sidebar {
+        width: 260px;
+        background: white;
+        border-right: 1px solid #e2e8f0;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 100;
+    }
+
+    .collapsed .sidebar {
+        width: 80px;
+    }
+
+    .sidebar-header {
+        height: 80px;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        gap: 15px;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .toggle-btn {
+        background: none;
+        border: none;
+        color: #7a0019;
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        transition: background 0.2s;
+    }
+
+    .toggle-btn:hover {
+        background: rgba(122, 0, 25, 0.05);
+    }
+
+    .header-text {
+        font-weight: 900;
+        color: #7a0019;
+        font-size: 1.25rem;
+        letter-spacing: 1px;
+        white-space: nowrap;
+    }
+
+    .sidebar-nav {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 10px;
+        gap: 8px;
+    }
+
+    .nav-item {
+        display: flex;
+        align-items: center;
+        padding: 12px 15px;
+        border-radius: 8px;
+        color: #64748b;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.2s;
+        gap: 15px;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .nav-item .icon {
+        font-size: 1.25rem;
+        min-width: 30px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .nav-item .label {
+        font-weight: 600;
+    }
+
+    .nav-item:hover {
+        background: rgba(122, 0, 25, 0.05);
+        color: #7a0019;
+    }
+
+    .nav-item.active {
+        background: #7a0019;
+        color: white;
+    }
+
+    .logout-item {
+        margin-top: auto;
+        color: #e11d48;
+    }
+
+    .logout-item:hover {
+        background: rgba(225, 29, 72, 0.05);
+        color: #e11d48;
+    }
+
+    .dashboard-main {
+        flex: 1;
+        padding: 40px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        background: #f8fafc;
+    }
+
+    .nav-spacer {
+        flex: 1;
+    }
+
+    @media (max-width: 768px) {
+        .sidebar {
+            position: fixed;
+            height: 100vh;
+            left: -260px;
+        }
+
+        .collapsed .sidebar {
+            left: 0;
+        }
+
+        .dashboard-main {
+            padding: 20px;
+        }
+    }
+</style>

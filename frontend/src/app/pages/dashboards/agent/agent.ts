@@ -1,0 +1,24 @@
+import { Component, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '../../../services/auth';
+
+@Component({
+  selector: 'app-agent',
+  standalone: true,
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
+  templateUrl: './agent.html',
+  styleUrl: './agent.css'
+})
+export class AgentComponent {
+  private authService = inject(AuthService);
+  isSidebarCollapsed = signal(false);
+
+  toggleSidebar() {
+    this.isSidebarCollapsed.set(!this.isSidebarCollapsed());
+  }
+
+  logout() {
+    this.authService.logout();
+  }
+}

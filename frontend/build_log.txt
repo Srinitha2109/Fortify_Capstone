@@ -1,0 +1,71 @@
+[33m❯[39m Building...
+[32m✔[39m Building...
+Application bundle generation failed. [3.555 seconds] - 2026-03-08T07:16:07.549Z
+
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG5002: Unexpected closing tag "div". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/dashboards/admin/admin.html:499:0:
+[37m      499 │ [32m</div>[37m
+          ╵ [32m~~~~~~[0m
+
+  Error occurs in the template of component AdminComponent.
+
+    src/app/pages/dashboards/admin/admin.ts:15:15:
+[37m      15 │   templateUrl: [32m'./admin.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG5002: Unexpected closing tag "main". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/dashboards/admin/admin.html:500:0:
+[37m      500 │ [32m</main>[37m
+          ╵ [32m~~~~~~~[0m
+
+  Error occurs in the template of component AdminComponent.
+
+    src/app/pages/dashboards/admin/admin.ts:15:15:
+[37m      15 │   templateUrl: [32m'./admin.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG5002: Unexpected closing tag "div". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/dashboards/admin/admin.html:501:0:
+[37m      501 │ [32m</div>[37m
+          ╵ [32m~~~~~~[0m
+
+  Error occurs in the template of component AdminComponent.
+
+    src/app/pages/dashboards/admin/admin.ts:15:15:
+[37m      15 │   templateUrl: [32m'./admin.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2322: Type 'number | undefined' is not assignable to type 'string | number | null'.
+  Type 'undefined' is not assignable to type 'string | number | null'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/dashboards/policyholder/policies/policies.html:170:25:
+[37m      170 │                         [[32mmin[37m]="selectedPolicyForApp()?.minCoverag...
+          ╵                          [32m~~~[0m
+
+  Error occurs in the template of component PoliciesComponent.
+
+    src/app/pages/dashboards/policyholder/policies/policies.ts:14:17:
+[37m      14 │     templateUrl: [32m'./policies.html'[37m,
+         ╵                  [32m~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2322: Type 'number | undefined' is not assignable to type 'string | number | null'.
+  Type 'undefined' is not assignable to type 'string | number | null'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/dashboards/policyholder/policies/policies.html:171:25:
+[37m      171 │                         [[32mmax[37m]="selectedPolicyForApp()?.maxCoverag...
+          ╵                          [32m~~~[0m
+
+  Error occurs in the template of component PoliciesComponent.
+
+    src/app/pages/dashboards/policyholder/policies/policies.ts:14:17:
+[37m      14 │     templateUrl: [32m'./policies.html'[37m,
+         ╵                  [32m~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m

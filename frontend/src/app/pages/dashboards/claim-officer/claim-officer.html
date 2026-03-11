@@ -1,0 +1,331 @@
+<div class="dashboard-layout" [class.collapsed]="isSidebarCollapsed()">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <button class="toggle-btn" (click)="toggleSidebar()">
+                <span class="menu-icon">☰</span>
+            </button>
+            <span class="header-text" *ngIf="!isSidebarCollapsed()">Claims Dept</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a class="nav-item active" title="Assigned Claims">
+                <span class="icon">🔍</span>
+                <span class="label" *ngIf="!isSidebarCollapsed()">Assigned Claims</span>
+            </a>
+            <a class="nav-item" title="Investigation Logs">
+                <span class="icon">🕵️</span>
+                <span class="label" *ngIf="!isSidebarCollapsed()">Investigations</span>
+            </a>
+            <a class="nav-item" title="Claim History">
+                <span class="icon">🕰️</span>
+                <span class="label" *ngIf="!isSidebarCollapsed()">Claim History</span>
+            </a>
+            <div class="nav-spacer"></div>
+            <a class="nav-item logout-item" (click)="logout()" title="Logout">
+                <span class="icon">🚪</span>
+                <span class="label" *ngIf="!isSidebarCollapsed()">Logout</span>
+            </a>
+        </nav>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <h1>Claim Officer Dashboard</h1>
+            <div class="user-profile">
+                <span class="welcome-text">Claims Specialist</span>
+                <div class="avatar">CO</div>
+            </div>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-label">Active Claims</span>
+                <span class="stat-value">6</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Pending Payouts</span>
+                <span class="stat-value">2</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Avg. Settlement</span>
+                <span class="stat-value">$12,400</span>
+            </div>
+        </div>
+
+        <section class="card">
+            <div class="card-header">
+                <h2>Recent Claims to Process</h2>
+                <button class="btn btn-outline btn-sm">Refresh</button>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Claim ID</th>
+                        <th>Policyholder</th>
+                        <th>Type</th>
+                        <th>Incident Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#CLM-9921</td>
+                        <td>John Miller</td>
+                        <td>Auto Collision</td>
+                        <td>Feb 20, 2026</td>
+                        <td><button class="btn btn-primary btn-sm">Investigate</button></td>
+                    </tr>
+                    <tr>
+                        <td>#CLM-9924</td>
+                        <td>Retail Pro Ltd</td>
+                        <td>Theft Loss</td>
+                        <td>Feb 28, 2026</td>
+                        <td><button class="btn btn-primary btn-sm">Investigate</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</div>
+
+<style>
+    .dashboard-layout {
+        display: flex;
+        min-height: 90vh;
+        gap: 0;
+        background: var(--bg-primary);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .sidebar {
+        width: 260px;
+        background: var(--bg-secondary);
+        border-right: 1px solid var(--border-color);
+        display: flex;
+        flex-direction: column;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 100;
+    }
+
+    .collapsed .sidebar {
+        width: 80px;
+    }
+
+    .sidebar-header {
+        height: 80px;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        gap: 15px;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .toggle-btn {
+        background: none;
+        border: none;
+        color: var(--primary-burgundy);
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        transition: background 0.2s;
+    }
+
+    .toggle-btn:hover {
+        background: rgba(122, 0, 25, 0.05);
+    }
+
+    .header-text {
+        font-weight: 900;
+        color: var(--primary-burgundy);
+        font-size: 1.25rem;
+        letter-spacing: 1px;
+        white-space: nowrap;
+    }
+
+    .sidebar-nav {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 10px;
+        gap: 8px;
+    }
+
+    .nav-item {
+        display: flex;
+        align-items: center;
+        padding: 12px 15px;
+        border-radius: 8px;
+        color: var(--text-secondary);
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.2s;
+        gap: 15px;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .nav-item .icon {
+        font-size: 1.25rem;
+        min-width: 30px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .nav-item .label {
+        font-weight: 600;
+    }
+
+    .nav-item:hover {
+        background: rgba(122, 0, 25, 0.05);
+        color: var(--primary-burgundy);
+    }
+
+    .nav-item.active {
+        background: var(--primary-burgundy);
+        color: var(--white);
+    }
+
+    .logout-item {
+        margin-top: auto;
+        color: var(--error);
+    }
+
+    .logout-item:hover {
+        background: rgba(220, 38, 38, 0.05);
+        color: var(--error);
+    }
+
+    .dashboard-main {
+        flex: 1;
+        padding: 40px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .dashboard-header h1 {
+        margin: 0;
+        font-size: 2rem;
+        font-weight: 900;
+        color: var(--text-primary);
+    }
+
+    .user-profile {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .avatar {
+        width: 40px;
+        height: 40px;
+        background: var(--primary-burgundy);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 25px;
+    }
+
+    .stat-card {
+        background: var(--bg-primary);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 24px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .stat-label {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .stat-value {
+        font-size: 2.25rem;
+        font-weight: 900;
+        color: var(--primary-burgundy);
+        margin-top: 5px;
+    }
+
+    .card {
+        background: var(--bg-primary);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 24px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .card h2 {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 800;
+    }
+
+    .data-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .data-table th {
+        text-align: left;
+        padding: 12px;
+        border-bottom: 2px solid var(--border-color);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        color: var(--text-secondary);
+    }
+
+    .data-table td {
+        padding: 16px 12px;
+        border-bottom: 1px solid var(--border-color);
+        font-size: 0.95rem;
+    }
+
+    .nav-spacer {
+        flex: 1;
+    }
+
+    @media (max-width: 768px) {
+        .sidebar {
+            position: fixed;
+            height: 100vh;
+            left: -260px;
+        }
+
+        .collapsed .sidebar {
+            left: 0;
+        }
+
+        .dashboard-main {
+            padding: 20px;
+        }
+    }
+</style>
