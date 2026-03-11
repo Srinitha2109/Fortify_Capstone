@@ -11,6 +11,7 @@ import { PoliciesComponent } from './pages/dashboards/policyholder/policies/poli
 import { ApplicationsComponent } from './pages/dashboards/policyholder/applications/applications';
 import { ClaimsComponent } from './pages/dashboards/policyholder/claims/claims';
 import { PaymentsComponent } from './pages/dashboards/policyholder/payments/payments';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'landing', pathMatch: 'full' },
@@ -20,6 +21,8 @@ export const routes: Routes = [
     {
         path: 'admin',
         component: AdminComponent,
+        canActivate: [authGuard],
+        data: { roles: ['ADMIN'] },
         children: [
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
             { path: 'dashboard', loadComponent: () => import('./pages/dashboards/admin/components/overview/overview.component').then(m => m.OverviewComponent) },
@@ -33,6 +36,8 @@ export const routes: Routes = [
     {
         path: 'policyholder',
         component: PolicyholderComponent,
+        canActivate: [authGuard],
+        data: { roles: ['POLICYHOLDER'] },
         children: [
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
             { path: 'dashboard', component: OverviewComponent },
@@ -46,6 +51,8 @@ export const routes: Routes = [
     {
         path: 'agent',
         component: AgentComponent,
+        canActivate: [authGuard],
+        data: { roles: ['AGENT'] },
         children: [
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
             { path: 'dashboard', loadComponent: () => import('./pages/dashboards/agent/components/overview/overview.component').then(m => m.OverviewComponent) },
@@ -55,6 +62,8 @@ export const routes: Routes = [
 
     {
         path: 'claim-officer',
+        canActivate: [authGuard],
+        data: { roles: ['CLAIM_OFFICER'] },
         loadComponent: () => import('./pages/dashboards/claim-officer/claim-officer').then(m => m.ClaimOfficerComponent),
         children: [
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },

@@ -45,6 +45,11 @@ public class AuthController {
         //check hardcoded admin details
         if ("admin@shield.com".equals(request.getEmail()) 
                 && "admin123".equals(request.getPassword())) {
+
+            if (request.getRole() != null && !request.getRole().equalsIgnoreCase("ADMIN")) {
+                throw new RuntimeException("Selected role does not match your account.");
+            }
+
             String token = jwtUtil.generateToken("admin@shield.com", "ADMIN");
             LoginResponseDTO response = new LoginResponseDTO();
             response.setToken(token);
@@ -72,6 +77,11 @@ public class AuthController {
         //Validate password
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new RuntimeException("Invalid credentials");
+        }
+
+        // Validate role explicitly
+        if (request.getRole() != null && !request.getRole().equalsIgnoreCase(user.getRole().name())) {
+            throw new RuntimeException("Selected role does not match your account.");
         }
 
         // Generate token using email + role

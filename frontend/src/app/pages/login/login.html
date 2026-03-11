@@ -2,13 +2,14 @@
     <div class="auth-card">
         <div class="auth-header">
             <h2>Welcome Back</h2>
-            <p>Enter your credentials to access your dashboard</p>
+            <!-- <p>Enter your credentials to access your dashboard</p> -->
         </div>
 
         <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="auth-form">
             <div class="form-group">
                 <label for="role">Access Role</label>
-                <select id="role" formControlName="role" class="form-control">
+                <select id="role" formControlName="role" class="form-control"
+                    [ngClass]="{'is-invalid': loginForm.get('role')?.touched && loginForm.get('role')?.invalid}">
                     <option value="" disabled selected>Select your role</option>
                     <option *ngFor="let role of roles" [value]="role.value">{{ role.label }}</option>
                 </select>
@@ -20,26 +21,32 @@
             <div class="form-group">
                 <label for="email">Email Address</label>
                 <input type="email" id="email" formControlName="email" placeholder="name@company.com"
-                    class="form-control">
+                    class="form-control"
+                    [ngClass]="{'is-invalid': loginForm.get('email')?.touched && loginForm.get('email')?.invalid}">
                 <div class="error-msg" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
                     Valid email is required
                 </div>
+
             </div>
 
             <div class="form-group">
                 <label for="password">Password</label>
                 <div class="password-wrapper">
-                    <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password" placeholder="••••••••"
-                        class="form-control">
-                    <button type="button" class="eye-toggle" (click)="togglePassword()" [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'">
-                        <svg *ngIf="!showPassword" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                            <circle cx="12" cy="12" r="3"/>
+                    <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password"
+                        placeholder="••••••••" class="form-control"
+                        [ngClass]="{'is-invalid': loginForm.get('password')?.touched && loginForm.get('password')?.invalid}">
+                    <button type="button" class="eye-toggle" (click)="togglePassword()"
+                        [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'">
+                        <svg *ngIf="!showPassword" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
                         </svg>
-                        <svg *ngIf="showPassword" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
-                            <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
-                            <line x1="1" y1="1" x2="23" y2="23"/>
+                        <svg *ngIf="showPassword" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
+                            <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
+                            <line x1="1" y1="1" x2="23" y2="23" />
                         </svg>
                     </button>
                 </div>
@@ -63,7 +70,7 @@
                 </div>
             </div>
 
-            <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary auth-btn">
+            <button type="submit" class="btn btn-primary auth-btn">
                 {{ loginForm.invalid ? 'Complete Form' : 'Login' }}
             </button>
         </form>
@@ -260,5 +267,4 @@
         width: 20px;
         height: 20px;
     }
-
 </style>

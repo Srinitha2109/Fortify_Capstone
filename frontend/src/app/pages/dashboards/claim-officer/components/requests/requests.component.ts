@@ -36,10 +36,7 @@ interface ClaimItem {
           <h1 class="text-3xl font-black text-slate-800 tracking-tight">Claim Requests</h1>
           <p class="text-sm font-bold text-slate-400 mt-1 uppercase tracking-widest">Review and process your pending claims</p>
         </div>
-        <button (click)="loadClaims()" class="flex items-center gap-2 px-5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-black text-slate-600 hover:bg-burgundy hover:text-white transition-all shadow-sm group border-burgundy/10">
-          <span class="group-hover:rotate-180 transition-transform duration-500 inline-block font-black text-burgundy group-hover:text-white">🔄</span> 
-          Refresh List
-        </button>
+       
       </header>
 
       @if (isLoading()) {

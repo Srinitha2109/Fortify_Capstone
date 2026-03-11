@@ -104,13 +104,13 @@ interface ClaimItem {
                   <div class="flex items-center justify-center gap-2">
                     <button (click)="openDocument(claim.id)" 
                             class="p-2.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-xl transition-all" 
-                            title="View Documents">
-                      <span class="text-base">📎</span>
+                            >
+                      <span class="text-base bg-green-500  rounded-lg px-2 py-1 cursor-pointer  text-black">View Documents</span>
                     </button>
                     <button (click)="inspectClaim(claim.id)"
                             class="p-2.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-xl transition-all"
-                            title="Inspect Details">
-                      <span class="text-base">🔍</span>
+                            >
+                      <span class="text-base bg-green-500 px-2 py-1 rounded-lg text-black cursor-pointer">Inspect</span>
                     </button>
                   </div>
                 </td>

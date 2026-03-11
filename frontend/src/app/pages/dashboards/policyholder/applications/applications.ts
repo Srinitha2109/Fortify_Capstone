@@ -155,29 +155,36 @@ import { FormsModule } from '@angular/forms';
             <div class="px-8 pt-6 pb-8 space-y-5">
                 <div class="grid grid-cols-2 gap-5">
                     <div class="space-y-1.5">
-                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block">Incident Date</label>
-                        <input type="date" [(ngModel)]="claimForm.incidentDate"
-                               class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-burgundy/20 focus:border-burgundy/30 outline-none font-semibold text-sm text-slate-700">
+                        <input type="date" [(ngModel)]="claimForm.incidentDate" name="incidentDate" #date="ngModel"
+                               class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-burgundy/20 focus:border-burgundy/30 outline-none font-semibold text-sm text-slate-700"
+                               [ngClass]="{'is-invalid': (date.touched || formSubmitted()) && !claimForm.incidentDate}">
+                        <div class="error-msg" *ngIf="(date.touched || formSubmitted()) && !claimForm.incidentDate">Date is required</div>
                     </div>
                     <div class="space-y-1.5">
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block">Incident Location</label>
-                        <input type="text" [(ngModel)]="claimForm.incidentLocation" placeholder="e.g. Hyderabad"
-                               class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-burgundy/20 focus:border-burgundy/30 outline-none font-semibold text-sm text-slate-700 placeholder:text-slate-300">
+                        <input type="text" [(ngModel)]="claimForm.incidentLocation" name="location" #loc="ngModel" placeholder="e.g. Hyderabad"
+                               class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-burgundy/20 focus:border-burgundy/30 outline-none font-semibold text-sm text-slate-700 placeholder:text-slate-300"
+                               [ngClass]="{'is-invalid': (loc.touched || formSubmitted()) && !claimForm.incidentLocation}">
+                        <div class="error-msg" *ngIf="(loc.touched || formSubmitted()) && !claimForm.incidentLocation">Location is required</div>
                     </div>
                 </div>
 
                 <div class="space-y-1.5">
                     <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block">Description of Incident</label>
-                    <textarea [(ngModel)]="claimForm.description" rows="4" placeholder="Describe what happened in detail..."
-                              class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-burgundy/20 focus:border-burgundy/30 outline-none font-semibold text-sm text-slate-700 placeholder:text-slate-300 resize-none"></textarea>
+                    <textarea [(ngModel)]="claimForm.description" name="desc" #desc="ngModel" rows="4" placeholder="Describe what happened in detail..."
+                              class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-burgundy/20 focus:border-burgundy/30 outline-none font-semibold text-sm text-slate-700 placeholder:text-slate-300 resize-none"
+                              [ngClass]="{'is-invalid': (desc.touched || formSubmitted()) && !claimForm.description}"></textarea>
+                    <div class="error-msg" *ngIf="(desc.touched || formSubmitted()) && !claimForm.description">Description is required</div>
                 </div>
 
                 <div class="grid grid-cols-2 gap-5">
                     <div class="space-y-1.5">
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block">Estimated Claim Amount ($)</label>
-                        <input type="number" [(ngModel)]="claimForm.claimAmount" min="0"
+                        <input type="number" [(ngModel)]="claimForm.claimAmount" name="amount" #amt="ngModel" min="0"
                                [max]="getAvailableBalance(selectedApp()!)"
-                               class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-burgundy/20 focus:border-burgundy/30 outline-none font-semibold text-sm text-slate-700">
+                               class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-burgundy/20 focus:border-burgundy/30 outline-none font-semibold text-sm text-slate-700"
+                               [ngClass]="{'is-invalid': (amt.touched || formSubmitted()) && (claimForm.claimAmount <= 0 || claimForm.claimAmount > getAvailableBalance(selectedApp()!))}">
+                        <div class="error-msg" *ngIf="(amt.touched || formSubmitted()) && claimForm.claimAmount <= 0">Please enter a valid amount</div>
                         @if (claimForm.claimAmount > getAvailableBalance(selectedApp()!)) {
                         <p class="text-[10px] text-rose-500 font-bold">Exceeds available balance of {{ getAvailableBalance(selectedApp()!) | currency }}</p>
                         }
@@ -224,6 +231,7 @@ export class ApplicationsComponent implements OnInit {
   applications = signal<PolicyApplication[]>([]);
   isLoading = signal(true);
   isSubmitting = signal(false);
+  formSubmitted = signal(false);
 
   // Claim Modal State
   showClaimModal = signal(false);
@@ -316,6 +324,7 @@ export class ApplicationsComponent implements OnInit {
       claimAmount: 0
     };
     this.selectedFiles = [];
+    this.formSubmitted.set(false);
   }
 
   closeClaimModal() {
@@ -334,6 +343,7 @@ export class ApplicationsComponent implements OnInit {
     if (!app || !app.id) return;
 
     if (!this.claimForm.incidentDate || !this.claimForm.incidentLocation || !this.claimForm.description || this.claimForm.claimAmount <= 0) {
+      this.formSubmitted.set(true);
       this.notificationService.show('Please fill all required fields correctly.', 'error');
       return;
     }

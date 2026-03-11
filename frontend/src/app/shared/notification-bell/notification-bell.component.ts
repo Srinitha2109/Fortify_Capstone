@@ -10,7 +10,7 @@ import { InAppNotificationService, InAppNotification } from '../../services/in-a
   imports: [CommonModule],
   template: `
     <div class="notif-bell-wrapper" style="position:relative;display:inline-block;">
-      <!-- Bell Button -->
+    
       <button class="notif-bell-btn" (click)="toggleDropdown($event)" [class.has-unread]="notifService.unreadCount() > 0"
               title="Notifications" type="button">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -49,7 +49,7 @@ import { InAppNotificationService, InAppNotification } from '../../services/in-a
             @for (n of notifService.notifications(); track n.id) {
               <div class="notif-item" [class.notif-unread]="!n.isRead" (click)="markRead(n)">
                 <div class="notif-item-icon" [class]="'notif-icon-' + getIconClass(n.type)">
-                  {{ getIcon(n.type) }}
+                  
                 </div>
                 <div class="notif-item-body">
                   <p class="notif-item-msg">{{ n.message }}</p>
@@ -308,29 +308,29 @@ export class NotificationBellComponent implements OnInit, OnDestroy {
     this.notifService.markAllAsRead();
   }
 
-  getIcon(type: string): string {
-    switch (type) {
-      case 'NEW_POLICY':           return '🛡️';
-      case 'APPLICATION_SUBMITTED': return '📄';
-      case 'APPLICATION_APPROVED':  return '✅';
-      case 'APPLICATION_REJECTED':  return '❌';
-      case 'CLAIM_RAISED':          return '🩹';
-      case 'CLAIM_APPROVED':        return '✅';
-      case 'CLAIM_REJECTED':        return '❌';
-      default:                      return '🔔';
-    }
-  }
+  // getIcon(type: string): string {
+  //   switch (type) {
+  //     case 'NEW_POLICY': return '🛡️';
+  //     case 'APPLICATION_SUBMITTED': return '📄';
+  //     case 'APPLICATION_APPROVED': return '✅';
+  //     case 'APPLICATION_REJECTED': return '❌';
+  //     case 'CLAIM_RAISED': return '🩹';
+  //     case 'CLAIM_APPROVED': return '✅';
+  //     case 'CLAIM_REJECTED': return '❌';
+  //     default: return '🔔';
+  //   }
+  // }
 
   getIconClass(type: string): string {
     switch (type) {
-      case 'NEW_POLICY':            return 'policy';
+      case 'NEW_POLICY': return 'policy';
       case 'APPLICATION_SUBMITTED': return 'app';
-      case 'APPLICATION_APPROVED':  return 'approved';
-      case 'APPLICATION_REJECTED':  return 'rejected';
-      case 'CLAIM_RAISED':          return 'claim';
-      case 'CLAIM_APPROVED':        return 'approved';
-      case 'CLAIM_REJECTED':        return 'rejected';
-      default:                      return 'default';
+      case 'APPLICATION_APPROVED': return 'approved';
+      case 'APPLICATION_REJECTED': return 'rejected';
+      case 'CLAIM_RAISED': return 'claim';
+      case 'CLAIM_APPROVED': return 'approved';
+      case 'CLAIM_REJECTED': return 'rejected';
+      default: return 'default';
     }
   }
 
@@ -343,10 +343,10 @@ export class NotificationBellComponent implements OnInit, OnDestroy {
     const diffHours = Math.floor(diffMins / 60);
     const diffDays = Math.floor(diffHours / 24);
 
-    if (diffMins < 1)   return 'Just now';
-    if (diffMins < 60)  return `${diffMins}m ago`;
+    if (diffMins < 1) return 'Just now';
+    if (diffMins < 60) return `${diffMins}m ago`;
     if (diffHours < 24) return `${diffHours}h ago`;
-    if (diffDays < 7)   return `${diffDays}d ago`;
+    if (diffDays < 7) return `${diffDays}d ago`;
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   }
 }

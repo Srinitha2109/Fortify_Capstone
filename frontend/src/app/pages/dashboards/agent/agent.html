@@ -5,6 +5,18 @@
                 <span class="menu-icon">☰</span>
             </button>
             <span class="header-text" *ngIf="!isSidebarCollapsed()">Agent Console</span>
+            <!-- <div
+                class="user-profile flex items-center gap-4 bg-white px-4 py-2 rounded-2xl border border-slate-100 shadow-sm">
+                <div class="text-right hidden sm:block">
+                    <span class="block text-xs font-black text-burgundy">{{ currentUser()?.fullName }}</span>
+                    <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-tighter">{{
+                        currentUser()?.email }}</span>
+                </div>
+                <div
+                    class="avatar w-10 h-10 bg-burgundy text-white rounded-full flex items-center justify-center font-black shadow-lg shadow-burgundy/20">
+                    {{ getInitials(currentUser()?.fullName) }}
+                </div>
+            </div> -->
         </div>
         <nav class="sidebar-nav">
             <a routerLink="/agent/dashboard" routerLinkActive="active" class="nav-item" title="Overview">
@@ -41,7 +53,7 @@
 <style>
     .dashboard-layout {
         display: flex;
-        min-height: 90vh;
+        min-height: 20vh;
         gap: 0;
         background: #f8fafc;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -89,6 +101,7 @@
     }
 
     .header-text {
+
         font-weight: 900;
         color: #7a0019;
         font-size: 1.25rem;

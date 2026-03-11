@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { RouterOutlet, RouterLink, Router } from '@angular/router';
 import { ThemeService } from './services/theme';
 import { NotificationService } from './services/notification';
+import { LoadingService } from './services/loading.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -13,6 +14,7 @@ import { CommonModule } from '@angular/common';
 export class App {
   themeService = inject(ThemeService);
   notificationService = inject(NotificationService);
+  loadingService = inject(LoadingService);
   private router = inject(Router);
 
   notifications = this.notificationService.getNotifications();

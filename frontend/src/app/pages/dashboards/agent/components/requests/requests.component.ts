@@ -134,14 +134,7 @@ import { NotificationService } from '../../../../../services/notification';
                     </div>
                 </div>
 
-                <!-- Risk Message -->
-                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
-                    <span class="block text-[10px] font-black text-slate-400 uppercase tracking-widest">Risk Assessment</span>
-                    <p class="text-xs font-bold text-slate-600 leading-relaxed">
-                        The premium has been dynamically calculated as <span class="text-burgundy font-black">{{ selectedReq()?.premiumAmount | currency }}</span> 
-                        based on the reported revenue and business type.
-                    </p>
-                </div>
+               
 
                 <!-- Action field: Reason for rejection -->
                 <div class="space-y-3" *ngIf="isRejecting()">

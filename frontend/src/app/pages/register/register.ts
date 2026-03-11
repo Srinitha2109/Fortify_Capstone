@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { NotificationService } from '../../services/notification';
 import { AuthService } from '../../services/auth';
+import { ValidatorFn } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -19,21 +20,60 @@ export class RegisterComponent {
 
   registerForm = this.fb.group({
     fullName: ['', [Validators.required]],
-    email: ['', [Validators.required, Validators.email]],
+    email: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9._%+-]+@gmail\\.com$')
+      ]
+    ],
     phone: ['', [Validators.required]],
     role: ['POLICYHOLDER', [Validators.required]],
     // Policyholder fields
-    businessName: [''],
-    industry: [''],
-    annualRevenue: [''],
-    employeeCount: [''],
-    city: [''],
+    businessName: ['', [Validators.required]],
+    industry: ['', [Validators.required]],
+    annualRevenue: ['', [Validators.required]],
+    employeeCount: ['', [Validators.required]],
+    city: ['', [Validators.required]],
     // Agent/Claim Officer fields
     experience: [''],
     specialization: [''],
     territory: [''],
     region: ['']
   });
+
+  constructor() {
+    this.registerForm.get('role')?.valueChanges.subscribe(role => {
+      this.updateValidators(role || '');
+    });
+  }
+
+  private updateValidators(role: string) {
+    const phFields = ['businessName', 'industry', 'annualRevenue', 'employeeCount', 'city'];
+    const proFields = ['experience', 'specialization'];
+    const agentFields = ['territory'];
+    const coFields = ['region'];
+
+    const allFields = [...phFields, ...proFields, ...agentFields, ...coFields];
+    allFields.forEach(f => {
+      const ctrl = this.registerForm.get(f);
+      ctrl?.clearValidators();
+      ctrl?.updateValueAndValidity();
+    });
+
+    if (role === 'POLICYHOLDER') {
+      phFields.forEach(f => this.registerForm.get(f)?.setValidators([Validators.required]));
+    } else {
+      proFields.forEach(f => this.registerForm.get(f)?.setValidators([Validators.required]));
+      if (role === 'AGENT') {
+        agentFields.forEach(f => this.registerForm.get(f)?.setValidators([Validators.required]));
+      } else if (role === 'CLAIM_OFFICER') {
+        coFields.forEach(f => this.registerForm.get(f)?.setValidators([Validators.required]));
+      }
+    }
+
+    allFields.forEach(f => this.registerForm.get(f)?.updateValueAndValidity());
+  }
 
   roles = [
     { value: 'POLICYHOLDER', label: 'Policyholder' },
@@ -64,6 +104,7 @@ export class RegisterComponent {
         error: () => this.notificationService.show('Submission failed. Please try again.', 'error')
       });
     } else {
+      this.registerForm.markAllAsTouched();
       this.notificationService.show('Please fill all required fields', 'error');
     }
   }

@@ -19,31 +19,31 @@ public class NotificationController {
     private final UserRepository userRepository;
 
     public NotificationController(AppNotificationService notificationService,
-                                  UserRepository userRepository) {
+            UserRepository userRepository) {
         this.notificationService = notificationService;
         this.userRepository = userRepository;
     }
 
-    /** Get all notifications for the currently logged-in user */
+    // Get all notifications for the currently logged-in user
     @GetMapping("/my/{userId}")
     public ResponseEntity<List<NotificationDTO>> getMyNotifications(@PathVariable Long userId) {
         return ResponseEntity.ok(notificationService.getNotificationsForUser(userId));
     }
 
-    /** Get unread count for a user */
+    // Get unread count for a user
     @GetMapping("/my/{userId}/unread-count")
     public ResponseEntity<Map<String, Long>> getUnreadCount(@PathVariable Long userId) {
         return ResponseEntity.ok(Map.of("count", notificationService.getUnreadCount(userId)));
     }
 
-    /** Mark a specific notification as read */
+    // Mark a specific notification as read
     @PutMapping("/{id}/read")
     public ResponseEntity<Void> markAsRead(@PathVariable Long id) {
         notificationService.markAsRead(id);
         return ResponseEntity.ok().build();
     }
 
-    /** Mark ALL notifications for a user as read */
+    // Mark all notifications for a user as read
     @PutMapping("/my/{userId}/read-all")
     public ResponseEntity<Void> markAllAsRead(@PathVariable Long userId) {
         notificationService.markAllAsRead(userId);

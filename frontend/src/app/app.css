@@ -122,15 +122,42 @@
 }
 
 .notification.success {
-    border-left-color: var(--success);
+    border-left-color: var(--success, #16a34a);
+    color: var(--success, #16a34a);
 }
 
 .notification.error {
-    border-left-color: var(--error);
+    border-left-color: var(--error, #dc2626);
+    color: var(--error, #dc2626);
 }
 
 .notification.warning {
     border-left-color: var(--primary-burgundy);
+}
+
+/* Hide number input spin buttons */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.error-msg {
+    color: var(--error, #dc2626);
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-top: 0.25rem;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.form-control.is-invalid {
+    border-color: var(--error, #dc2626) !important;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1) !important;
 }
 
 .close-btn {

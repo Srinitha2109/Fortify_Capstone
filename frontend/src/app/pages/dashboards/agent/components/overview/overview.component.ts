@@ -10,21 +10,7 @@ import { NotificationService } from '../../../../../services/notification';
     standalone: true,
     imports: [CommonModule, RouterLink],
     template: `
-    <header class="dashboard-header mb-8 flex justify-between items-center">
-        <div>
-            <h1 class="text-3xl font-black text-slate-800 tracking-tight">Agent Dashboard</h1>
-            <p class="text-xs text-slate-400 font-bold uppercase tracking-widest mt-1">Professional Portal</p>
-        </div>
-        <div class="user-profile flex items-center gap-4 bg-white px-4 py-2 rounded-2xl border border-slate-100 shadow-sm">
-            <div class="text-right hidden sm:block">
-                <span class="block text-xs font-black text-burgundy">{{ currentUser()?.fullName }}</span>
-                <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-tighter">{{ currentUser()?.email }}</span>
-            </div>
-            <div class="avatar w-10 h-10 bg-burgundy text-white rounded-full flex items-center justify-center font-black shadow-lg shadow-burgundy/20">
-                {{ getInitials(currentUser()?.fullName) }}
-            </div>
-        </div>
-    </header>
+    
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
         <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow group relative overflow-hidden">

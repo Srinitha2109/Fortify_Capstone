@@ -33,6 +33,24 @@ export class AuthService {
     );
   }
 
+  // login(credentials: any) {
+  //   this.http.post(`${this.apiUrl}/auth/login`, credentials).subscribe((res: any) => {
+
+  //     if (res && res.userId) {
+  //       res.id = res.userId;
+  //     }
+
+  //     this.currentUser.set(res);
+
+  //     if (res.token) {
+  //       localStorage.setItem('token', res.token);
+  //     }
+
+  //     console.log('Login Response:', res);
+
+  //   });
+  // }
+
   logout() {
     this.currentUser.set(null);
     localStorage.removeItem('token');

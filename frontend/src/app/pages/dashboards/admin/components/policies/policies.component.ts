@@ -116,50 +116,62 @@ import { NotificationService } from '../../../../../services/notification';
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
                     <div class="space-y-2">
                         <label class="text-[11px] font-black text-burgundy uppercase tracking-widest pl-1">Policy Name*</label>
-                        <input type="text" [(ngModel)]="currentPolicy().policyName" name="policyName"
+                        <input type="text" [(ngModel)]="currentPolicy().policyName" name="policyName" #policyName="ngModel"
                             placeholder="e.g. Comprehensive Business Fire" required
-                            class="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-burgundy/5 focus:border-burgundy focus:bg-white transition-all outline-none">
+                            class="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-burgundy/5 focus:border-burgundy focus:bg-white transition-all outline-none"
+                            [ngClass]="{'is-invalid': (policyName.touched || formSubmitted()) && !currentPolicy().policyName}">
+                        <div class="error-msg" *ngIf="(policyName.touched || formSubmitted()) && !currentPolicy().policyName">Policy name is required</div>
                     </div>
 
                     <div class="space-y-2">
                         <label class="text-[11px] font-black text-burgundy uppercase tracking-widest pl-1">Insurance Type*</label>
-                        <select [(ngModel)]="currentPolicy().insuranceType" name="insuranceType" required
-                            class="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-burgundy/5 focus:border-burgundy focus:bg-white transition-all outline-none font-bold">
+                        <select [(ngModel)]="currentPolicy().insuranceType" name="insuranceType" #insType="ngModel" required
+                            class="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-burgundy/5 focus:border-burgundy focus:bg-white transition-all outline-none font-bold"
+                            [ngClass]="{'is-invalid': (insType.touched || formSubmitted()) && !currentPolicy().insuranceType}">
                             <option value="" disabled>Select Type</option>
                             <option value="GENERAL_LIABILITY">General Liability</option>
                             <option value="AUTO">Auto</option>
                             <option value="WORKERS_COMPENSATION">Workers compensation</option>
                         </select>
+                        <div class="error-msg" *ngIf="(insType.touched || formSubmitted()) && !currentPolicy().insuranceType">Select an insurance type</div>
                     </div>
 
                     <div class="space-y-2">
                         <label class="text-[11px] font-black text-burgundy uppercase tracking-widest pl-1">Duration (Months)*</label>
-                        <input type="number" [(ngModel)]="currentPolicy().durationMonths" name="duration" required
-                            class="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-burgundy/5 focus:border-burgundy focus:bg-white transition-all outline-none">
+                        <input type="number" [(ngModel)]="currentPolicy().durationMonths" name="duration" #duration="ngModel" required
+                            class="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-burgundy/5 focus:border-burgundy focus:bg-white transition-all outline-none"
+                            [ngClass]="{'is-invalid': (duration.touched || formSubmitted()) && !currentPolicy().durationMonths}">
+                        <div class="error-msg" *ngIf="(duration.touched || formSubmitted()) && !currentPolicy().durationMonths">Duration is required</div>
                     </div>
 
                     <div class="space-y-2">
                         <label class="text-[11px] font-black text-burgundy uppercase tracking-widest pl-1">Base Premium*</label>
                         <div class="relative">
-                            <input type="number" [(ngModel)]="currentPolicy().basePremium" name="premium" required
-                                class="w-full pl-10 pr-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-burgundy/5 focus:border-burgundy focus:bg-white transition-all outline-none">
+                            <input type="number" [(ngModel)]="currentPolicy().basePremium" name="premium" #premium="ngModel" required
+                                class="w-full pl-10 pr-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-burgundy/5 focus:border-burgundy focus:bg-white transition-all outline-none"
+                                [ngClass]="{'is-invalid': (premium.touched || formSubmitted()) && !currentPolicy().basePremium}">
                         </div>
+                        <div class="error-msg" *ngIf="(premium.touched || formSubmitted()) && !currentPolicy().basePremium">Premium is required</div>
                     </div>
 
                     <div class="space-y-2">
                          <label class="text-[11px] font-black text-burgundy uppercase tracking-widest pl-1">Min Coverage Amount*</label>
                          <div class="relative">
-                             <input type="number" [(ngModel)]="currentPolicy().minCoverageAmount" name="minCoverage" required
-                                 class="w-full pl-10 pr-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-burgundy/5 focus:border-burgundy focus:bg-white transition-all outline-none">
+                             <input type="number" [(ngModel)]="currentPolicy().minCoverageAmount" name="minCoverage" #minC="ngModel" required
+                                 class="w-full pl-10 pr-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-burgundy/5 focus:border-burgundy focus:bg-white transition-all outline-none"
+                                 [ngClass]="{'is-invalid': (minC.touched || formSubmitted()) && !currentPolicy().minCoverageAmount}">
                          </div>
+                         <div class="error-msg" *ngIf="(minC.touched || formSubmitted()) && !currentPolicy().minCoverageAmount">Min amount is required</div>
                      </div>
 
                      <div class="space-y-2">
                          <label class="text-[11px] font-black text-burgundy uppercase tracking-widest pl-1">Max Coverage Amount*</label>
                          <div class="relative">
-                             <input type="number" [(ngModel)]="currentPolicy().maxCoverageAmount" name="maxCoverage" required
-                                 class="w-full pl-10 pr-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-burgundy/5 focus:border-burgundy focus:bg-white transition-all outline-none">
+                             <input type="number" [(ngModel)]="currentPolicy().maxCoverageAmount" name="maxCoverage" #maxC="ngModel" required
+                                 class="w-full pl-10 pr-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-burgundy/5 focus:border-burgundy focus:bg-white transition-all outline-none"
+                                 [ngClass]="{'is-invalid': (maxC.touched || formSubmitted()) && !currentPolicy().maxCoverageAmount}">
                          </div>
+                         <div class="error-msg" *ngIf="(maxC.touched || formSubmitted()) && !currentPolicy().maxCoverageAmount">Max amount is required</div>
                      </div>
 
                     <div class="md:col-span-2 space-y-2">
@@ -190,7 +202,14 @@ import { NotificationService } from '../../../../../services/notification';
         </div>
         }
     </div>
-  `
+  `,
+    styles: `
+    .error-msg {
+        color: red;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+    `
 })
 export class PoliciesComponent implements OnInit {
     private policyService = inject(PolicyService);
@@ -199,6 +218,7 @@ export class PoliciesComponent implements OnInit {
     policies = signal<Policy[]>([]);
     showPolicyForm = signal(false);
     isEditMode = signal(false);
+    formSubmitted = signal(false);
 
     currentPolicy = signal<any>({
         policyNumber: '',
@@ -248,19 +268,22 @@ export class PoliciesComponent implements OnInit {
     openCreateForm() {
         this.isEditMode.set(false);
         this.resetForm();
+        this.formSubmitted.set(false);
         this.showPolicyForm.set(true);
     }
 
     openEditForm(policy: Policy) {
         this.isEditMode.set(true);
         this.currentPolicy.set({ ...policy });
+        this.formSubmitted.set(false);
         this.showPolicyForm.set(true);
     }
 
     savePolicy() {
         const policy = this.currentPolicy();
-        if (!policy.policyName || !policy.insuranceType) {
-            this.notificationService.show('Please fill required fields', 'warning');
+        if (!policy.policyName || !policy.insuranceType || !policy.durationMonths || !policy.basePremium) {
+            this.formSubmitted.set(true);
+            this.notificationService.show('Please fill all required fields correctly', 'warning');
             return;
         }
 
