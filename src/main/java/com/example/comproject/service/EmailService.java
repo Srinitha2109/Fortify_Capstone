@@ -12,6 +12,10 @@ public class EmailService {
     private JavaMailSender mailSender;
     
     public void sendWelcomeEmail(String toEmail, String fullName, String tempPassword) {
+        System.out.println("Full Name: " + fullName);
+        System.out.println("Email    : " + toEmail);
+        System.out.println("Password : " + tempPassword);
+        
         if (mailSender == null) {
             System.out.println("Email service not configured. Would send welcome email to: " + toEmail);
             System.out.println("Credentials - Email: " + toEmail + ", Password: " + tempPassword);
@@ -21,9 +25,9 @@ public class EmailService {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setTo(toEmail);
-            message.setSubject("Welcome to Shield Insurance - Account Approved");
+            message.setSubject("Welcome to Fortify Insurance - Account Approved");
             message.setText(buildWelcomeEmailBody(fullName, toEmail, tempPassword));
-            message.setFrom("noreply@shieldinsurance.com");
+            message.setFrom("noreply@fortifyinsurance.com");
             
             mailSender.send(message);
             System.out.println("Welcome email sent to: " + toEmail);

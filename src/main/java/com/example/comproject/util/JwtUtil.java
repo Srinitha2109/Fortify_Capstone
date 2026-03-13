@@ -19,7 +19,7 @@ public class JwtUtil {
             .setIssuedAt(new Date())
             .setExpiration(new Date(System.currentTimeMillis() + expiration))
             .signWith(key)
-            .compact();
+            .compact(); //generates actual token string
     }
 
     public String extractUsername(String token) {

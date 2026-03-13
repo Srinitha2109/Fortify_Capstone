@@ -18,8 +18,8 @@ public class Payment {
     private BigDecimal amount;
     private LocalDateTime paymentDate;
 
-    @Enumerated(EnumType.STRING)
-    private PaymentMethod paymentMethod;
+    // @Enumerated(EnumType.STRING)
+    // private PaymentMethod paymentMethod;
 
     private String transactionReference;
 
@@ -29,9 +29,9 @@ public class Payment {
     @Enumerated(EnumType.STRING)
     private PaymentStatus status;
 
-    public enum PaymentMethod {
-        CARD, BANK_TRANSFER, ONLINE, CHECK
-    }
+    // public enum PaymentMethod {
+    //     CARD, BANK_TRANSFER, ONLINE, CHECK
+    // }
 
     public enum PaymentType {
         PREMIUM, SETTLEMENT, REFUND
@@ -49,8 +49,8 @@ public class Payment {
     public void setAmount(BigDecimal amount) { this.amount = amount; }
     public LocalDateTime getPaymentDate() { return paymentDate; }
     public void setPaymentDate(LocalDateTime paymentDate) { this.paymentDate = paymentDate; }
-    public PaymentMethod getPaymentMethod() { return paymentMethod; }
-    public void setPaymentMethod(PaymentMethod paymentMethod) { this.paymentMethod = paymentMethod; }
+    // public PaymentMethod getPaymentMethod() { return paymentMethod; }
+    // public void setPaymentMethod(PaymentMethod paymentMethod) { this.paymentMethod = paymentMethod; }
     public String getTransactionReference() { return transactionReference; }
     public void setTransactionReference(String transactionReference) { this.transactionReference = transactionReference; }
     public PaymentType getPaymentType() { return paymentType; }

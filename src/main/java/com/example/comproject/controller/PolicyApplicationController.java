@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.comproject.dto.PolicyApplicationDTO;
+import com.example.comproject.entity.PolicyApplication;
 import com.example.comproject.service.PolicyApplicationService;
 
 @RestController
@@ -104,7 +105,7 @@ public class PolicyApplicationController {
         if (!"APPROVED".equals(application.getStatus().name())) {
             return ResponseEntity.badRequest().build();
         }
-        application.setStatus(com.example.comproject.entity.PolicyApplication.ApplicationStatus.ACTIVE);
+        application.setStatus(PolicyApplication.ApplicationStatus.ACTIVE);
         return ResponseEntity.ok(policyApplicationService.updateApplication(id, application));
     }
 
@@ -112,7 +113,7 @@ public class PolicyApplicationController {
         private Long planId;
         private BigDecimal coverageAmount;
         private Long businessProfileId;
-        private com.example.comproject.entity.PolicyApplication.PaymentPlan paymentPlan;
+        private PolicyApplication.PaymentPlan paymentPlan;
 
         public Long getPlanId() {
             return planId;
@@ -138,11 +139,11 @@ public class PolicyApplicationController {
             this.businessProfileId = businessProfileId;
         }
 
-        public com.example.comproject.entity.PolicyApplication.PaymentPlan getPaymentPlan() {
+        public PolicyApplication.PaymentPlan getPaymentPlan() {
             return paymentPlan;
         }
 
-        public void setPaymentPlan(com.example.comproject.entity.PolicyApplication.PaymentPlan paymentPlan) {
+        public void setPaymentPlan(PolicyApplication.PaymentPlan paymentPlan) {
             this.paymentPlan = paymentPlan;
         }
     }

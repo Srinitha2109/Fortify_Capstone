@@ -1,48 +1,32 @@
-// package com.example.comproject.dto;
-
-// import com.example.comproject.entity.User;
-
-// public class UserDTO {
-//     private Long id;
-//     private String fullName;
-//     private String email;
-//     private String password;
-//     private User.Role role;
-//     private User.Status status;
-
-//     public Long getId() { return id; }
-//     public void setId(Long id) { this.id = id; }
-//     public String getFullName() { return fullName; }
-//     public void setFullName(String fullName) { this.fullName = fullName; }
-//     public String getEmail() { return email; }
-//     public void setEmail(String email) { this.email = email; }
-//     public String getPassword() { return password; }
-//     public void setPassword(String password) { this.password = password; }
-//     public User.Role getRole() { return role; }
-//     public void setRole(User.Role role) { this.role = role; }
-//     public User.Status getStatus() { return status; }
-//     public void setStatus(User.Status status) { this.status = status; }
-// }
-
-
 package com.example.comproject.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+
 
 import com.example.comproject.entity.User;
 
 public class UserDTO {
 
-    // ── Core fields ──
     private Long id;
+
+    @NotBlank(message = "Full name is required")
     private String fullName;
+
+    @NotBlank(message = "Email is required")
     private String email;
-    private String password;        // only used when creating/updating password
+
+    private String password;        
+    
+    @NotBlank(message = "Phone number is required")
     private String phone;
+
+    @NotNull(message = "Role is required")
     private User.Role role;
+
     private User.Status status;
 
-    // ── Business fields — only for POLICYHOLDER ──
     private String businessName;
     private String industry;
     private Long annualRevenue;
@@ -50,21 +34,15 @@ public class UserDTO {
     private String city;
     private Integer experience;
     private String specialization;
-    private String territory; // For Agent
-    private String region;    // For Claim Officer
+    private String territory; 
+    private String region;    
 
-    // ── Registration info ──
-    private String message;         // why they want to join
-
-    // ── Admin review fields ──
-    private String adminRemarks;    // rejection reason
-    private Long reviewedById;      // which admin reviewed — just ID not full object
+    private String message;         
+    private String adminRemarks;    
+    private Long reviewedById;      
     private LocalDateTime reviewedAt;
-
-    // ── Timestamps ──
     private LocalDateTime createdAt;
 
-    // ── Getters & Setters ──
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { RouterOutlet, RouterLink, Router } from '@angular/router';
 import { ThemeService } from './services/theme';
 import { NotificationService } from './services/notification';
-import { LoadingService } from './services/loading.service';
+import { LoadingService } from './services/loading';
 
 
 @Component({

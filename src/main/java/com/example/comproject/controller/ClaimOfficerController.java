@@ -29,6 +29,13 @@ public class ClaimOfficerController {
         return ResponseEntity.ok(claimOfficerService.createClaimOfficer(claimOfficer));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping
+    public ResponseEntity<List<ClaimOfficer>> getAllClaimOfficers() {
+    List<ClaimOfficer> officers = claimOfficerService.getAllClaimOfficers();
+    return ResponseEntity.ok(officers);
+}
+
     @PreAuthorize("hasAnyRole('ADMIN', 'CLAIM_OFFICER')")
     @GetMapping("/{id}")
     public ResponseEntity<ClaimOfficer> getClaimOfficerById(@PathVariable Long id) {

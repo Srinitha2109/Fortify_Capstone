@@ -1,15 +1,16 @@
 package com.example.comproject.dto;
 
-import com.example.comproject.entity.Payment;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
+import com.example.comproject.entity.Payment;
 
 public class PaymentDTO {
     private Long id;
     private Long policyApplicationId;
     private BigDecimal amount;
     private LocalDateTime paymentDate;
-    private Payment.PaymentMethod paymentMethod;
+    // private Payment.PaymentMethod paymentMethod;
     private String transactionReference;
     private Payment.PaymentType paymentType;
     private Payment.PaymentStatus status;
@@ -24,8 +25,8 @@ public class PaymentDTO {
     public void setAmount(BigDecimal amount) { this.amount = amount; }
     public LocalDateTime getPaymentDate() { return paymentDate; }
     public void setPaymentDate(LocalDateTime paymentDate) { this.paymentDate = paymentDate; }
-    public Payment.PaymentMethod getPaymentMethod() { return paymentMethod; }
-    public void setPaymentMethod(Payment.PaymentMethod paymentMethod) { this.paymentMethod = paymentMethod; }
+    // public Payment.PaymentMethod getPaymentMethod() { return paymentMethod; }
+    // public void setPaymentMethod(Payment.PaymentMethod paymentMethod) { this.paymentMethod = paymentMethod; }
     public String getTransactionReference() { return transactionReference; }
     public void setTransactionReference(String transactionReference) { this.transactionReference = transactionReference; }
     public Payment.PaymentType getPaymentType() { return paymentType; }

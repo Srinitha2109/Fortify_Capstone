@@ -2,20 +2,41 @@ package com.example.comproject.dto;
 
 import java.math.BigDecimal;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import com.example.comproject.entity.Claim;
 
 public class ClaimDTO {
+
     private Long id;
     private String claimNumber;
+
+    @NotNull(message = "Policy Application ID is required")
     private Long policyApplicationId;
+
     private String policyNumber;
+
+    @NotBlank(message = "Description is required")
     private String description;
+
+    @NotNull(message = "Claim amount is required")
+    @Positive(message = "Claim amount must be positive")
     private BigDecimal claimAmount;
+
+    @NotNull(message = "Incident date is required")
     private java.time.LocalDate incidentDate;
+
+    @NotBlank(message = "Incident location is required")
     private String incidentLocation;
+
     private Claim.ClaimStatus status;
     private Long claimOfficerId;
     private String rejectionReason;
+
+    private String policyholderName;
+    private String planName;
+
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -39,4 +60,9 @@ public class ClaimDTO {
     public void setClaimOfficerId(Long claimOfficerId) { this.claimOfficerId = claimOfficerId; }
     public String getRejectionReason() { return rejectionReason; }
     public void setRejectionReason(String rejectionReason) { this.rejectionReason = rejectionReason; }
+    public String getPolicyholderName() { return policyholderName; }
+    public void setPolicyholderName(String policyholderName) { this.policyholderName = policyholderName; }
+    public String getPlanName() { return planName; }
+    public void setPlanName(String planName) { this.planName = planName; }
+
 }

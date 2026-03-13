@@ -404,7 +404,7 @@ public class UserService {
         }
     }
 
-    // Temp password: Shield@4521
+    
     private String generateTempPassword() {
         int number = 1000 + new Random().nextInt(9000);
         return "Fortify@" + number;

@@ -48,11 +48,15 @@ export class InAppNotificationService {
   }
 
   markAsRead(notificationId: number) {
+    console.log("sending put request to "+notificationId+"/read");
     this.http.put(`${this.apiUrl}/${notificationId}/read`, {}).subscribe({
       next: () => {
+        console.log("successfully marked read "+notificationId)
         this.notifications.update(list =>
-          list.map(n => n.id === notificationId ? { ...n, isRead: true } : n)
+          [...list].map(n => n.id === notificationId ? { ...n, isRead: true } : n)
         );
+        // this.fetchNotifications();
+
       }
     });
   }

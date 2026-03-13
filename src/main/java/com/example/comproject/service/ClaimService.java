@@ -242,6 +242,18 @@ public class ClaimService {
         dto.setStatus(claim.getStatus());
         if (claim.getClaimOfficer() != null) dto.setClaimOfficerId(claim.getClaimOfficer().getId());
         dto.setRejectionReason(claim.getRejectionReason());
+        
+        // Add policyholder name and plan name
+        if (claim.getPolicyApplication() != null) {
+            if (claim.getPolicyApplication().getUser() != null) {
+                dto.setPolicyholderName(claim.getPolicyApplication().getUser().getFullName());
+            }
+            if (claim.getPolicyApplication().getPlan() != null) {
+                dto.setPlanName(claim.getPolicyApplication().getPlan().getPolicyName());
+            }
+        }
+        
         return dto;
     }
+
 }

@@ -19,15 +19,14 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.example.comproject.dto.ClaimDTO;
 import com.example.comproject.service.ClaimService;
 
-@ExtendWith(MockitoExtension.class)
+@ExtendWith(MockitoExtension.class) //to ensure mockito annotations work 
 class ClaimControllerTest {
 
+    //mock mvc is used to send the http requests
     private MockMvc mockMvc;
 
     @Mock
     private ClaimService claimService;
-
-    
 
     @InjectMocks
     private ClaimController claimController;

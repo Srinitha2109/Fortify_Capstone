@@ -39,7 +39,8 @@ export class RegisterComponent {
     experience: [''],
     specialization: [''],
     territory: [''],
-    region: ['']
+    region: [''],
+    formSubmitted: [false]
   });
 
   constructor() {
@@ -104,6 +105,7 @@ export class RegisterComponent {
         error: () => this.notificationService.show('Submission failed. Please try again.', 'error')
       });
     } else {
+      this.registerForm.get('formSubmitted')?.setValue(true);
       this.registerForm.markAllAsTouched();
       this.notificationService.show('Please fill all required fields', 'error');
     }

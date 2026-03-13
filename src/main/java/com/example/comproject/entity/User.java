@@ -46,10 +46,10 @@ public class User {
     private String territory; // For Agent
     private String region;    // For Claim Officer
 
-    @Column(columnDefinition = "TEXT")
+   
     private String message;
 
-    @Column(columnDefinition = "TEXT")
+   
     private String adminRemarks;
 
     private LocalDateTime createdAt;

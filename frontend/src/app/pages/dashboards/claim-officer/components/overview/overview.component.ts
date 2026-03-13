@@ -21,8 +21,9 @@ interface ClaimItem {
   incidentDate: string;
   incidentLocation: string;
   status: string;
-  hovering?: boolean;
+  policyholderName?: string;
 }
+
 
 @Component({
   selector: 'app-claim-officer-overview',
@@ -68,12 +69,13 @@ interface ClaimItem {
             <thead>
               <tr class="bg-slate-50/50 border-b border-slate-100">
                 <th class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">Claim ID</th>
-                <th class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">App No.</th>
+                <th class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">Policyholder</th>
                 <th class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">Incident Date</th>
                 <th class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">Description</th>
                 <th class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400 text-right pr-12">Amount</th>
                 <th class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">Status</th>
                 <th class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400 text-center">Actions</th>
+
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-50">
@@ -84,13 +86,18 @@ interface ClaimItem {
                     {{ claim.claimNumber }}
                   </span>
                 </td>
-                <td class="px-8 py-5 text-xs font-bold text-slate-500 uppercase">APP-{{ claim.policyApplicationId }}</td>
+                <td class="px-8 py-5">
+                  
+                  <p class="text-[9px] text-slate-400 font-black uppercase tracking-tighter">APP-{{ claim.policyApplicationId }}</p>
+                </td>
+                
                 <td class="px-8 py-5 text-xs font-bold text-slate-500">{{ claim.incidentDate | date:'mediumDate' }}</td>
                 <td class="px-8 py-5">
                   <p class="text-xs font-medium text-slate-500 line-clamp-1 max-w-[200px]" [title]="claim.description">
                     {{ claim.description }}
                   </p>
                 </td>
+
                 <td class="px-8 py-5 text-sm font-black text-slate-800 text-right pr-12">
                   {{ claim.claimAmount | currency }}
                 </td>
@@ -105,7 +112,7 @@ interface ClaimItem {
                     <button (click)="openDocument(claim.id)" 
                             class="p-2.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-xl transition-all" 
                             >
-                      <span class="text-base bg-green-500  rounded-lg px-2 py-1 cursor-pointer  text-black">View Documents</span>
+                      <span class="text-base bg-green-500  rounded-lg px-2 py-1 cursor-pointer  text-black">Documents</span>
                     </button>
                     <button (click)="inspectClaim(claim.id)"
                             class="p-2.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-xl transition-all"

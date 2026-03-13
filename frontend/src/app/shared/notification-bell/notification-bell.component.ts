@@ -2,7 +2,7 @@ import {
   Component, inject, signal, HostListener, OnInit, OnDestroy
 } from '@angular/core';
 
-import { InAppNotificationService, InAppNotification } from '../../services/in-app-notification.service';
+import { InAppNotificationService, InAppNotification } from '../../services/in-app-notification';
 
 @Component({
   selector: 'app-notification-bell',
@@ -301,25 +301,13 @@ export class NotificationBellComponent implements OnInit, OnDestroy {
   markRead(n: InAppNotification) {
     if (!n.isRead) {
       this.notifService.markAsRead(n.id);
+      console.log("marking  "+n.id);
     }
   }
 
   markAllRead() {
     this.notifService.markAllAsRead();
   }
-
-  // getIcon(type: string): string {
-  //   switch (type) {
-  //     case 'NEW_POLICY': return '🛡️';
-  //     case 'APPLICATION_SUBMITTED': return '📄';
-  //     case 'APPLICATION_APPROVED': return '✅';
-  //     case 'APPLICATION_REJECTED': return '❌';
-  //     case 'CLAIM_RAISED': return '🩹';
-  //     case 'CLAIM_APPROVED': return '✅';
-  //     case 'CLAIM_REJECTED': return '❌';
-  //     default: return '🔔';
-  //   }
-  // }
 
   getIconClass(type: string): string {
     switch (type) {

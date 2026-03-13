@@ -14,7 +14,10 @@ export interface Claim {
     status?: string;
     claimOfficerId?: number;
     rejectionReason?: string;
+    planName?: string;
+    policyholderName?: string;
 }
+
 
 @Injectable({
     providedIn: 'root'

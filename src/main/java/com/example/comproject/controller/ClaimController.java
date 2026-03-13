@@ -16,13 +16,7 @@ public class ClaimController {
         this.claimService = claimService;
     }
 
-    @PreAuthorize("hasRole('POLICYHOLDER')")
-    @PostMapping(consumes = {"multipart/form-data"})
-    public ResponseEntity<ClaimDTO> createClaim(
-            @RequestPart("claim") ClaimDTO claim,
-            @RequestPart(value = "documents", required = false) List<org.springframework.web.multipart.MultipartFile> documents) {
-        return ResponseEntity.ok(claimService.createClaim(claim, documents));
-    }
+    
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}/assign-officer")
@@ -73,5 +67,12 @@ public class ClaimController {
     public ResponseEntity<ClaimDTO> updateClaim(@PathVariable Long id, @RequestBody ClaimDTO claim) {
         ClaimDTO updated = claimService.updateClaim(id, claim);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
+    }
+    @PreAuthorize("hasRole('POLICYHOLDER')")
+    @PostMapping(consumes = {"multipart/form-data"})
+    public ResponseEntity<ClaimDTO> createClaim(
+            @RequestPart("claim") ClaimDTO claim,
+            @RequestPart(value = "documents", required = false) List<org.springframework.web.multipart.MultipartFile> documents) {
+        return ResponseEntity.ok(claimService.createClaim(claim, documents));
     }
 }

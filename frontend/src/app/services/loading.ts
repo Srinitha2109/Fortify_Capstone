@@ -31,7 +31,7 @@ export class LoadingService {
         if (this.activeRequests === 0) {
           this.isLoading.set(false);
         }
-      }, 300); // Shortened hide delay
+      }, 200); // Shortened hide delay
     }
   }
 }

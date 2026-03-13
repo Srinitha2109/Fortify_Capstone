@@ -39,8 +39,10 @@ import { AuthService } from '../../../../services/auth';
                                 <span class="text-xs font-black text-[#8B1A3A]">{{ claim.claimNumber }}</span>
                             </td>
                             <td class="px-5 py-4">
-                                <span class="text-xs font-bold text-[#8B1A3A]/70">{{ claim.policyNumber || claim.policyApplicationId }}</span>
+                                <p class="text-xs font-black text-[#8B1A3A]">{{ claim.planName || 'Insurance Plan' }}</p>
+                                <p class="text-[9px] text-[#8B1A3A]/70 font-bold">APP-{{ claim.policyApplicationId }} ({{ claim.policyNumber }})</p>
                             </td>
+
                             <td class="px-5 py-4">
                                 <span class="text-xs font-semibold text-slate-600">{{ claim.incidentDate | date:'mediumDate' }}</span>
                             </td>
@@ -66,7 +68,7 @@ import { AuthService } from '../../../../services/auth';
                         <tr>
                             <td colspan="6" class="py-20 text-center">
                                 <div class="flex flex-col items-center gap-3 text-slate-300">
-                                    <span class="text-4xl">🩹</span>
+                                    
                                     <p class="text-sm font-bold uppercase tracking-widest">No claims found</p>
                                 </div>
                             </td>

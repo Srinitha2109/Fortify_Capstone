@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.comproject.dto.LoginRequestDTO;
 import com.example.comproject.dto.LoginResponseDTO;
 import com.example.comproject.entity.User;
+import com.example.comproject.exception.UnauthorizedException;
 import com.example.comproject.repository.UserRepository;
 import com.example.comproject.util.JwtUtil;
 
@@ -47,7 +48,7 @@ public class AuthController {
                 && "admin123".equals(request.getPassword())) {
 
             if (request.getRole() != null && !request.getRole().equalsIgnoreCase("ADMIN")) {
-                throw new RuntimeException("Selected role does not match your account.");
+                throw new UnauthorizedException("Selected role does not match your account.");
             }
 
             String token = jwtUtil.generateToken("admin@shield.com", "ADMIN");
@@ -55,33 +56,32 @@ public class AuthController {
             response.setToken(token);
             response.setRole("ADMIN");
             response.setUserId(null);
-            response.setFullName("Admin");
             response.setEmail("admin@shield.com");
             return ResponseEntity.ok(response);
         }
 
         //find user by email 
         User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("Invalid credentials"));
+                .orElseThrow(() -> new UnauthorizedException("Invalid credentials"));
 
         //check if account is active
         if (user.getStatus() != User.Status.ACTIVE) {
-            throw new RuntimeException("Your account is not active. Please contact admin.");
+            throw new UnauthorizedException("Your account is not active. Please contact admin.");
         }
 
         //check if password is set
         if (user.getPassword() == null) {
-            throw new RuntimeException("Account not fully activated. Please contact admin.");
+            throw new UnauthorizedException("Account not fully activated. Please contact admin.");
         }
 
         //Validate password
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Invalid credentials");
+            throw new UnauthorizedException("Invalid credentials");
         }
 
         // Validate role explicitly
         if (request.getRole() != null && !request.getRole().equalsIgnoreCase(user.getRole().name())) {
-            throw new RuntimeException("Selected role does not match your account.");
+            throw new UnauthorizedException("Selected role does not match.");
         }
 
         // Generate token using email + role
@@ -92,7 +92,6 @@ public class AuthController {
         response.setToken(token);
         response.setRole(user.getRole().name());
         response.setUserId(user.getId());
-        response.setFullName(user.getFullName());
         response.setEmail(user.getEmail());
 
         return ResponseEntity.ok(response);

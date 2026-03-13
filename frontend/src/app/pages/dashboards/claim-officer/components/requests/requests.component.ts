@@ -21,9 +21,12 @@ interface ClaimItem {
   incidentDate: string;
   incidentLocation: string;
   status: string;
+  policyholderName?: string;
+  planName?: string;
   documents?: ClaimDoc[];
   hovering?: boolean;
 }
+
 
 @Component({
   selector: 'app-claim-officer-requests',
@@ -63,8 +66,12 @@ interface ClaimItem {
               <span class="px-2 py-0.5 text-[8px] font-black uppercase rounded-full bg-pink/10 text-pink border border-pink/20">Pending Review</span>
             </div>
             <h2 class="text-xl font-black text-burgundy tracking-tight">{{ claim.claimNumber }}</h2>
-            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Application: <span class="text-burgundy/70">APP-{{ claim.policyApplicationId }}</span></p>
+            <div class="mt-2 space-y-1">
+              <p class="text-[11px] font-black text-slate-700 uppercase tracking-tight">{{ claim.policyholderName || 'Unknown Policyholder' }}</p>
+              <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{{ claim.planName || 'Insurance Plan' }} (APP-{{ claim.policyApplicationId }})</p>
+            </div>
           </div>
+
 
           <!-- Description Section -->
           <div class="px-6 py-4 flex-1">
@@ -141,12 +148,16 @@ interface ClaimItem {
                 </p>
               </div>
 
-              <div>
+                <div>
                 <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Reason for Rejection</label>
                 <textarea 
                   [(ngModel)]="rejectionReason"
-                  class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-semibold text-slate-700 focus:ring-4 focus:ring-burgundy/10 focus:border-burgundy transition-all outline-none min-h-[140px] placeholder:text-slate-300 resize-none"
+                  class="form-control w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-semibold text-slate-700 outline-none min-h-[140px] placeholder:text-slate-300 resize-none"
+                  [ngClass]="{'is-invalid': formSubmitted() && !rejectionReason().trim()}"
                   placeholder="Provide a professional explanation for the rejection..."></textarea>
+                @if (formSubmitted() && !rejectionReason().trim()) {
+                  <div class="error-msg">Please provide a reason for rejection</div>
+                }
               </div>
 
               <div class="flex gap-4">
@@ -155,9 +166,9 @@ interface ClaimItem {
                   Cancel
                 </button>
                 <button (click)="confirmRejection()"
-                        [disabled]="!rejectionReason().trim()"
+                        [disabled]="isSubmitting()"
                         class="flex-1 py-4 bg-burgundy hover:bg-burgundy/90 disabled:opacity-50 disabled:cursor-not-allowed text-white text-[10px] font-black uppercase tracking-widest rounded-2xl shadow-xl shadow-burgundy/20 transition-all active:scale-95">
-                  Submit Rejection
+                  {{ isSubmitting() ? 'Processing...' : 'Submit Rejection' }}
                 </button>
               </div>
             </div>
@@ -181,6 +192,9 @@ export class RequestsComponent implements OnInit {
   showRejectionModal = signal(false);
   rejectionReason = signal('');
   selectedClaimForRejection = signal<ClaimItem | null>(null);
+  formSubmitted = signal(false);
+  isSubmitting = signal(false);
+
 
   ngOnInit() {
     this.loadOfficerAndClaims();
@@ -241,21 +255,32 @@ export class RequestsComponent implements OnInit {
   initiateRejection(claim: ClaimItem) {
     this.selectedClaimForRejection.set(claim);
     this.rejectionReason.set('');
+    this.formSubmitted.set(false);
     this.showRejectionModal.set(true);
   }
 
+
   confirmRejection() {
+    this.formSubmitted.set(true);
     const claim = this.selectedClaimForRejection();
     const reason = this.rejectionReason().trim();
+
     if (claim && reason) {
+      this.isSubmitting.set(true);
       this.http.put(`/api/claims/${claim.id}/reject?reason=${encodeURIComponent(reason)}`, {}).subscribe({
         next: () => {
           this.showRejectionModal.set(false);
+          this.isSubmitting.set(false);
+          this.formSubmitted.set(false);
           this.loadClaims();
+        },
+        error: () => {
+          this.isSubmitting.set(false);
         }
       });
     }
   }
+
 
   openDocument(doc: ClaimDoc) {
     this.http.get(`/api/documents/${doc.id}`, { responseType: 'blob' }).subscribe({

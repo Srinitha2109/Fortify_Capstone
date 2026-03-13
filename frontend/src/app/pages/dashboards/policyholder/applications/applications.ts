@@ -47,12 +47,12 @@ import { FormsModule } from '@angular/forms';
               <div class="grid grid-cols-2 gap-3">
                 <div class="bg-[#F9F0F3] p-3 rounded-lg">
                   <span class="block text-[8px] font-black uppercase text-[#8B1A3A]/50 tracking-widest mb-0.5">Coverage Balance</span>
-                  <span class="text-sm font-black text-[#8B1A3A]">{{ getAvailableBalance(app) | currency }}</span>
-                  <p class="text-[8px] font-bold text-slate-400 mt-0.5 uppercase tracking-tighter">Limit: {{ app.selectedCoverageAmount | currency }}</p>
+                  <span class="text-sm font-black text-[#8B1A3A]">{{ getAvailableBalance(app) }}</span>
+                  <p class="text-[8px] font-bold text-slate-400 mt-0.5 uppercase tracking-tighter">Limit: {{ app.selectedCoverageAmount  }}</p>
                 </div>
                 <div class="bg-[#F9F0F3] p-3 rounded-lg">
                   <span class="block text-[8px] font-black uppercase text-[#8B1A3A]/50 tracking-widest mb-0.5">Premium</span>
-                  <span class="text-sm font-black text-[#8B1A3A]">{{ app.premiumAmount | currency }}</span>
+                  <span class="text-sm font-black text-[#8B1A3A]">{{ app.premiumAmount  }}</span>
                 </div>
               </div>
     
@@ -142,31 +142,32 @@ import { FormsModule } from '@angular/forms';
               [ngClass]="getAvailableBalance(selectedApp()!) > 0 ? 'text-emerald-500' : 'text-rose-400'">Coverage Balance Available</span>
               <p class="text-base font-black mt-0.5"
                 [ngClass]="getAvailableBalance(selectedApp()!) > 0 ? 'text-emerald-700' : 'text-rose-600'">
-                {{ getAvailableBalance(selectedApp()!) | currency }}
+                {{ getAvailableBalance(selectedApp()!)  }}
               </p>
             </div>
             <div class="text-right">
               <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Coverage Limit</span>
-              <p class="text-sm font-black text-slate-600">{{ selectedApp()?.selectedCoverageAmount | currency }}</p>
+              <p class="text-sm font-black text-slate-600">{{ selectedApp()?.selectedCoverageAmount  }}</p>
     
             </div>
           </div>
     
           <div class="px-8 pt-6 pb-8 space-y-5">
             <div class="grid grid-cols-2 gap-5">
-              <div class="space-y-1.5">
-                <input type="date" [(ngModel)]="claimForm.incidentDate" name="incidentDate" #date="ngModel"
-                  class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-burgundy/20 focus:border-burgundy/30 outline-none font-semibold text-sm text-slate-700"
-                  [ngClass]="{'is-invalid': (date.touched || formSubmitted()) && !claimForm.incidentDate}">
-                  @if ((date.touched || formSubmitted()) && !claimForm.incidentDate) {
-                    <div class="error-msg">Date is required</div>
-                  }
-                </div>
-                <div class="space-y-1.5">
-                  <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block">Incident Location</label>
-                  <input type="text" [(ngModel)]="claimForm.incidentLocation" name="location" #loc="ngModel" placeholder="e.g. Hyderabad"
-                    class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-burgundy/20 focus:border-burgundy/30 outline-none font-semibold text-sm text-slate-700 placeholder:text-slate-300"
-                    [ngClass]="{'is-invalid': (loc.touched || formSubmitted()) && !claimForm.incidentLocation}">
+                  <div class="space-y-1.5">
+                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block">Date of Incident</label>
+                    <input type="date" [(ngModel)]="claimForm.incidentDate" name="incidentDate" #date="ngModel"
+                      class="form-control w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold text-sm text-slate-700"
+                      [ngClass]="{'is-invalid': (date.touched || formSubmitted()) && !claimForm.incidentDate}">
+                    @if ((date.touched || formSubmitted()) && !claimForm.incidentDate) {
+                      <div class="error-msg">Date is required</div>
+                    }
+                  </div>
+                  <div class="space-y-1.5">
+                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block">Incident Location</label>
+                    <input type="text" [(ngModel)]="claimForm.incidentLocation" name="location" #loc="ngModel" placeholder="e.g. Hyderabad"
+                      class="form-control w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold text-sm text-slate-700 placeholder:text-slate-300"
+                      [ngClass]="{'is-invalid': (loc.touched || formSubmitted()) && !claimForm.incidentLocation}">
                     @if ((loc.touched || formSubmitted()) && !claimForm.incidentLocation) {
                       <div class="error-msg">Location is required</div>
                     }
@@ -176,8 +177,8 @@ import { FormsModule } from '@angular/forms';
                 <div class="space-y-1.5">
                   <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block">Description of Incident</label>
                   <textarea [(ngModel)]="claimForm.description" name="desc" #desc="ngModel" rows="4" placeholder="Describe what happened in detail..."
-                    class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-burgundy/20 focus:border-burgundy/30 outline-none font-semibold text-sm text-slate-700 placeholder:text-slate-300 resize-none"
-                  [ngClass]="{'is-invalid': (desc.touched || formSubmitted()) && !claimForm.description}"></textarea>
+                    class="form-control w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold text-sm text-slate-700 placeholder:text-slate-300 resize-none"
+                    [ngClass]="{'is-invalid': (desc.touched || formSubmitted()) && !claimForm.description}"></textarea>
                   @if ((desc.touched || formSubmitted()) && !claimForm.description) {
                     <div class="error-msg">Description is required</div>
                   }
@@ -185,30 +186,30 @@ import { FormsModule } from '@angular/forms';
     
                 <div class="grid grid-cols-2 gap-5">
                   <div class="space-y-1.5">
-                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block">Estimated Claim Amount ($)</label>
-                    <input type="number" [(ngModel)]="claimForm.claimAmount" name="amount" #amt="ngModel" min="0"
+                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block">Estimated Claim Amount</label>
+                    <input type="number" [(ngModel)]="claimForm.claimAmount" name="amount" #amt="ngModel" min="1"
                       [max]="getAvailableBalance(selectedApp()!)"
-                      class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-burgundy/20 focus:border-burgundy/30 outline-none font-semibold text-sm text-slate-700"
+                      class="form-control w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold text-sm text-slate-700"
                       [ngClass]="{'is-invalid': (amt.touched || formSubmitted()) && (claimForm.claimAmount <= 0 || claimForm.claimAmount > getAvailableBalance(selectedApp()!))}">
-                      @if ((amt.touched || formSubmitted()) && claimForm.claimAmount <= 0) {
-                        <div class="error-msg">Please enter a valid amount</div>
-                      }
-                      @if (claimForm.claimAmount > getAvailableBalance(selectedApp()!)) {
-                        <p class="text-[10px] text-rose-500 font-bold">Exceeds available balance of {{ getAvailableBalance(selectedApp()!) | currency }}</p>
-                      }
-                    </div>
-                    <div class="space-y-1.5">
-                      <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block">Upload Documents</label>
-                      <div class="relative">
-                        <input type="file" (change)="onFileSelected($event)" multiple class="absolute inset-0 opacity-0 cursor-pointer">
-                        <div class="w-full px-4 py-3 bg-white border-2 border-dashed border-slate-200 rounded-xl text-center">
-                          <p class="text-[10px] font-black text-slate-400 uppercase">
-                            {{ selectedFiles.length > 0 ? selectedFiles.length + ' file(s) selected' : '📎 Click to upload proof' }}
-                          </p>
-                        </div>
+                    @if ((amt.touched || formSubmitted()) && claimForm.claimAmount <= 0) {
+                      <div class="error-msg">Please enter a valid amount</div>
+                    }
+                    @if ((amt.touched || formSubmitted()) && claimForm.claimAmount > getAvailableBalance(selectedApp()!)) {
+                      <div class="error-msg">Exceeds available balance of {{ getAvailableBalance(selectedApp()!) }}</div>
+                    }
+                  </div>
+                  <div class="space-y-1.5">
+                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block">Upload Documents</label>
+                    <div class="relative">
+                      <input type="file" (change)="onFileSelected($event)" multiple class="absolute inset-0 opacity-0 cursor-pointer">
+                      <div class="w-full px-4 py-3 bg-white border-2 border-dashed border-slate-200 rounded-xl text-center">
+                        <p class="text-[10px] font-black text-slate-400 uppercase">
+                          {{ selectedFiles.length > 0 ? selectedFiles.length + ' file(s) selected' : '📎 Click to upload proof' }}
+                        </p>
                       </div>
                     </div>
                   </div>
+                </div>
     
                   <div class="flex gap-4 pt-2">
                     <button (click)="closeClaimModal()" class="flex-1 py-3.5 border border-slate-200 rounded-xl font-black text-sm text-slate-500 hover:bg-slate-50 transition-colors">Cancel</button>

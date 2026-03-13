@@ -35,7 +35,7 @@ public class PaymentService {
         payment.setPolicyApplication(application);
         payment.setAmount(dto.getAmount());
         payment.setPaymentDate(LocalDateTime.now());
-        payment.setPaymentMethod(dto.getPaymentMethod());
+        // payment.setPaymentMethod(dto.getPaymentMethod());
         payment.setTransactionReference(generateTransactionReference());
         payment.setPaymentType(dto.getPaymentType() != null ? dto.getPaymentType() : Payment.PaymentType.PREMIUM);
         payment.setStatus(Payment.PaymentStatus.SUCCESS);
@@ -92,7 +92,7 @@ public class PaymentService {
         dto.setPolicyApplicationId(payment.getPolicyApplication().getId());
         dto.setAmount(payment.getAmount());
         dto.setPaymentDate(payment.getPaymentDate());
-        dto.setPaymentMethod(payment.getPaymentMethod());
+        // dto.setPaymentMethod(payment.getPaymentMethod());
         dto.setTransactionReference(payment.getTransactionReference());
         dto.setPaymentType(payment.getPaymentType());
         dto.setStatus(payment.getStatus());

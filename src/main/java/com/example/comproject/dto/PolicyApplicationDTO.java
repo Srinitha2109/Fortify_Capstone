@@ -1,5 +1,6 @@
 package com.example.comproject.dto;
 
+import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -8,11 +9,20 @@ import com.example.comproject.entity.PolicyApplication;
 public class PolicyApplicationDTO {
     private Long id;
     private String policyNumber;
+
+    @NotNull(message = "User ID is required")
     private Long userId;
+
+    @NotNull(message = "Plan ID is required")
     private Long planId;
+
+    @NotNull(message = "Business Profile ID is required")
     private Long businessProfileId;
+
     private Long agentId;
     private Long claimOfficerId;
+
+    @NotNull(message = "Coverage amount is required")
     private BigDecimal selectedCoverageAmount;
     private BigDecimal premiumAmount;
     private LocalDate startDate;

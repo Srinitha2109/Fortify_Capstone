@@ -171,19 +171,19 @@
                 <label class="block text-xs font-black text-burgundy uppercase tracking-widest">Select Coverage
                     Amount</label>
                 <div class="relative">
-
                     <input type="number" [ngModel]="selectedCoverageAmount()"
                         (ngModelChange)="selectedCoverageAmount.set($event); previewPremium()"
                         [min]="selectedPolicyForApp()?.minCoverageAmount || null"
                         [max]="selectedPolicyForApp()?.maxCoverageAmount || null"
-                        class="w-full pl-8 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-4 focus:ring-pink/10 focus:border-pink transition-all font-bold text-slate-700">
+                        class="form-control w-full pl-8 pr-4 py-3 bg-white border border-slate-200 rounded-xl outline-none font-bold text-slate-700"
+                        [ngClass]="{'is-invalid': (formSubmitted() && coverageError())}">
                 </div>
                 <div class="flex justify-between text-[10px] font-bold text-slate-400 uppercase">
                     <span>Min: {{ selectedPolicyForApp()?.minCoverageAmount }}</span>
                     <span>Max: {{ selectedPolicyForApp()?.maxCoverageAmount }}</span>
                 </div>
-                @if (coverageError()) {
-                <div class="text-xs font-bold text-red-500 mt-1 animate-in slide-in-from-top-1 duration-200">
+                @if (formSubmitted() && coverageError()) {
+                <div class="error-msg">
                     {{ coverageError() }}
                 </div>
                 }

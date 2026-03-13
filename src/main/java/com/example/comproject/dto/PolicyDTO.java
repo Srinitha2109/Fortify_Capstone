@@ -1,18 +1,34 @@
 package com.example.comproject.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 public class PolicyDTO {
     private Long id;
     private String policyNumber;
+
+    @NotBlank(message = "Policy name is required")
     private String policyName;
+
+    @NotBlank(message = "Insurance type is required")
     private String insuranceType;
+
     private String insuranceTypeDisplayName;
 
+    @NotBlank(message = "Description is required")
     private String description;
+
+    @NotNull(message = "Minimum coverage amount is required")
     private BigDecimal minCoverageAmount;
+
+    @NotNull(message = "Maximum coverage amount is required")
     private BigDecimal maxCoverageAmount;
+
+    @NotNull(message = "Base premium is required")
     private BigDecimal basePremium;
+
+    @NotNull(message = "Duration in months is required")
     private Integer durationMonths;
     private Boolean isActive = true;
 

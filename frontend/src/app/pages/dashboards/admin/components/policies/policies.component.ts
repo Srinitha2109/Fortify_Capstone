@@ -118,7 +118,7 @@ import { NotificationService } from '../../../../../services/notification';
                   <label class="text-[11px] font-black text-burgundy uppercase tracking-widest pl-1">Policy Name*</label>
                   <input type="text" [(ngModel)]="currentPolicy().policyName" name="policyName" #policyName="ngModel"
                     placeholder="e.g. Comprehensive Business Fire" required
-                    class="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-burgundy/5 focus:border-burgundy focus:bg-white transition-all outline-none"
+                    class="form-control w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl outline-none"
                     [ngClass]="{'is-invalid': (policyName.touched || formSubmitted()) && !currentPolicy().policyName}">
                     @if ((policyName.touched || formSubmitted()) && !currentPolicy().policyName) {
                       <div class="error-msg">Policy name is required</div>
@@ -128,7 +128,7 @@ import { NotificationService } from '../../../../../services/notification';
                   <div class="space-y-2">
                     <label class="text-[11px] font-black text-burgundy uppercase tracking-widest pl-1">Insurance Type*</label>
                     <select [(ngModel)]="currentPolicy().insuranceType" name="insuranceType" #insType="ngModel" required
-                      class="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-burgundy/5 focus:border-burgundy focus:bg-white transition-all outline-none font-bold"
+                      class="form-control w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-bold"
                       [ngClass]="{'is-invalid': (insType.touched || formSubmitted()) && !currentPolicy().insuranceType}">
                       <option value="" disabled>Select Type</option>
                       <option value="GENERAL_LIABILITY">General Liability</option>
@@ -143,7 +143,7 @@ import { NotificationService } from '../../../../../services/notification';
                   <div class="space-y-2">
                     <label class="text-[11px] font-black text-burgundy uppercase tracking-widest pl-1">Duration (Months)*</label>
                     <input type="number" [(ngModel)]="currentPolicy().durationMonths" name="duration" #duration="ngModel" required
-                      class="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-burgundy/5 focus:border-burgundy focus:bg-white transition-all outline-none"
+                      class="form-control w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl outline-none"
                       [ngClass]="{'is-invalid': (duration.touched || formSubmitted()) && !currentPolicy().durationMonths}">
                       @if ((duration.touched || formSubmitted()) && !currentPolicy().durationMonths) {
                         <div class="error-msg">Duration is required</div>
@@ -154,7 +154,7 @@ import { NotificationService } from '../../../../../services/notification';
                       <label class="text-[11px] font-black text-burgundy uppercase tracking-widest pl-1">Base Premium*</label>
                       <div class="relative">
                         <input type="number" [(ngModel)]="currentPolicy().basePremium" name="premium" #premium="ngModel" required
-                          class="w-full pl-10 pr-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-burgundy/5 focus:border-burgundy focus:bg-white transition-all outline-none"
+                          class="form-control w-full pl-5 pr-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl outline-none"
                           [ngClass]="{'is-invalid': (premium.touched || formSubmitted()) && !currentPolicy().basePremium}">
                         </div>
                         @if ((premium.touched || formSubmitted()) && !currentPolicy().basePremium) {
@@ -166,7 +166,7 @@ import { NotificationService } from '../../../../../services/notification';
                         <label class="text-[11px] font-black text-burgundy uppercase tracking-widest pl-1">Min Coverage Amount*</label>
                         <div class="relative">
                           <input type="number" [(ngModel)]="currentPolicy().minCoverageAmount" name="minCoverage" #minC="ngModel" required
-                            class="w-full pl-10 pr-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-burgundy/5 focus:border-burgundy focus:bg-white transition-all outline-none"
+                            class="form-control w-full pl-5 pr-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl outline-none"
                             [ngClass]="{'is-invalid': (minC.touched || formSubmitted()) && !currentPolicy().minCoverageAmount}">
                           </div>
                           @if ((minC.touched || formSubmitted()) && !currentPolicy().minCoverageAmount) {
@@ -178,7 +178,7 @@ import { NotificationService } from '../../../../../services/notification';
                           <label class="text-[11px] font-black text-burgundy uppercase tracking-widest pl-1">Max Coverage Amount*</label>
                           <div class="relative">
                             <input type="number" [(ngModel)]="currentPolicy().maxCoverageAmount" name="maxCoverage" #maxC="ngModel" required
-                              class="w-full pl-10 pr-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-burgundy/5 focus:border-burgundy focus:bg-white transition-all outline-none"
+                              class="form-control w-full pl-5 pr-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl outline-none"
                               [ngClass]="{'is-invalid': (maxC.touched || formSubmitted()) && !currentPolicy().maxCoverageAmount}">
                             </div>
                             @if ((maxC.touched || formSubmitted()) && !currentPolicy().maxCoverageAmount) {

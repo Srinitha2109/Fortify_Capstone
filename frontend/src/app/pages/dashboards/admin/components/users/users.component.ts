@@ -43,6 +43,20 @@ import { NotificationService } from '../../../../../services/notification';
                         <td class="px-6 py-5">
                             <p class="text-sm font-bold text-slate-800">{{ user.fullName }}</p>
                             <p class="text-[10px] text-slate-500 font-semibold uppercase tracking-tighter">ID: #{{ user.id }}</p>
+                            
+                            <!-- Role specific info -->
+                             @if (user.role === 'POLICYHOLDER' && user.businessName) {
+                                <div class="mt-1 flex gap-2">
+                                    <span class="text-[9px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded font-bold uppercase">{{ user.businessName }}</span>
+                                    <span class="text-[9px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded font-bold uppercase">{{ user.industry }}</span>
+                                </div>
+                             }
+                             @if ((user.role === 'AGENT' || user.role === 'CLAIM_OFFICER') && user.specialization) {
+                                <div class="mt-1 flex gap-2">
+                                    <span class="text-[9px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded font-bold uppercase">{{ user.specialization }}</span>
+                                    <span class="text-[9px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded font-bold uppercase">{{ user.experience }} Yrs Exp</span>
+                                </div>
+                             }
                         </td>
                         <td class="px-6 py-5 text-sm font-medium text-slate-600">{{ user.email }}</td>
                         <td class="px-6 py-5">
@@ -60,7 +74,7 @@ import { NotificationService } from '../../../../../services/notification';
                     } @empty {
                     <tr>
                         <td colspan="5" class="px-6 py-20 text-center">
-                            <p class="font-bold text-slate-400 italic">No system users found.</p>
+                            <p class="font-bold text-slate-400 italic">No system users found for this role.</p>
                         </td>
                     </tr>
                     }

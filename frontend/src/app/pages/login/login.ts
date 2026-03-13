@@ -24,6 +24,7 @@ export class LoginComponent {
     recaptcha: [false, [Validators.requiredTrue]]
   });
 
+  //easy to add roles in future
   roles = [
     { value: 'POLICYHOLDER', label: 'Policyholder' },
     { value: 'AGENT', label: 'Agent' },
@@ -40,40 +41,13 @@ export class LoginComponent {
 
   onLogin() {
     if (this.loginForm.valid) {
-      this.authService.login(this.loginForm.value).subscribe({
-        next: (res) => {
-          this.notificationService.show('Logged in successfully', 'success');
-          this.navigateByRole(this.loginForm.value.role);
-        },
-        error: (err) => {
-          this.notificationService.show(err.error?.message || 'Login failed. Please check credentials.', 'error');
-        }
-      });
+      this.authService.login(this.loginForm.value);
     } else {
       this.loginForm.markAllAsTouched();
       this.notificationService.show('Please fill all fields correctly', 'error');
     }
   }
 
-  //   onLogin() {
-  //   if (this.loginForm.valid) {
-  //     this.authService.login(this.loginForm.value);
-  //     this.navigateByRole(this.loginForm.value.role);
-  //   } else {
-  //     this.loginForm.markAllAsTouched();
-  //     this.notificationService.show('Please fill all fields correctly', 'error');
-  //   }
-  // }
-
-  private navigateByRole(role: string | null | undefined) {
-    switch (role) {
-      case 'ADMIN': this.router.navigate(['/admin/dashboard']); break;
-      case 'POLICYHOLDER': this.router.navigate(['/policyholder/dashboard']); break;
-      case 'AGENT': this.router.navigate(['/agent/dashboard']); break;
-      case 'CLAIM_OFFICER': this.router.navigate(['/claim-officer/dashboard']); break;
-      default: this.router.navigate(['/landing']);
-    }
-  }
 
   handleRecaptcha() {
     this.isRecaptchaLoading = true;
