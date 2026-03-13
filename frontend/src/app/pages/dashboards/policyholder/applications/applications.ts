@@ -12,11 +12,11 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <div class="flex flex-col gap-6 w-full max-w-7xl mx-auto p-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 flex items-center justify-between">
+    <div class="flex flex-col gap-6 w-full max-w-7xl mx-auto p-3 animate-in fade-in slide-in-from-bottom-4 duration-700">
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-3 flex items-center justify-between">
         <div>
-          <h1 class="text-3xl font-black text-burgundy tracking-tight">My Applications</h1>
-          <p class="text-sm text-slate-500 font-bold uppercase mt-1 tracking-tight">Track and manage your policy requests</p>
+          <h1 class="text-2xl font-black text-burgundy tracking-tight">My Applications</h1>
+          <p class="text-sm text-slate-500 font-bold  mt-1 tracking-tight">Track and manage your policy requests</p>
         </div>
         <div class="bg-burgundy/5 px-6 py-3 rounded-2xl border border-burgundy/10 shadow-sm">
           <span class="text-sm font-black text-burgundy">{{ applications().length }} Total Applications</span>
@@ -60,7 +60,7 @@ import { FormsModule } from '@angular/forms';
               <div class="flex flex-col gap-1.5">
                 <div class="flex justify-between items-center">
                   <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Expiry</span>
-                  <span class="text-[10px] font-bold text-slate-600">{{ (app.endDate | date:'mediumDate') || 'TBD' }}</span>
+                  <span class="text-[10px] font-bold text-slate-600">{{ (app.endDate | date:'mediumDate') || 'TMy BD' }}</span>
                 </div>
                 <div class="flex justify-between items-center">
                   <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Next Due</span>
@@ -157,6 +157,7 @@ import { FormsModule } from '@angular/forms';
                   <div class="space-y-1.5">
                     <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block">Date of Incident</label>
                     <input type="date" [(ngModel)]="claimForm.incidentDate" name="incidentDate" #date="ngModel"
+                      [max]="todayDate()"
                       class="form-control w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold text-sm text-slate-700"
                       [ngClass]="{'is-invalid': (date.touched || formSubmitted()) && !claimForm.incidentDate}">
                     @if ((date.touched || formSubmitted()) && !claimForm.incidentDate) {
@@ -253,6 +254,8 @@ export class ApplicationsComponent implements OnInit {
     claimAmount: 0
   };
 
+  todayDate = signal<string>(new Date().toISOString().split('T')[0]);
+
   ngOnInit() {
     this.loadApplications();
   }
@@ -326,8 +329,10 @@ export class ApplicationsComponent implements OnInit {
   openClaimModal(app: PolicyApplication) {
     this.selectedApp.set(app);
     this.showClaimModal.set(true);
+    const today = new Date().toISOString().split('T')[0];
+    this.todayDate.set(today);
     this.claimForm = {
-      incidentDate: new Date().toISOString().split('T')[0],
+      incidentDate: today,
       incidentLocation: '',
       description: '',
       claimAmount: 0

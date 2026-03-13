@@ -67,7 +67,6 @@ import { InvoiceGeneratorService } from '../../../../services/invoice-generator'
                             <td class="px-8 py-6 text-right">
                                 <button (click)="downloadInvoice(payment)"
                                         class="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white border-2 border-slate-100 rounded-xl text-[11px] font-black text-slate-700 hover:bg-burgundy hover:text-white hover:border-burgundy transition-all duration-300 shadow-sm active:scale-95 group/btn">
-                                    <span class="text-lg group-hover/btn:scale-110 transition-transform">📥</span> 
                                     Download PDF
                                 </button>
                             </td>

@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit, computed } from '@angular/core';
+import { Component, inject, signal, OnInit, computed, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PolicyService, Policy } from '../../../../services/policy';
@@ -6,6 +6,7 @@ import { AuthService } from '../../../../services/auth';
 import { BusinessProfileService, BusinessProfile } from '../../../../services/business-profile';
 import { PolicyApplicationService } from '../../../../services/policy-application';
 import { NotificationService } from '../../../../services/notification';
+import { PolicySearchService } from '../../../../services/policy-search.service';
 
 @Component({
     selector: 'app-policyholder-policies',
@@ -21,10 +22,11 @@ export class PoliciesComponent implements OnInit {
     private policyAppService = inject(PolicyApplicationService);
     private notificationService = inject(NotificationService);
 
+    private policySearchService = inject(PolicySearchService);
+
     allPolicies = signal<Policy[]>([]);
     userApplications = signal<any[]>([]);
     isLoading = signal(true);
-    searchQuery = signal('');
 
     businessProfile = signal<BusinessProfile | null>(null);
     selectedPolicyForApp = signal<Policy | null>(null);
@@ -36,6 +38,15 @@ export class PoliciesComponent implements OnInit {
     // Pagination
     currentPage = signal(1);
     pageSize = signal(6);
+
+    constructor() {
+        // Reset to page 1 whenever the search query changes
+        effect(() => {
+            this.policySearchService.searchQuery();
+            this.currentPage.set(1);
+        });
+    }
+
     ngOnInit() {
         this.loadPolicies();
         this.loadBusinessProfile();
@@ -56,14 +67,11 @@ export class PoliciesComponent implements OnInit {
         });
     }
 
-    onSearch(query: string) {
-        this.searchQuery.set(query);
-        this.currentPage.set(1);
-    }
+
 
     //automatic ui updates - compute
     filteredPolicies = computed(() => {
-        const query = this.searchQuery().toLowerCase().trim();
+        const query = this.policySearchService.searchQuery().toLowerCase().trim();
         let filtered = this.allPolicies();
 
         if (query) {

@@ -16,7 +16,7 @@
             <a routerLink="/policyholder/dashboard" routerLinkActive="bg-burgundy text-white shadow-md"
                 [routerLinkActiveOptions]="{exact: true}"
                 class="flex items-center p-3 rounded-lg transition-all duration-200 cursor-pointer gap-3 group text-slate-600 hover:bg-burgundy/5 hover:text-burgundy">
-                <span class="text-xl w-6 flex justify-center group-hover:scale-110 transition-transform">🏠</span>
+                <!-- <span class="text-xl w-6 flex justify-center group-hover:scale-110 transition-transform">🏠</span> -->
                 @if (!isSidebarCollapsed()) {
                 <span class="font-semibold tracking-wide">Dashboard</span>
                 }
@@ -24,7 +24,7 @@
 
             <a routerLink="/policyholder/policies" routerLinkActive="bg-burgundy text-white shadow-md"
                 class="flex items-center p-3 rounded-lg transition-all duration-200 cursor-pointer gap-3 group text-slate-600 hover:bg-burgundy/5 hover:text-burgundy">
-                <span class="text-xl w-6 flex justify-center group-hover:scale-110 transition-transform">🔍</span>
+                <!-- <span class="text-xl w-6 flex justify-center group-hover:scale-110 transition-transform">🔍</span> -->
                 @if (!isSidebarCollapsed()) {
                 <span class="font-semibold tracking-wide">Policies</span>
                 }
@@ -32,7 +32,7 @@
 
             <a routerLink="/policyholder/applications" routerLinkActive="bg-burgundy text-white shadow-md"
                 class="flex items-center p-3 rounded-lg transition-all duration-200 cursor-pointer gap-3 group text-slate-600 hover:bg-burgundy/5 hover:text-burgundy">
-                <span class="text-xl w-6 flex justify-center group-hover:scale-110 transition-transform">📄</span>
+                <!-- <span class="text-xl w-6 flex justify-center group-hover:scale-110 transition-transform">📄</span> -->
                 @if (!isSidebarCollapsed()) {
                 <span class="font-semibold tracking-wide">Applications</span>
                 }
@@ -40,7 +40,7 @@
 
             <a routerLink="/policyholder/claims" routerLinkActive="bg-burgundy text-white shadow-md"
                 class="flex items-center p-3 rounded-lg transition-all duration-200 cursor-pointer gap-3 group text-slate-600 hover:bg-burgundy/5 hover:text-burgundy">
-                <span class="text-xl w-6 flex justify-center group-hover:scale-110 transition-transform">🩹</span>
+                <!-- <span class="text-xl w-6 flex justify-center group-hover:scale-110 transition-transform">🩹</span> -->
                 @if (!isSidebarCollapsed()) {
                 <span class="font-semibold tracking-wide">Claims</span>
                 }
@@ -48,7 +48,7 @@
 
             <a routerLink="/policyholder/payments" routerLinkActive="bg-burgundy text-white shadow-md"
                 class="flex items-center p-3 rounded-lg transition-all duration-200 cursor-pointer gap-3 group text-slate-600 hover:bg-burgundy/5 hover:text-burgundy">
-                <span class="text-xl w-6 flex justify-center group-hover:scale-110 transition-transform">💳</span>
+                <!-- <span class="text-xl w-6 flex justify-center group-hover:scale-110 transition-transform">💳</span> -->
                 @if (!isSidebarCollapsed()) {
                 <span class="font-semibold tracking-wide">Payments</span>
                 }
@@ -76,6 +76,14 @@
                     <!-- <h1 class="text-2xl font-black text-burgundy tracking-tight">Welcome, User</h1> -->
                 </div>
                 <div class="flex items-center gap-4">
+                    @if (isOnPoliciesPage()) {
+                    <div class="relative">
+
+                        <input type="text" [ngModel]="navSearchQuery()" (ngModelChange)="onNavSearch($event)"
+                            placeholder="Search policies..."
+                            class="pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink/20 focus:border-pink transition-all text-sm font-semibold text-slate-700 placeholder-slate-400 w-56 shadow-inner" />
+                    </div>
+                    }
                     <app-notification-bell></app-notification-bell>
                     <div class="text-right hidden sm:block">
                         <span class="text-sm font-bold text-slate-500 block">Personal Account</span>
