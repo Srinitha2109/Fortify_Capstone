@@ -5,7 +5,7 @@
         <div class="h-16 flex items-center px-6 gap-4 border-b border-slate-200">
             <button (click)="toggleSidebar()"
                 class="p-2 rounded-md hover:bg-burgundy/5 text-burgundy transition-colors focus:outline-none">
-                <span class="text-xl leading-none">☰</span>
+                <span class="material-icons text-xl leading-none">menu</span>
             </button>
             @if (isSidebarOpen()) {
             <span class="font-extrabold text-burgundy text-base tracking-widest uppercase truncate">Admin Portal</span>
@@ -16,7 +16,7 @@
             <a routerLink="/admin/dashboard" routerLinkActive="bg-burgundy text-white shadow-md"
                 [routerLinkActiveOptions]="{exact: true}"
                 class="flex items-center p-3 rounded-lg transition-all duration-200 cursor-pointer gap-3 group text-slate-600 hover:bg-burgundy/5 hover:text-burgundy">
-                <span class="text-xl w-6 flex justify-center group-hover:scale-110 transition-transform">📊</span>
+                <span class="material-icons text-xl w-6 flex justify-center group-hover:scale-110 transition-transform">dashboard</span>
                 @if (isSidebarOpen()) {
                 <span class="font-semibold tracking-wide">Overview</span>
                 }
@@ -24,7 +24,7 @@
 
             <a routerLink="/admin/requests" routerLinkActive="bg-burgundy text-white shadow-md"
                 class="flex items-center p-3 rounded-lg transition-all duration-200 cursor-pointer gap-3 group text-slate-600 hover:bg-burgundy/5 hover:text-burgundy">
-                <span class="text-xl w-6 flex justify-center group-hover:scale-110 transition-transform">📩</span>
+                <span class="material-icons text-xl w-6 flex justify-center group-hover:scale-110 transition-transform">inbox</span>
                 @if (isSidebarOpen()) {
                 <span class="font-semibold tracking-wide">Requests</span>
                 }
@@ -32,7 +32,7 @@
 
             <a routerLink="/admin/policies" routerLinkActive="bg-burgundy text-white shadow-md"
                 class="flex items-center p-3 rounded-lg transition-all duration-200 cursor-pointer gap-3 group text-slate-600 hover:bg-burgundy/5 hover:text-burgundy">
-                <span class="text-xl w-6 flex justify-center group-hover:scale-110 transition-transform">🛡️</span>
+                <span class="material-icons text-xl w-6 flex justify-center group-hover:scale-110 transition-transform">security</span>
                 @if (isSidebarOpen()) {
                 <span class="font-semibold tracking-wide">Policies</span>
                 }
@@ -40,7 +40,7 @@
 
             <a routerLink="/admin/policyholders" routerLinkActive="bg-burgundy text-white shadow-md"
                 class="flex items-center p-3 rounded-lg transition-all duration-200 cursor-pointer gap-3 group text-slate-600 hover:bg-burgundy/5 hover:text-burgundy">
-                <span class="text-xl w-6 flex justify-center group-hover:scale-110 transition-transform">👥</span>
+                <span class="material-icons text-xl w-6 flex justify-center group-hover:scale-110 transition-transform">group</span>
                 @if (isSidebarOpen()) {
                 <span class="font-semibold tracking-wide">Assign Staff</span>
                 }
@@ -48,7 +48,7 @@
 
             <a routerLink="/admin/users" routerLinkActive="bg-burgundy text-white shadow-md"
                 class="flex items-center p-3 rounded-lg transition-all duration-200 cursor-pointer gap-3 group text-slate-600 hover:bg-burgundy/5 hover:text-burgundy">
-                <span class="text-xl w-6 flex justify-center group-hover:scale-110 transition-transform">⚙️</span>
+                <span class="material-icons text-xl w-6 flex justify-center group-hover:scale-110 transition-transform">settings</span>
                 @if (isSidebarOpen()) {
                 <span class="font-semibold tracking-wide">Users</span>
                 }
@@ -57,7 +57,7 @@
             <div class="mt-auto pt-4 border-t border-slate-100">
                 <a (click)="logout()"
                     class="flex items-center p-3 rounded-lg text-red-600 hover:bg-red-50 transition-colors cursor-pointer gap-3 group">
-                    <span class="text-xl w-6 flex justify-center group-hover:scale-110 transition-transform">🚪</span>
+                    <span class="material-icons text-xl w-6 flex justify-center group-hover:scale-110 transition-transform">logout</span>
                     @if (isSidebarOpen()) {
                     <span class="font-semibold tracking-wide">Logout</span>
                     }

@@ -2,26 +2,26 @@
     <aside class="sidebar">
         <div class="sidebar-header">
             <button class="toggle-btn" (click)="toggleSidebar()">
-                <span class="menu-icon">☰</span>
+                <span class="material-icons menu-icon">menu</span>
             </button>
             <span class="header-text" *ngIf="!isSidebarCollapsed()">Claims Dept</span>
         </div>
         <nav class="sidebar-nav">
             <a class="nav-item active" title="Assigned Claims">
-                <span class="icon">🔍</span>
+                <span class="material-icons icon">search</span>
                 <span class="label" *ngIf="!isSidebarCollapsed()">Assigned Claims</span>
             </a>
             <a class="nav-item" title="Investigation Logs">
-                <span class="icon">🕵️</span>
+                <span class="material-icons icon">policy</span>
                 <span class="label" *ngIf="!isSidebarCollapsed()">Investigations</span>
             </a>
             <a class="nav-item" title="Claim History">
-                <span class="icon">🕰️</span>
+                <span class="material-icons icon">history</span>
                 <span class="label" *ngIf="!isSidebarCollapsed()">Claim History</span>
             </a>
             <div class="nav-spacer"></div>
             <a class="nav-item logout-item" (click)="logout()" title="Logout">
-                <span class="icon">🚪</span>
+                <span class="material-icons icon">logout</span>
                 <span class="label" *ngIf="!isSidebarCollapsed()">Logout</span>
             </a>
         </nav>

@@ -1,115 +1,186 @@
 <div class="auth-container">
   <div class="auth-card">
     <div class="auth-header">
-      <h2>Welcome Back</h2>
+      <h2>{{ getTitle() }}</h2>
     </div>
 
+    @if (loginSection === 'choice') {
+    <div class="choice-container auth-form">
+      <button class="btn btn-primary auth-btn" (click)="selectLoginType('admin')">Admin Login</button>
+      <button class="btn auth-btn"
+        style="margin-top: 1rem; background: transparent; color: var(--primary-burgundy); border: 1px solid var(--primary-burgundy);"
+        (click)="selectLoginType('user')">User Login</button>
+    </div>
+    }
+
+    @if (loginSection === 'login') {
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="auth-form">
+      @if (loginType === 'user') {
       <div class="form-group">
         <label for="role">Access Role</label>
         <select id="role" formControlName="role" class="form-control"
           [ngClass]="{'is-invalid': loginForm.get('role')?.touched && loginForm.get('role')?.invalid}">
           <option value="" disabled selected>Select your role</option>
-          @for (role of roles; track role) {
-            <option [value]="role.value">{{ role.label }}</option>
+          @for (role of userRoles; track role) {
+          <option [value]="role.value">{{ role.label }}</option>
           }
         </select>
         @if (loginForm.get('role')?.touched && loginForm.get('role')?.invalid) {
-          <div class="error-msg">
-            Please select a role
-          </div>
+        <div class="error-msg">
+          Please select a role
+        </div>
         }
       </div>
+      }
 
       <div class="form-group">
         <label for="email">Email Address</label>
-        <input type="email" id="email" formControlName="email" placeholder="name@company.com"
-          class="form-control"
+        <input type="email" id="email" formControlName="email" placeholder="name@company.com" class="form-control"
           [ngClass]="{'is-invalid': loginForm.get('email')?.touched && loginForm.get('email')?.invalid}">
-          @if (loginForm.get('email')?.touched && loginForm.get('email')?.invalid) {
-            <div class="error-msg">
-              Valid email is required
-            </div>
-          }
-
+        @if (loginForm.get('email')?.touched && loginForm.get('email')?.invalid) {
+        <div class="error-msg">
+          Valid email is required
         </div>
+        }
 
-        <div class="form-group">
-          <label for="password">Password</label>
-          <div class="password-wrapper">
-            <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password"
-              placeholder="••••••••" class="form-control"
-              [ngClass]="{'is-invalid': loginForm.get('password')?.touched && loginForm.get('password')?.invalid}">
-              <button type="button" class="eye-toggle" (click)="togglePassword()"
-                [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'">
-                @if (!showPassword) {
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                    <circle cx="12" cy="12" r="3" />
-                  </svg>
-                }
-                @if (showPassword) {
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
-                    <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
-                    <line x1="1" y1="1" x2="23" y2="23" />
-                  </svg>
-                }
-              </button>
-            </div>
-            @if (loginForm.get('password')?.touched && loginForm.get('password')?.invalid) {
-              <div class="error-msg">
-                Password is required
-              </div>
-            }
-          </div>
-
-          <div class="recaptcha-box" [class.verified]="loginForm.get('recaptcha')?.value">
-            @if (!loginForm.get('recaptcha')?.value) {
-              <div class="recaptcha-content" (click)="handleRecaptcha()">
-                <div class="checkbox-container">
-                  @if (isRecaptchaLoading) {
-                    <div class="spinner"></div>
-                  }
-                  @if (!isRecaptchaLoading) {
-                    <div class="checkbox"></div>
-                  }
-                </div>
-                <span>I'm not a robot</span>
-                <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="recaptcha">
-              </div>
-            }
-            @if (loginForm.get('recaptcha')?.value) {
-              <div class="recaptcha-verified">
-                <span class="check-icon">✓</span>
-                <span>Verification Successful</span>
-              </div>
-            }
-          </div>
-
-          <button type="submit" class="btn btn-primary auth-btn">
-            {{ loginForm.invalid ? 'Complete Form' : 'Login' }}
-          </button>
-        </form>
-
-        <div class="auth-footer">
-          <p>Are you a new user? <a routerLink="/register">Register here</a></p>
-        </div>
       </div>
-    </div>
 
-    <style>
-      .auth-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: calc(100vh - 200px);
-      padding: 1rem;
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="password-wrapper">
+          <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password"
+            placeholder="••••••••" class="form-control"
+            [ngClass]="{'is-invalid': loginForm.get('password')?.touched && loginForm.get('password')?.invalid}">
+          <button type="button" class="eye-toggle" (click)="togglePassword()"
+            [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'">
+            @if (!showPassword) {
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+            }
+            @if (showPassword) {
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
+              <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
+              <line x1="1" y1="1" x2="23" y2="23" />
+            </svg>
+            }
+          </button>
+        </div>
+        @if (loginForm.get('password')?.touched && loginForm.get('password')?.invalid) {
+        <div class="error-msg">
+          Password is required
+        </div>
+        }
+      </div>
+
+      <div class="recaptcha-box" [class.verified]="loginForm.get('recaptcha')?.value">
+        @if (!loginForm.get('recaptcha')?.value) {
+        <div class="recaptcha-content" (click)="handleRecaptcha()">
+          <div class="checkbox-container">
+            @if (isRecaptchaLoading) {
+            <div class="spinner"></div>
+            }
+            @if (!isRecaptchaLoading) {
+            <div class="checkbox"></div>
+            }
+          </div>
+          <span>I'm not a robot</span>
+          <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="recaptcha">
+        </div>
+        }
+        @if (loginForm.get('recaptcha')?.value) {
+        <div class="recaptcha-verified">
+          <span class="check-icon">✓</span>
+          <span>Verification Successful</span>
+        </div>
+        }
+      </div>
+
+      <button type="submit" class="btn btn-primary auth-btn">
+        {{ loginForm.invalid ? 'Complete Form' : 'Login' }}
+      </button>
+
+      @if (loginType === 'user') {
+      <div style="text-align: center; margin-top: 0.5rem;">
+        <a href="javascript:void(0)" (click)="loginSection = 'forgot'"
+          style="color: var(--primary-burgundy); text-decoration: underline; font-size: 0.9rem;">Forgot Password?</a>
+      </div>
+      }
+      <div style="text-align: center; margin-top: 1rem;">
+        <a href="javascript:void(0)" (click)="backToChoice()"
+          style="color: var(--text-secondary); text-decoration: underline; font-size: 0.9rem;">Back</a>
+      </div>
+    </form>
     }
 
-    .auth-card {
+    @if (loginSection === 'forgot') {
+    <form [formGroup]="forgotForm" (ngSubmit)="onForgotPassword()" class="auth-form">
+      <div class="form-group">
+        <label for="forgot-email">Email Address</label>
+        <input type="email" id="forgot-email" formControlName="email" placeholder="name@company.com"
+          class="form-control"
+          [ngClass]="{'is-invalid': forgotForm.get('email')?.touched && forgotForm.get('email')?.invalid}">
+        @if (forgotForm.get('email')?.touched && forgotForm.get('email')?.invalid) {
+        <div class="error-msg">Valid email is required</div>
+        }
+      </div>
+      <button type="submit" class="btn btn-primary auth-btn">Send OTP</button>
+      <div style="text-align: center; margin-top: 1rem;">
+        <a href="javascript:void(0)" (click)="backToLogin()"
+          style="color: var(--text-secondary); text-decoration: underline; font-size: 0.9rem;">Back to Login</a>
+      </div>
+    </form>
+    }
+
+    @if (loginSection === 'reset') {
+    <form [formGroup]="resetForm" (ngSubmit)="onResetPassword()" class="auth-form">
+      <div class="form-group">
+        <label for="otp">OTP</label>
+        <input type="text" id="otp" formControlName="otp" placeholder="Enter OTP" class="form-control"
+          [ngClass]="{'is-invalid': resetForm.get('otp')?.touched && resetForm.get('otp')?.invalid}">
+      </div>
+      <div class="form-group">
+        <label for="newPassword">New Password</label>
+        <input type="password" id="newPassword" formControlName="newPassword" placeholder="New Password"
+          class="form-control"
+          [ngClass]="{'is-invalid': resetForm.get('newPassword')?.touched && resetForm.get('newPassword')?.invalid}">
+        @if (resetForm.get('newPassword')?.touched && resetForm.get('newPassword')?.errors?.['required']) {
+          <div class="error-msg">Password is required</div>
+        }
+        @if (resetForm.get('newPassword')?.touched && resetForm.get('newPassword')?.errors?.['strongPassword']) {
+          <div class="error-msg">Password must be at least 8 chars, include letters, numbers & special characters</div>
+        }
+      </div>
+      <div class="form-group">
+        <label for="confirmNewPassword">Confirm New Password</label>
+        <input type="password" id="confirmNewPassword" formControlName="confirmNewPassword"
+          placeholder="Confirm New Password" class="form-control"
+          [ngClass]="{'is-invalid': resetForm.get('confirmNewPassword')?.touched && resetForm.get('confirmNewPassword')?.invalid}">
+      </div>
+      <button type="submit" class="btn btn-primary auth-btn">Reset Password</button>
+    </form>
+    }
+
+    <div class="auth-footer">
+      <p>Are you a new user? <a routerLink="/register">Register here</a></p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 200px);
+    padding: 1rem;
+  }
+
+  .auth-card {
     background: var(--bg-primary);
     border: 1px solid var(--border-color);
     border-radius: 16px;
@@ -120,170 +191,170 @@
   }
 
   .auth-header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
+    text-align: center;
+    margin-bottom: 2rem;
+  }
 
-.auth-header h2 {
-font-size: 2rem;
-margin-bottom: 0.5rem;
-}
+  .auth-header h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
 
-.auth-header p {
-color: var(--text-secondary);
-}
+  .auth-header p {
+    color: var(--text-secondary);
+  }
 
-.auth-form {
-display: flex;
-flex-direction: column;
-gap: 1.25rem;
-}
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
 
-.form-group {
-display: flex;
-flex-direction: column;
-gap: 0.5rem;
-}
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 
-.form-control {
-padding: 0.75rem 1rem;
-border: 1px solid var(--border-color);
-border-radius: 8px;
-background: var(--bg-secondary);
-color: var(--text-primary);
-font-size: 1rem;
-transition: border-color 0.2s;
-}
+  .form-control {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: border-color 0.2s;
+  }
 
-.form-control:focus {
-outline: none;
-border-color: var(--primary-burgundy);
-box-shadow: 0 0 0 3px rgba(122, 0, 25, 0.1);
-}
+  .form-control:focus {
+    outline: none;
+    border-color: var(--primary-burgundy);
+    box-shadow: 0 0 0 3px rgba(122, 0, 25, 0.1);
+  }
 
-label {
-font-weight: 600;
-font-size: 0.9rem;
-}
+  label {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
 
-.error-msg {
-font-size: 0.8rem;
-color: var(--error);
-}
+  .error-msg {
+    font-size: 0.8rem;
+    color: var(--error);
+  }
 
-.recaptcha-box {
-background: var(--bg-secondary);
-border: 1px solid var(--border-color);
-border-radius: 4px;
-padding: 0.75rem 1rem;
-cursor: pointer;
-user-select: none;
-}
+  .recaptcha-box {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    user-select: none;
+  }
 
-.recaptcha-box.verified {
-border-color: var(--success);
-background: rgba(40, 167, 69, 0.05);
-}
+  .recaptcha-box.verified {
+    border-color: var(--success);
+    background: rgba(40, 167, 69, 0.05);
+  }
 
-.recaptcha-content {
-display: flex;
-align-items: center;
-gap: 0.75rem;
-}
+  .recaptcha-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
 
-.checkbox-container {
-width: 24px;
-height: 24px;
-display: flex;
-align-items: center;
-justify-content: center;
-}
+  .checkbox-container {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-.checkbox {
-width: 24px;
-height: 24px;
-border: 2px solid var(--border-color);
-background: white;
-border-radius: 2px;
-}
+  .checkbox {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--border-color);
+    background: white;
+    border-radius: 2px;
+  }
 
-.spinner {
-width: 20px;
-height: 20px;
-border: 3px solid rgba(0, 0, 0, 0.1);
-border-radius: 50%;
-border-top-color: var(--primary-burgundy);
-animation: spin 1s linear infinite;
-}
+  .spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--primary-burgundy);
+    animation: spin 1s linear infinite;
+  }
 
-.recaptcha-verified {
-display: flex;
-align-items: center;
-gap: 0.75rem;
-color: var(--success);
-font-weight: 600;
-}
+  .recaptcha-verified {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--success);
+    font-weight: 600;
+  }
 
-.check-icon {
-font-size: 1.2rem;
-}
+  .check-icon {
+    font-size: 1.2rem;
+  }
 
-.auth-btn {
-width: 100%;
-padding: 1rem;
-font-size: 1.1rem;
-margin-top: 1rem;
-}
+  .auth-btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+  }
 
-.auth-footer {
-margin-top: 2rem;
-text-align: center;
-color: var(--text-secondary);
-}
+  .auth-footer {
+    margin-top: 2rem;
+    text-align: center;
+    color: var(--text-secondary);
+  }
 
-.auth-footer a {
-color: var(--primary-burgundy);
-font-weight: 600;
-text-decoration: underline;
-}
+  .auth-footer a {
+    color: var(--primary-burgundy);
+    font-weight: 600;
+    text-decoration: underline;
+  }
 
-@keyframes spin {
-to {
-transform: rotate(360deg);
-}
-}
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
 
-.password-wrapper {
-position: relative;
-display: flex;
-align-items: center;
-}
+  .password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
 
-.password-wrapper .form-control {
-width: 100%;
-padding-right: 2.8rem;
-}
+  .password-wrapper .form-control {
+    width: 100%;
+    padding-right: 2.8rem;
+  }
 
-.eye-toggle {
-position: absolute;
-right: 0.75rem;
-background: none;
-border: none;
-cursor: pointer;
-padding: 0;
-display: flex;
-align-items: center;
-justify-content: center;
-color: var(--text-secondary);
-transition: color 0.2s;
-}
+  .eye-toggle {
+    position: absolute;
+    right: 0.75rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    transition: color 0.2s;
+  }
 
-.eye-toggle:hover {
-color: var(--primary-burgundy);
-}
+  .eye-toggle:hover {
+    color: var(--primary-burgundy);
+  }
 
-.eye-toggle svg {
-width: 20px;
-height: 20px;
-}
+  .eye-toggle svg {
+    width: 20px;
+    height: 20px;
+  }
 </style>

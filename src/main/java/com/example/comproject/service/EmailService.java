@@ -75,6 +75,27 @@ public class EmailService {
             Fortify Insurance Team
             """, fullName, email, password);
     }
+
+    public void sendOtpEmail(String toEmail, String otp) {
+        if (mailSender == null) {
+            System.out.println("Email service not configured. Would send OTP to: " + toEmail);
+            System.out.println("OTP: " + otp);
+            return;
+        }
+
+        try {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(toEmail);
+            message.setSubject("Fortify Insurance - Password Reset OTP");
+            message.setText("Your OTP for resetting your password is: " + otp + "\n\nThis OTP is valid for a short time. Please do not share it with anyone.");
+            message.setFrom("noreply@fortifyinsurance.com");
+            
+            mailSender.send(message);
+            System.out.println("OTP email sent to: " + toEmail);
+        } catch (Exception e) {
+            System.err.println("Failed to send OTP email to: " + toEmail + " - " + e.getMessage());
+        }
+    }
     
     private String buildRejectionEmailBody(String fullName, String reason) {
         return String.format("""

@@ -3,7 +3,7 @@
   <aside class="sidebar">
     <div class="sidebar-header">
       <button class="toggle-btn" (click)="toggleSidebar()">
-        <span class="menu-icon">☰</span>
+        <span class="material-icons menu-icon">menu</span>
       </button>
       @if (!isSidebarCollapsed()) {
         <span class="header-text">Agent Console</span>
@@ -12,13 +12,13 @@
 
     <nav class="sidebar-nav">
       <a routerLink="/agent/dashboard" routerLinkActive="active" class="nav-item">
-        <span class="icon">📊</span>
+        <span class="material-icons icon">dashboard</span>
         @if (!isSidebarCollapsed()) {
           <span class="label">Overview</span>
         }
       </a>
       <a routerLink="/agent/requests" routerLinkActive="active" class="nav-item">
-        <span class="icon">📥</span>
+        <span class="material-icons icon">inbox</span>
         @if (!isSidebarCollapsed()) {
           <span class="label">Requests</span>
         }
@@ -26,7 +26,7 @@
 
       <div class="logout-wrapper">
         <a class="nav-item logout-item" (click)="logout()">
-          <span class="icon">🚪</span>
+          <span class="material-icons icon">logout</span>
           @if (!isSidebarCollapsed()) {
             <span class="label">Logout</span>
           }

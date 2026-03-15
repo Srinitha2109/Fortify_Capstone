@@ -30,6 +30,14 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/auth/request-registration`, userData);
   }
 
+  forgotPassword(data: { email: string }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth/forgot-password`, data);
+  }
+
+  resetPassword(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth/reset-password`, data);
+  }
+
   login(credentials: any) {
     this.http.post(`${this.apiUrl}/auth/login`, credentials).subscribe({
       next: (res: any) => {
