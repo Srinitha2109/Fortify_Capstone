@@ -42,7 +42,7 @@ class UserControllerTest {
 
         when(userService.getAllUsers()).thenReturn(Arrays.asList(user));
 
-        mockMvc.perform(get("/api/users"))
+        mockMvc.perform(get("/api/admin/users"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(1))
                 .andExpect(jsonPath("$[0].fullName").value("Test User"));
@@ -56,7 +56,7 @@ class UserControllerTest {
 
         when(userService.getUserById(1L)).thenReturn(user);
 
-        mockMvc.perform(get("/api/users/1"))
+        mockMvc.perform(get("/api/admin/users/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.fullName").value("Test User"));
     }

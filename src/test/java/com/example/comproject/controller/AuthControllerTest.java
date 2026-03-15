@@ -1,8 +1,6 @@
 package com.example.comproject.controller;
 
 import com.example.comproject.dto.LoginRequestDTO;
-import com.example.comproject.dto.LoginResponseDTO;
-import com.example.comproject.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -27,7 +24,13 @@ class AuthControllerTest {
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @Mock
-    private UserService userService;
+    private com.example.comproject.repository.UserRepository userRepository;
+    
+    @Mock
+    private org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
+    
+    @Mock
+    private com.example.comproject.util.JwtUtil jwtUtil;
 
     @InjectMocks
     private AuthController authController;
@@ -42,12 +45,18 @@ class AuthControllerTest {
         LoginRequestDTO request = new LoginRequestDTO();
         request.setEmail("test@example.com");
         request.setPassword("password");
+        request.setRole("POLICYHOLDER");
 
-        LoginResponseDTO response = new LoginResponseDTO();
-        response.setToken("fake-jwt-token");
-        response.setUserId(1L);
+        com.example.comproject.entity.User user = new com.example.comproject.entity.User();
+        user.setId(1L);
+        user.setEmail("test@example.com");
+        user.setPassword("encodedPassword");
+        user.setRole(com.example.comproject.entity.User.Role.POLICYHOLDER);
+        user.setStatus(com.example.comproject.entity.User.Status.ACTIVE);
 
-        when(userService.login(any(LoginRequestDTO.class))).thenReturn(response);
+        when(userRepository.findByEmail("test@example.com")).thenReturn(java.util.Optional.of(user));
+        when(passwordEncoder.matches("password", "encodedPassword")).thenReturn(true);
+        when(jwtUtil.generateToken("test@example.com", "POLICYHOLDER")).thenReturn("fake-jwt-token");
 
         mockMvc.perform(post("/api/auth/login")
                 .contentType(MediaType.APPLICATION_JSON)

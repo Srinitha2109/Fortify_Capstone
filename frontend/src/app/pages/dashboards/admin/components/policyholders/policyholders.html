@@ -1,0 +1,155 @@
+<div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden animate-in fade-in duration-300">
+    <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between">
+        <div>
+            <h2 class="text-lg font-extrabold text-burgundy tracking-tight">Staff Assignment</h2>
+            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-0.5">Manage Agent & Officer
+                assignments for policyholders</p>
+        </div>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="w-full border-collapse">
+            <thead>
+                <tr class="bg-slate-50 border-b border-slate-100">
+                    <th class="px-6 py-4 text-left text-[10px] font-black text-burgundy uppercase tracking-widest">
+                        Policyholder</th>
+                    <th class="px-6 py-4 text-left text-[10px] font-black text-burgundy uppercase tracking-widest">
+                        Business</th>
+                    <th class="px-6 py-4 text-left text-[10px] font-black text-burgundy uppercase tracking-widest">
+                        Industry</th>
+                    <th class="px-6 py-4 text-left text-[10px] font-black text-burgundy uppercase tracking-widest">
+                        Assigned Staff</th>
+                    <th class="px-6 py-4 text-left text-[10px] font-black text-burgundy uppercase tracking-widest">
+                        Action</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+                @for (profile of businessProfiles(); track profile.id) {
+                <tr class="hover:bg-slate-50/50 transition-colors">
+                    <td class="px-6 py-5">
+                        <p class="text-sm font-bold text-slate-800">{{ profile.userFullName }}</p>
+                    </td>
+                    <td class="px-6 py-5 text-sm font-medium text-slate-600">{{ profile.businessName }}</td>
+                    <td class="px-6 py-5">
+                        <span
+                            class="px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold rounded border border-slate-200 uppercase">{{
+                            profile.industry }}</span>
+                    </td>
+                    <td class="px-6 py-5">
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase w-12">Agent:</span>
+                                <span class="text-xs font-bold" [class.text-green-700]="profile.agentName"
+                                    [class.text-amber-600]="!profile.agentName">
+                                    {{ profile.agentName || 'Unassigned' }}
+                                </span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase w-12">Officer:</span>
+                                <span class="text-xs font-bold" [class.text-green-700]="profile.claimOfficerName"
+                                    [class.text-amber-600]="!profile.claimOfficerName">
+                                    {{ profile.claimOfficerName || 'Unassigned' }}
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-5">
+                        <button (click)="openProfileAssignModal(profile)"
+                            class="px-4 py-1.5 bg-burgundy text-white text-[10px] font-bold uppercase rounded hover:bg-burgundy-secondary transition-colors shadow-sm">
+                            {{ profile.agentId ? 'Update' : 'Assign' }}
+                        </button>
+                    </td>
+                </tr>
+                } @empty {
+                <tr>
+                    <td colspan="5" class="px-6 py-20 text-center">
+                        <p class="font-bold text-slate-400 italic">No policyholder profiles found.</p>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Profile Assignment -->
+@if (showProfileAssignment()) {
+<div
+    class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-[2px] animate-in fade-in duration-200">
+    <div
+        class="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden flex flex-col animate-in zoom-in-95 duration-200 border border-slate-200">
+        <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+            <div>
+                <h2 class="text-lg font-extrabold text-burgundy tracking-tight">Staff Assignment</h2>
+                <p class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter">{{
+                    selectedProfile()?.userFullName }}</p>
+            </div>
+            <button (click)="showProfileAssignment.set(false)"
+                class="p-2 text-slate-400 hover:text-red-500 transition-colors">
+                <span class="text-xl font-bold">&times;</span>
+            </button>
+        </div>
+
+        <div class="p-6 space-y-6">
+            @if (assignmentStep() === 1) {
+            <div class="space-y-4">
+                <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                    <p class="text-[11px] font-bold text-slate-600">Please confirm or select the specialization to
+                        filter available staff.</p>
+                </div>
+                <div class="space-y-1">
+                    <label
+                        class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest pl-1">Specialization*</label>
+                    <select [ngModel]="selectedSpecialization()" (ngModelChange)="selectedSpecialization.set($event)"
+                        class="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg outline-none font-bold text-slate-700 focus:border-burgundy">
+                        <option value="TECHNOLOGY">Technology</option>
+                        <option value="CONSTRUCTION">Construction</option>
+                        <option value="MANUFACTURING">Manufacturing</option>
+                        <option value="RETAIL">Retail</option>
+                    </select>
+                </div>
+            </div>
+            } @else {
+            <div class="space-y-5">
+                <div class="space-y-1">
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest pl-1">Assign
+                        Agent*</label>
+                    <select [ngModel]="profileSelectedAgentId()" (ngModelChange)="profileSelectedAgentId.set($event)"
+                        class="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-lg outline-none font-bold text-slate-700 focus:border-burgundy text-sm">
+                        <option [value]="null" disabled>Select an Agent</option>
+                        @for (agent of filteredAgents(); track agent.id) {
+                        <option [value]="agent.id">{{ agent.fullName }} ({{ agent.agentCode }})</option>
+                        }
+                    </select>
+                </div>
+                <div class="space-y-1">
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest pl-1">Assign
+                        Claims Officer*</label>
+                    <select [ngModel]="profileSelectedClaimOfficerId()"
+                        (ngModelChange)="profileSelectedClaimOfficerId.set($event)"
+                        class="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-lg outline-none font-bold text-slate-700 focus:border-burgundy text-sm">
+                        <option [value]="null" disabled>Select an Officer</option>
+                        @for (officer of filteredClaimOfficers(); track officer.id) {
+                        <option [value]="officer.id">{{ officer.user.fullName }} ({{ officer.region }})</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            }
+        </div>
+
+        <div class="px-6 py-4 flex justify-end gap-3 bg-slate-50 border-t border-slate-100">
+            @if (assignmentStep() === 1) {
+            <button (click)="showProfileAssignment.set(false)"
+                class="px-5 py-2 text-slate-600 font-bold text-sm">Cancel</button>
+            <button (click)="goToSelectionStep()"
+                class="px-6 py-2 bg-burgundy text-white font-bold rounded shadow hover:bg-burgundy-secondary">Next</button>
+            } @else {
+            <button (click)="assignmentStep.set(1)" class="px-5 py-2 text-slate-600 font-bold text-sm">Back</button>
+            <button (click)="assignStaffToProfile()"
+                class="px-6 py-2 bg-burgundy text-white font-bold rounded shadow hover:bg-burgundy-secondary">Submit</button>
+            }
+        </div>
+    </div>
+</div>
+}

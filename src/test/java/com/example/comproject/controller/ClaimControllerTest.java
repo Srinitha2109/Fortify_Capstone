@@ -23,6 +23,7 @@ import com.example.comproject.service.ClaimService;
 class ClaimControllerTest {
 
     //mock mvc is used to send the http requests
+    ///verify is used to test whether the methods are called or not verify whether fake service is being called or not
     private MockMvc mockMvc;
 
     @Mock

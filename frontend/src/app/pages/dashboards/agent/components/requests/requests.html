@@ -1,0 +1,178 @@
+<div class="flex flex-col gap-6 w-full max-w-7xl mx-auto p-4 animate-in fade-in duration-500">
+    <!-- Header -->
+    <div
+        class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col md:flex-row gap-6 items-center justify-between">
+        <div>
+            <h1 class="text-2xl font-black text-burgundy tracking-tight">Pending Requests</h1>
+            <p class="text-xs text-slate-500 font-bold uppercase mt-1">Review and approve policy applications</p>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="bg-burgundy/5 px-4 py-2 rounded-xl border border-burgundy/10 text-center">
+                <span class="block text-[10px] font-black uppercase text-burgundy/60 tracking-widest">Pending</span>
+                <span class="text-lg font-black text-burgundy">{{ pendingCount() }} Applications</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- content table -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <table class="w-full text-left border-collapse">
+            <thead>
+                <tr class="bg-slate-50 border-b border-slate-100">
+                    <th class="px-6 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">Applicant /
+                        Business</th>
+                    <th class="px-6 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">Policy Details
+                    </th>
+                    <th class="px-6 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">Coverage &
+                        Premium</th>
+                    <th class="px-6 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">Status</th>
+                    <th class="px-6 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-50">
+                @for (req of requests(); track req.id) {
+                <tr class="hover:bg-slate-50/50 transition-colors group">
+                    <td class="px-6 py-5">
+                        <div class="flex flex-col">
+                            <span class="text-sm font-black text-slate-700">{{ req.businessName }}</span>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">ID: {{
+                                req.policyNumber }}</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-5">
+                        <div class="flex flex-col">
+                            <span class="text-sm font-bold text-slate-600">Plan ID: {{ req.planId }}</span>
+                            <span class="text-[10px] font-black text-burgundy/60 uppercase tracking-widest">{{
+                                req.paymentPlan }}</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-5">
+                        <div class="flex flex-col">
+                            <span class="text-xs font-bold text-slate-500">Cov: {{ req.selectedCoverageAmount | currency
+                                }}</span>
+                            <span class="text-sm font-black text-burgundy">Prem: {{ req.premiumAmount | currency
+                                }}</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-5">
+                        <span class="px-2.5 py-1 text-[10px] font-black uppercase rounded-lg"
+                            [ngClass]="req.status === 'SUBMITTED' ? 'bg-sky-100 text-sky-600' : 'bg-slate-100 text-slate-600'">
+                            {{ req.status }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-5 whitespace-nowrap">
+                        @if (req.status === 'APPROVED' || req.status === 'ACTIVE') {
+                        <span
+                            class="px-5 py-2.5 bg-emerald-50 text-emerald-600 text-[10px] font-black uppercase rounded-xl border border-emerald-100 flex items-center justify-center gap-2">
+                            <span class="text-emerald-500">✓</span> Approved
+                        </span>
+                        } @else if (req.status === 'REJECTED') {
+                        <span
+                            class="px-5 py-2.5 bg-rose-50 text-rose-600 text-[10px] font-black uppercase rounded-xl border border-rose-100 flex items-center justify-center gap-2">
+                            <span class="text-rose-500">✕</span> Rejected
+                        </span>
+                        } @else {
+                        <button (click)="openReview(req)"
+                            class="w-full px-4 py-2.5 bg-burgundy text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-burgundy/90 transition-all shadow-md shadow-burgundy/20 hover:scale-[1.02] active:scale-95">
+                            Review Request
+                        </button>
+                        }
+                    </td>
+                </tr>
+                } @empty {
+                <tr>
+                    <td colspan="5" class="px-6 py-20 text-center">
+                        <div class="flex flex-col items-center gap-3">
+                            <span class="text-4xl grayscale opacity-30">📥</span>
+                            <p class="text-slate-500 font-bold uppercase text-xs tracking-widest">No pending
+                                applications assigned for you</p>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Review Modal -->
+@if (selectedReq()) {
+<div
+    class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm animate-in fade-in duration-200">
+    <div
+        class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col animate-in zoom-in-95 duration-200">
+        <div class="px-8 py-6 border-b border-slate-100 flex items-center justify-between bg-burgundy/5">
+            <div>
+                <h2 class="text-xl font-black text-burgundy tracking-tight">Review Application</h2>
+                <p class="text-xs text-slate-500 font-bold mt-1">{{ selectedReq()?.businessName }}</p>
+            </div>
+            <button (click)="closeReview()"
+                class="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors">
+                <span class="text-2xl leading-none">×</span>
+            </button>
+        </div>
+
+        <div class="px-8 py-8 flex-1 overflow-y-auto space-y-8">
+            <!-- Business Profile details -->
+            <div class="space-y-4">
+                <h4
+                    class="text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 pb-2">
+                    Business Profile</h4>
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="space-y-1">
+                        <span class="block text-[8px] font-black text-slate-400 uppercase">Industry</span>
+                        <span class="text-sm font-bold text-slate-700">{{ selectedReq()?.industry || 'N/A' }}</span>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="block text-[8px] font-black text-slate-400 uppercase">Employee Count</span>
+                        <span class="text-sm font-bold text-slate-700">{{ selectedReq()?.employeeCount }}
+                            Employees</span>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="block text-[8px] font-black text-slate-400 uppercase">Annual Revenue</span>
+                        <span class="text-sm font-bold text-slate-700">{{ selectedReq()?.annualRevenue | currency
+                            }}</span>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="block text-[8px] font-black text-slate-400 uppercase">Payment Plan</span>
+                        <span class="text-sm font-black text-burgundy">{{ selectedReq()?.paymentPlan }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action field: Reason for rejection -->
+            @if (isRejecting()) {
+            <div class="space-y-3">
+                <label class="block text-xs font-black text-rose-600 uppercase tracking-widest">Reason for
+                    Rejection</label>
+                <textarea [(ngModel)]="rejectionReason"
+                    placeholder="Please provide a clear reason for rejecting this application..."
+                    class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-4 focus:ring-rose-500/10 focus:border-rose-500 transition-all font-bold text-slate-700 text-sm h-24 resize-none"></textarea>
+            </div>
+            }
+        </div>
+
+        <div class="px-8 py-5 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
+            @if (!isRejecting()) {
+            <button (click)="isRejecting.set(true)"
+                class="px-6 py-2.5 text-rose-600 font-bold text-sm hover:bg-rose-50 rounded-xl transition-colors">
+                Reject
+            </button>
+            <button (click)="approve()"
+                class="px-8 py-2.5 bg-emerald-500 text-white font-black text-sm rounded-xl hover:bg-emerald-600 transition-all shadow-md shadow-emerald-500/20">
+                Approve Application
+            </button>
+            } @else {
+            <button (click)="isRejecting.set(false)"
+                class="px-6 py-2.5 text-slate-600 font-bold text-sm hover:bg-slate-200/50 rounded-xl transition-colors">
+                Back
+            </button>
+            <button (click)="confirmReject()" [disabled]="!rejectionReason"
+                class="px-8 py-2.5 bg-rose-600 text-white font-black text-sm rounded-xl hover:bg-rose-700 transition-all shadow-md shadow-rose-600/20 disabled:opacity-50">
+                Confirm Rejection
+            </button>
+            }
+        </div>
+    </div>
+</div>
+}

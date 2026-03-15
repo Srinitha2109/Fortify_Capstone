@@ -1,0 +1,77 @@
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+    <div (click)="navigateTo('requests')"
+        class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col items-center justify-center cursor-pointer hover:bg-slate-50 transition-colors group">
+        <span
+            class="text-xs text-slate-500 font-bold uppercase tracking-widest text-center group-hover:text-burgundy transition-colors">Pending
+            Requests</span>
+        <span class="text-4xl font-black text-burgundy mt-2 text-center">{{ stats().pending }}</span>
+        <span
+            class="inline-block mt-3 px-3 py-1 bg-amber-100 text-amber-800 text-[10px] font-black uppercase rounded-full tracking-tighter shadow-sm">Action
+            Required</span>
+    </div>
+
+    <div (click)="navigateTo('users')"
+        class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col items-center justify-center cursor-pointer hover:bg-slate-50 transition-colors group">
+        <span class="text-xs text-slate-500 font-bold uppercase tracking-widest text-center">Total Users</span>
+        <span class="text-4xl font-black text-burgundy mt-2 text-center">{{ stats().totalUsers }}</span>
+        <span class="text-[10px] text-slate-400 font-bold uppercase mt-1">Active Accounts</span>
+    </div>
+
+    <div (click)="navigateTo('policies')"
+        class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col items-center justify-center cursor-pointer hover:bg-slate-50 transition-colors group">
+        <span
+            class="text-xs text-slate-500 font-bold uppercase tracking-widest text-center group-hover:text-pink transition-colors">Total
+            Policies</span>
+        <span class="text-4xl font-black text-pink mt-2 text-center">{{ stats().totalPolicies }}</span>
+        <span class="text-[10px] text-slate-400 font-bold uppercase mt-1">Insurance Products</span>
+    </div>
+</div>
+
+<!-- Recent Requests -->
+<div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+    <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between">
+        <h2 class="text-lg font-extrabold text-burgundy tracking-tight">Recent Registration Requests</h2>
+        <button (click)="navigateTo('requests')"
+            class="px-4 py-1.5 bg-burgundy text-white text-xs font-bold rounded-lg hover:bg-burgundy-secondary transition-colors shadow-sm">
+            View All
+        </button>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="w-full border-collapse">
+            <thead>
+                <tr class="bg-slate-50 border-b border-slate-100">
+                    <th class="px-6 py-4 text-left text-[10px] font-black text-burgundy uppercase tracking-widest">Full
+                        Name</th>
+                    <th class="px-6 py-4 text-left text-[10px] font-black text-burgundy uppercase tracking-widest">
+                        Contact Email</th>
+                    <th class="px-6 py-4 text-left text-[10px] font-black text-burgundy uppercase tracking-widest">Role
+                    </th>
+                    <th class="px-6 py-4 text-left text-[10px] font-black text-burgundy uppercase tracking-widest">
+                        Status</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+                @for (req of recentRequests(); track req) {
+                <tr class="hover:bg-slate-50/50 transition-colors">
+                    <td class="px-6 py-5">
+                        <p class="text-sm font-bold text-slate-800">{{ req.fullName }}</p>
+                        <p class="text-[10px] text-slate-500 font-semibold uppercase tracking-tighter">{{
+                            req.businessName || 'Individual' }}</p>
+                    </td>
+                    <td class="px-6 py-5 text-sm font-medium text-slate-600">{{ req.email }}</td>
+                    <td class="px-6 py-5">
+                        <span
+                            class="px-2 py-1 bg-burgundy/5 text-burgundy text-[9px] font-bold uppercase rounded border border-burgundy/10">{{
+                            req.role }}</span>
+                    </td>
+                    <td class="px-6 py-5">
+                        <span
+                            class="px-2.5 py-1 bg-amber-100 text-amber-700 text-[10px] font-bold uppercase rounded-full">{{
+                            req.status }}</span>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

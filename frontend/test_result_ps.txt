@@ -1,0 +1,208 @@
+﻿[1mInitial chunk files[22m                                                      [2m | [22m[1mNames[22m                                                                 [2m | [22m [1mRaw size[22m
+[32mstyles.css[39m                                                               [2m | [22m[2mstyles[22m                                                                [2m | [22m [36m71.12 kB[39m[2m | [22m
+[32mspec-app-pages-dashboards-policyholder-applications-applications.js[39m      [2m | [22m[2mspec-app-pages-dashboards-policyholder-applications-applications[22m      [2m | [22m [36m57.55 kB[39m[2m | [22m
+[32mspec-app-pages-register-register.js[39m                                      [2m | [22m[2mspec-app-pages-register-register[22m                                      [2m | [22m [36m56.97 kB[39m[2m | [22m
+[32mspec-app-pages-dashboards-policyholder-policies-policies.js[39m              [2m | [22m[2mspec-app-pages-dashboards-policyholder-policies-policies[22m              [2m | [22m [36m54.57 kB[39m[2m | [22m
+[32mspec-app-pages-dashboards-admin-components-policies-policies.js[39m          [2m | [22m[2mspec-app-pages-dashboards-admin-components-policies-policies[22m          [2m | [22m [36m52.40 kB[39m[2m | [22m
+[32mspec-app-pages-dashboards-agent-components-requests-requests.js[39m          [2m | [22m[2mspec-app-pages-dashboards-agent-components-requests-requests[22m          [2m | [22m [36m36.99 kB[39m[2m | [22m
+[32mspec-app-pages-dashboards-claim-officer-components-requests-requests.js[39m  [2m | [22m[2mspec-app-pages-dashboards-claim-officer-components-requests-requests[22m  [2m | [22m [36m36.90 kB[39m[2m | [22m
+[32mspec-app-pages-dashboards-admin-components-policyholders-policyholders.js[39m[2m | [22m[2mspec-app-pages-dashboards-admin-components-policyholders-policyholders[22m[2m | [22m [36m35.18 kB[39m[2m | [22m
+[32mspec-app-pages-login-login.js[39m                                            [2m | [22m[2mspec-app-pages-login-login[22m                                            [2m | [22m [36m31.06 kB[39m[2m | [22m
+[32mspec-app-pages-dashboards-claim-officer-components-overview-overview.js[39m  [2m | [22m[2mspec-app-pages-dashboards-claim-officer-components-overview-overview[22m  [2m | [22m [36m27.48 kB[39m[2m | [22m
+[32mspec-app-pages-dashboards-policyholder-payments-payments.js[39m              [2m | [22m[2mspec-app-pages-dashboards-policyholder-payments-payments[22m              [2m | [22m [36m26.90 kB[39m[2m | [22m
+[32mspec-app-pages-dashboards-agent-agent.js[39m                                 [2m | [22m[2mspec-app-pages-dashboards-agent-agent[22m                                 [2m | [22m [36m23.09 kB[39m[2m | [22m
+[32mspec-app-pages-dashboards-agent-components-overview-overview.js[39m          [2m | [22m[2mspec-app-pages-dashboards-agent-components-overview-overview[22m          [2m | [22m [36m22.03 kB[39m[2m | [22m
+[32mspec-app-pages-dashboards-policyholder-policyholder.js[39m                   [2m | [22m[2mspec-app-pages-dashboards-policyholder-policyholder[22m                   [2m | [22m [36m21.50 kB[39m[2m | [22m
+[32mchunk-B4HF2O6X.js[39m                                                        [2m | [22m[2m-[22m                                                                     [2m | [22m [36m21.36 kB[39m[2m | [22m
+[32mspec-app-pages-dashboards-admin-components-users-users.js[39m                [2m | [22m[2mspec-app-pages-dashboards-admin-components-users-users[22m                [2m | [22m [36m18.88 kB[39m[2m | [22m
+[32mspec-app-pages-dashboards-policyholder-overview-overview.js[39m              [2m | [22m[2mspec-app-pages-dashboards-policyholder-overview-overview[22m              [2m | [22m [36m18.82 kB[39m[2m | [22m
+[32mspec-app-pages-dashboards-admin-admin.js[39m                                 [2m | [22m[2mspec-app-pages-dashboards-admin-admin[22m                                 [2m | [22m [36m17.32 kB[39m[2m | [22m
+[32mspec-app-pages-dashboards-policyholder-claims-claims.js[39m                  [2m | [22m[2mspec-app-pages-dashboards-policyholder-claims-claims[22m                  [2m | [22m [36m17.14 kB[39m[2m | [22m
+[32mspec-app-pages-dashboards-admin-components-overview-overview.js[39m          [2m | [22m[2mspec-app-pages-dashboards-admin-components-overview-overview[22m          [2m | [22m [36m17.00 kB[39m[2m | [22m
+[32mspec-app-app.js[39m                                                          [2m | [22m[2mspec-app-app[22m                                                          [2m | [22m [36m16.43 kB[39m[2m | [22m
+[32mspec-app-pages-landing-landing.js[39m                                        [2m | [22m[2mspec-app-pages-landing-landing[22m                                        [2m | [22m [36m15.71 kB[39m[2m | [22m
+[32mspec-app-pages-dashboards-admin-components-requests-requests.js[39m          [2m | [22m[2mspec-app-pages-dashboards-admin-components-requests-requests[22m          [2m | [22m [36m14.47 kB[39m[2m | [22m
+[32mspec-app-pages-dashboards-claim-officer-claim-officer.js[39m                 [2m | [22m[2mspec-app-pages-dashboards-claim-officer-claim-officer[22m                 [2m | [22m [36m12.21 kB[39m[2m | [22m
+[32mspec-app-services-auth.js[39m                                                [2m | [22m[2mspec-app-services-auth[22m                                                [2m | [22m  [36m5.88 kB[39m[2m | [22m
+[32mspec-app-shared-notification-bell-notification-bell.component.js[39m         [2m | [22m[2mspec-app-shared-notification-bell-notification-bell.component[22m         [2m | [22m  [36m5.58 kB[39m[2m | [22m
+[32mspec-app-services-policy.js[39m                                              [2m | [22m[2mspec-app-services-policy[22m                                              [2m | [22m  [36m4.88 kB[39m[2m | [22m
+[32mspec-app-services-admin.js[39m                                               [2m | [22m[2mspec-app-services-admin[22m                                               [2m | [22m  [36m4.83 kB[39m[2m | [22m
+[32mchunk-RSTWSNOR.js[39m                                                        [2m | [22m[2m-[22m                                                                     [2m | [22m  [36m4.75 kB[39m[2m | [22m
+[32mspec-app-services-policy-application.js[39m                                  [2m | [22m[2mspec-app-services-policy-application[22m                                  [2m | [22m  [36m4.30 kB[39m[2m | [22m
+[32mspec-app-guards-auth.guard.js[39m                                            [2m | [22m[2mspec-app-guards-auth.guard[22m                                            [2m | [22m  [36m3.93 kB[39m[2m | [22m
+[32mspec-app-services-claim.js[39m                                               [2m | [22m[2mspec-app-services-claim[22m                                               [2m | [22m  [36m3.67 kB[39m[2m | [22m
+[32mspec-app-interceptors-loading.interceptor.js[39m                             [2m | [22m[2mspec-app-interceptors-loading.interceptor[22m                             [2m | [22m  [36m3.54 kB[39m[2m | [22m
+[32mspec-app-services-in-app-notification.js[39m                                 [2m | [22m[2mspec-app-services-in-app-notification[22m                                 [2m | [22m  [36m3.46 kB[39m[2m | [22m
+[32mchunk-RAVBWAZH.js[39m                                                        [2m | [22m[2m-[22m                                                                     [2m | [22m  [36m2.86 kB[39m[2m | [22m
+[32mspec-app-services-theme.js[39m                                               [2m | [22m[2mspec-app-services-theme[22m                                               [2m | [22m  [36m2.85 kB[39m[2m | [22m
+[32mchunk-QSMSIPLE.js[39m                                                        [2m | [22m[2m-[22m                                                                     [2m | [22m  [36m2.85 kB[39m[2m | [22m
+[32mspec-app-interceptors-auth.interceptor.js[39m                                [2m | [22m[2mspec-app-interceptors-auth.interceptor[22m                                [2m | [22m  [36m2.82 kB[39m[2m | [22m
+[32mspec-app-services-notification.js[39m                                        [2m | [22m[2mspec-app-services-notification[22m                                        [2m | [22m  [36m2.75 kB[39m[2m | [22m
+[32mchunk-LOJBO5EX.js[39m                                                        [2m | [22m[2m-[22m                                                                     [2m | [22m  [36m2.23 kB[39m[2m | [22m
+[32mspec-app-services-business-profile.js[39m                                    [2m | [22m[2mspec-app-services-business-profile[22m                                    [2m | [22m  [36m2.15 kB[39m[2m | [22m
+[32mchunk-46L4GFJ7.js[39m                                                        [2m | [22m[2m-[22m                                                                     [2m | [22m  [36m1.97 kB[39m[2m | [22m
+[32mspec-app-services-payment.js[39m                                             [2m | [22m[2mspec-app-services-payment[22m                                             [2m | [22m  [36m1.94 kB[39m[2m | [22m
+[32mspec-app-services-loading.js[39m                                             [2m | [22m[2mspec-app-services-loading[22m                                             [2m | [22m  [36m1.94 kB[39m[2m | [22m
+[32mchunk-AWGIDJCN.js[39m                                                        [2m | [22m[2m-[22m                                                                     [2m | [22m  [36m1.54 kB[39m[2m | [22m
+[32mchunk-HYI27SST.js[39m                                                        [2m | [22m[2m-[22m                                                                     [2m | [22m  [36m1.46 kB[39m[2m | [22m
+[32mchunk-PMZPMNFS.js[39m                                                        [2m | [22m[2m-[22m                                                                     [2m | [22m  [36m1.43 kB[39m[2m | [22m
+[32mchunk-5RXFG3L4.js[39m                                                        [2m | [22m[2m-[22m                                                                     [2m | [22m  [36m1.32 kB[39m[2m | [22m
+[32mchunk-4OUI6OER.js[39m                                                        [2m | [22m[2m-[22m                                                                     [2m | [22m  [36m1.28 kB[39m[2m | [22m
+[32minit-testbed.js[39m                                                          [2m | [22m[2minit-testbed[22m                                                          [2m | [22m  [36m1.21 kB[39m[2m | [22m
+[32mchunk-53HYFCGD.js[39m                                                        [2m | [22m[2m-[22m                                                                     [2m | [22m  [36m1.19 kB[39m[2m | [22m
+[32mspec-app-services-policy-search.js[39m                                       [2m | [22m[2mspec-app-services-policy-search[22m                                       [2m | [22m  [36m1.14 kB[39m[2m | [22m
+[32mchunk-U4YSNBVX.js[39m                                                        [2m | [22m[2m-[22m                                                                     [2m | [22m  [36m1.14 kB[39m[2m | [22m
+[32mchunk-FFZDM35B.js[39m                                                        [2m | [22m[2m-[22m                                                                     [2m | [22m[36m968 bytes[39m[2m | [22m
+[32mvitest-mock-patch.js[39m                                                     [2m | [22m[2mvitest-mock-patch[22m                                                     [2m | [22m[36m481 bytes[39m[2m | [22m
+
+[1m [22m                                                                        [2m | [22m[1mInitial total[22m                                                         [2m | [22m[1m805.45 kB[22m
+
+Application bundle generation complete. [13.693 seconds] - 2026-03-14T14:21:46.910Z
+
+
+[1m[46m RUN [49m[22m [36mv4.0.18 [39m[90mC:/fortify_capstone/Fortify_Capstone/frontend[39m
+
+ [31mΓ¥»[39m [30m[43m frontend [49m[39m src/app/services/notification.spec.ts [2m([22m[2m0 test[22m[2m)[22m
+ [31mΓ¥»[39m [30m[43m frontend [49m[39m src/app/interceptors/auth.interceptor.spec.ts [2m([22m[2m0 test[22m[2m)[22m
+ [31mΓ¥»[39m [30m[43m frontend [49m[39m src/app/services/loading.spec.ts [2m([22m[2m0 test[22m[2m)[22m
+ [31mΓ¥»[39m [30m[43m frontend [49m[39m src/app/services/theme.spec.ts [2m([22m[2m8 tests[22m[2m | [22m[31m8 failed[39m[2m)[22m[32m 230[2mms[22m[39m
+[31m     [31m├ù[31m should be created[39m[32m 133[2mms[22m[39m
+[31m     [31m├ù[31m should use light theme by default when no preference is saved[39m[32m 17[2mms[22m[39m
+[31m     [31m├ù[31m should restore theme from localStorage (dark)[39m[32m 15[2mms[22m[39m
+[31m     [31m├ù[31m should restore theme from localStorage (light)[39m[32m 12[2mms[22m[39m
+[31m     [31m├ù[31m should toggle from light to dark[39m[32m 15[2mms[22m[39m
+[31m     [31m├ù[31m should toggle from dark to light[39m[32m 12[2mms[22m[39m
+[31m     [31m├ù[31m should apply dark theme attribute when dark is set[39m[32m 9[2mms[22m[39m
+[31m     [31m├ù[31m should remove data-theme attribute when light is set[39m[32m 9[2mms[22m[39m
+ [31mΓ¥»[39m [30m[43m frontend [49m[39m src/app/interceptors/loading.interceptor.spec.ts [2m([22m[2m0 test[22m[2m)[22m
+ [31mΓ¥»[39m [30m[43m frontend [49m[39m src/app/services/auth.spec.ts [2m([22m[2m0 test[22m[2m)[22m
+ [31mΓ¥»[39m [30m[43m frontend [49m[39m src/app/app.spec.ts [2m([22m[2m1 test[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 361[2mms[22m[39m
+[31m     [31m├ù[31m should create the app[39m[33m 354[2mms[22m[39m
+ [31mΓ¥»[39m [30m[43m frontend [49m[39m src/app/pages/dashboards/policyholder/overview/overview.spec.ts [2m([22m[2m5 tests[22m[2m | [22m[31m5 failed[39m[2m)[22m[33m 479[2mms[22m[39m
+[31m     [31m├ù[31m should create[39m[33m 433[2mms[22m[39m
+[31m     [31m├ù[31m should fetch data and calculate counts correctly[39m[32m 5[2mms[22m[39m
+[31m     [31m├ù[31m should handle missing userId[39m[32m 3[2mms[22m[39m
+[31m     [31m├ù[31m should handle policy fetch error[39m[32m 19[2mms[22m[39m
+[31m     [31m├ù[31m should handle application fetch error[39m[32m 12[2mms[22m[39m
+ [31mΓ¥»[39m [30m[43m frontend [49m[39m src/app/pages/dashboards/claim-officer/components/overview/overview.spec.ts [2m([22m[2m0 test[22m[2m)[22m
+ [31mΓ¥»[39m [30m[43m frontend [49m[39m src/app/pages/login/login.spec.ts [2m([22m[2m0 test[22m[2m)[22m
+ [31mΓ¥»[39m [30m[43m frontend [49m[39m src/app/pages/dashboards/claim-officer/components/requests/requests.spec.ts [2m([22m[2m0 test[22m[2m)[22m
+ [32mΓ£ô[39m [30m[43m frontend [49m[39m src/app/pages/dashboards/admin/admin.spec.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 1359[2mms[22m[39m
+     [33m[2mΓ£ô[22m[39m should create [33m 1008[2mms[22m[39m
+ [31mΓ¥»[39m [30m[43m frontend [49m[39m src/app/pages/dashboards/policyholder/policies/policies.spec.ts [2m([22m[2m0 test[22m[2m)[22m
+ [32mΓ£ô[39m [30m[43m frontend [49m[39m src/app/pages/dashboards/claim-officer/claim-officer.spec.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 1597[2mms[22m[39m
+     [33m[2mΓ£ô[22m[39m should create [33m 1140[2mms[22m[39m
+ [31mΓ¥»[39m [30m[43m frontend [49m[39m src/app/shared/notification-bell/notification-bell.component.spec.ts [2m([22m[2m21 tests[22m[2m | [22m[31m21 failed[39m[2m)[22m[33m 2800[2mms[22m[39m
+[31m     [31m├ù[31m should create[39m[33m 1016[2mms[22m[39m
+[31m     [31m├ù[31m should start with dropdown closed[39m[32m 113[2mms[22m[39m
+[31m     [31m├ù[31m should toggle dropdown open on toggleDropdown()[39m[32m 87[2mms[22m[39m
+[31m     [31m├ù[31m should close dropdown on closeDropdown()[39m[32m 57[2mms[22m[39m
+[31m     [31m├ù[31m should toggle dropdown off when already open[39m[32m 63[2mms[22m[39m
+[31m     [31m├ù[31m should return correct icon class for APPLICATION_APPROVED[39m[32m 61[2mms[22m[39m
+[31m     [31m├ù[31m should return correct icon class for APPLICATION_REJECTED[39m[32m 78[2mms[22m[39m
+[31m     [31m├ù[31m should return correct icon class for CLAIM_RAISED[39m[32m 64[2mms[22m[39m
+[31m     [31m├ù[31m should return correct icon class for CLAIM_APPROVED[39m[32m 74[2mms[22m[39m
+[31m     [31m├ù[31m should return correct icon class for CLAIM_REJECTED[39m[32m 55[2mms[22m[39m
+[31m     [31m├ù[31m should return correct icon class for NEW_POLICY[39m[32m 267[2mms[22m[39m
+[31m     [31m├ù[31m should return correct icon class for APPLICATION_SUBMITTED[39m[32m 112[2mms[22m[39m
+[31m     [31m├ù[31m should return "default" icon class for unknown type[39m[32m 56[2mms[22m[39m
+[31m     [31m├ù[31m should return "Just now" for a createdAt less than 1 minute ago[39m[32m 121[2mms[22m[39m
+[31m     [31m├ù[31m should return minutes ago for recent notifications[39m[32m 146[2mms[22m[39m
+[31m     [31m├ù[31m should return hours ago for notifications within 24 hours[39m[32m 197[2mms[22m[39m
+[31m     [31m├ù[31m should return days ago for notifications within a week[39m[32m 50[2mms[22m[39m
+[31m     [31m├ù[31m should return empty string for null/empty createdAt[39m[32m 54[2mms[22m[39m
+[31m     [31m├ù[31m should call notifService.markAsRead when markRead() is called with unread notification[39m[32m 38[2mms[22m[39m
+[31m     [31m├ù[31m should NOT call notifService.markAsRead for already read notification[39m[32m 39[2mms[22m[39m
+[31m     [31m├ù[31m should call notifService.markAllAsRead when markAllRead() is called[39m[32m 46[2mms[22m[39m
+ [31mΓ¥»[39m [30m[43m frontend [49m[39m src/app/pages/dashboards/agent/agent.spec.ts [2m([22m[2m11 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 2942[2mms[22m[39m
+     [33m[2mΓ£ô[22m[39m should create [33m 1115[2mms[22m[39m
+     [32mΓ£ô[39m should start with sidebar not collapsed[32m 291[2mms[22m[39m
+     [33m[2mΓ£ô[22m[39m should toggle sidebar collapsed state [33m 396[2mms[22m[39m
+     [32mΓ£ô[39m should call authService.logout when logout() is called[32m 213[2mms[22m[39m
+     [32mΓ£ô[39m should get initials from full name[32m 110[2mms[22m[39m
+[31m     [31m├ù[31m should get initials from single-word name (first 2 chars)[39m[32m 116[2mms[22m[39m
+     [32mΓ£ô[39m should return "AG" for null name[32m 142[2mms[22m[39m
+     [32mΓ£ô[39m should return "AG" for undefined name[32m 145[2mms[22m[39m
+     [32mΓ£ô[39m should return "AG" for empty string name[32m 120[2mms[22m[39m
+     [32mΓ£ô[39m should handle three-word names and take first two initials[32m 179[2mms[22m[39m
+     [32mΓ£ô[39m should expose currentUser from authService[32m 110[2mms[22m[39m
+ [31mΓ¥»[39m [30m[43m frontend [49m[39m src/app/pages/dashboards/agent/components/overview/overview.spec.ts [2m([22m[2m6 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 605[2mms[22m[39m
+[31m     [31m├ù[31m should create[39m[32m 34[2mms[22m[39m
+     [32mΓ£ô[39m should load applications on init[32m 183[2mms[22m[39m
+     [32mΓ£ô[39m should calculate pending and approved counts correctly[32m 121[2mms[22m[39m
+     [32mΓ£ô[39m should slice recent requests to 5[32m 104[2mms[22m[39m
+     [32mΓ£ô[39m should generate correct initials[32m 120[2mms[22m[39m
+     [32mΓ£ô[39m should handle error when loading applications[32m 42[2mms[22m[39m
+ [32mΓ£ô[39m [30m[43m frontend [49m[39m src/app/pages/dashboards/policyholder/policyholder.spec.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 1627[2mms[22m[39m
+     [33m[2mΓ£ô[22m[39m should create [33m 904[2mms[22m[39m
+ [32mΓ£ô[39m [30m[43m frontend [49m[39m src/app/services/policy-application.spec.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 197[2mms[22m[39m
+ [32mΓ£ô[39m [30m[43m frontend [49m[39m src/app/pages/dashboards/agent/components/requests/requests.spec.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 821[2mms[22m[39m
+     [33m[2mΓ£ô[22m[39m should create [33m 396[2mms[22m[39m
+ [32mΓ£ô[39m [30m[43m frontend [49m[39m src/app/pages/dashboards/policyholder/claims/claims.spec.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 411[2mms[22m[39m
+ [32mΓ£ô[39m [30m[43m frontend [49m[39m src/app/services/admin.spec.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 173[2mms[22m[39m
+ [32mΓ£ô[39m [30m[43m frontend [49m[39m src/app/pages/dashboards/admin/components/requests/requests.spec.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 246[2mms[22m[39m
+ [32mΓ£ô[39m [30m[43m frontend [49m[39m src/app/pages/dashboards/admin/components/users/users.spec.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 715[2mms[22m[39m
+ [32mΓ£ô[39m [30m[43m frontend [49m[39m src/app/services/claim.spec.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 73[2mms[22m[39m
+[90mstdout[2m | src/app/services/in-app-notification.spec.ts[2m > [22m[2mInAppNotificationService[2m > [22m[2mshould markAsRead by id via PUT
+[22m[39msending put request to 1/read
+successfully marked read 1
+
+ [32mΓ£ô[39m [30m[43m frontend [49m[39m src/app/pages/landing/landing.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 162[2mms[22m[39m
+ [32mΓ£ô[39m [30m[43m frontend [49m[39m src/app/services/in-app-notification.spec.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 134[2mms[22m[39m
+ [32mΓ£ô[39m [30m[43m frontend [49m[39m src/app/services/policy.spec.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 301[2mms[22m[39m
+ [32mΓ£ô[39m [30m[43m frontend [49m[39m src/app/pages/dashboards/admin/components/policies/policies.spec.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 1469[2mms[22m[39m
+     [33m[2mΓ£ô[22m[39m should create [33m 861[2mms[22m[39m
+ [32mΓ£ô[39m [30m[43m frontend [49m[39m src/app/services/payment.spec.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+ [32mΓ£ô[39m [30m[43m frontend [49m[39m src/app/services/business-profile.spec.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 63[2mms[22m[39m
+ [32mΓ£ô[39m [30m[43m frontend [49m[39m src/app/guards/auth.guard.spec.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 70[2mms[22m[39m
+ [32mΓ£ô[39m [30m[43m frontend [49m[39m src/app/pages/dashboards/admin/components/policyholders/policyholders.spec.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 759[2mms[22m[39m
+ [32mΓ£ô[39m [30m[43m frontend [49m[39m src/app/services/policy-search.spec.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 33[2mms[22m[39m
+ [32mΓ£ô[39m [30m[43m frontend [49m[39m src/app/pages/dashboards/policyholder/applications/applications.spec.ts [2m([22m[2m13 tests[22m[2m)[22m[33m 1401[2mms[22m[39m
+     [33m[2mΓ£ô[22m[39m should create [33m 900[2mms[22m[39m
+ [32mΓ£ô[39m [30m[43m frontend [49m[39m src/app/pages/dashboards/admin/components/overview/overview.spec.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 532[2mms[22m[39m
+ [32mΓ£ô[39m [30m[43m frontend [49m[39m src/app/pages/register/register.spec.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 2034[2mms[22m[39m
+     [33m[2mΓ£ô[22m[39m should create [33m 891[2mms[22m[39m
+[90mstdout[2m | src/app/pages/dashboards/policyholder/payments/payments.spec.ts[2m > [22m[2mPolicyholder PaymentsComponent[2m > [22m[2mshould create
+[22m[39mPayments loaded: [
+  {
+    id: [33m1[39m,
+    amount: [33m100[39m,
+    paymentDate: [32m'2025-01-01'[39m,
+    paymentMethod: [32m'CARD'[39m,
+    status: [32m'SUCCESS'[39m
+  },
+  {
+    id: [33m2[39m,
+    amount: [33m200[39m,
+    paymentDate: [32m'2025-02-01'[39m,
+    paymentMethod: [32m'CARD'[39m,
+    status: [32m'SUCCESS'[39m
+  }
+]
+
+[90mstdout[2m | src/app/pages/dashboards/policyholder/payments/payments.spec.ts[2m > [22m[2mPolicyholder PaymentsComponent[2m > [22m[2mshould load payments on init
+[22m[39mPayments loaded: [
+  {
+    id: [33m1[39m,
+    amount: [33m100[39m,
+    paymentDate: [32m'2025-01-01'[39m,
+    paymentMethod: [32m'CARD'[39m,
+    status: [32m'SUCCESS'[39m
+  },
+  {
+    id: [33m2[39m,
+    amount: [33m200[39m,
+    paymentDate: [32m'2025-02-01'[39m,
+    paymentMethod: [32m'CARD'[39m,
+    status: [32m'SUCCESS'[39m
+  }
+]
+
+ [32mΓ£ô[39m [30m[43m frontend [49m[39m src/app/pages/dashboards/policyholder/payments/payments.spec.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 897[2mms[22m[39m
+     [33m[2mΓ£ô[22m[39m should create [33m 490[2mms[22m[39m
+
+[2m Test Files [22m [1m[31m15 failed[39m[22m[2m | [22m[1m[32m23 passed[39m[22m[90m (38)[39m
+[2m      Tests [22m [1m[31m37 failed[39m[22m[2m | [22m[1m[32m171 passed[39m[22m[90m (208)[39m
+[2m   Start at [22m 19:51:48
+[2m   Duration [22m 65.12s[2m (transform 31.28s, setup 46.53s, import 38.10s, tests 22.51s, environment 1860.11s)[22m
+

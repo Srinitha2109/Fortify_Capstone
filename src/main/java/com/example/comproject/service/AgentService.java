@@ -58,14 +58,18 @@ public class AgentService {
     public List<AgentDTO> getAvailableAgentsBySpecialization(String specializationStr) {
         try {
             Agent.Specialization spec = Agent.Specialization.valueOf(specializationStr.toUpperCase());
-            return agentRepository.findAvailableBySpecialization(spec).stream()
+            return agentRepository.findBySpecializationAndBusinessProfilesIsEmpty(spec).stream()
                     .map(this::toDTO).collect(Collectors.toList());
         } catch (IllegalArgumentException e) {
             // If specialization doesn't match enum (e.g. 'OTHER'), return all unassigned agents
-            return agentRepository.findAll().stream()
-                    .filter(a -> a.getId() != null)
+            return agentRepository.findByBusinessProfilesIsEmpty().stream()
                     .map(this::toDTO).collect(Collectors.toList());
         }
+    }
+
+    public List<AgentDTO> getAvailableAgents() {
+        return agentRepository.findByBusinessProfilesIsEmpty().stream()
+                .map(this::toDTO).collect(Collectors.toList());
     }
 
     public List<AgentDTO> getAgentsBySpecialization(String specializationStr) {

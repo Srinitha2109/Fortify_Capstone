@@ -1,0 +1,100 @@
+<div class="flex flex-col gap-6 w-full max-w-7xl mx-auto p-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <!-- Header -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex items-center justify-between">
+        <div>
+            <h1 class="text-2xl font-black text-burgundy tracking-tight">Payment History</h1>
+            <p class="text-xs text-slate-500 font-bold uppercase mt-1 tracking-tight">Track your premium payments and
+                billing schedule</p>
+        </div>
+        <div class="bg-emerald-50 px-4 py-2 rounded-xl border border-emerald-100 flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+            <span class="text-sm font-bold text-emerald-600">{{ payments().length }} Transactions</span>
+        </div>
+    </div>
+
+    <!-- Payments Table -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-xl overflow-hidden shadow-slate-200/50">
+        <div class="overflow-x-auto overflow-y-auto max-h-[600px] custom-scrollbar">
+            <table class="w-full text-left border-separate border-tools-0 border-spacing-0">
+                <thead class="sticky top-0 z-10">
+                    <tr class="bg-slate-50 border-b border-slate-200 backdrop-blur-md bg-slate-50/90">
+                        <th
+                            class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400 border-b border-slate-200">
+                            Date</th>
+                        <th
+                            class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400 border-b border-slate-200">
+                            Transaction Ref</th>
+                        <th
+                            class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400 border-b border-slate-200">
+                            Policy / Plan</th>
+                        <th
+                            class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400 border-b border-slate-200">
+                            Amount</th>
+                        <th
+                            class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400 border-b border-slate-200 text-right">
+                            Action</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    @for (payment of payments(); track payment.id) {
+                    <tr class="hover:bg-slate-50/80 transition-all duration-300 group">
+                        <td class="px-8 py-6">
+                            <div class="flex flex-col">
+                                <span class="text-sm font-black text-slate-700">{{ payment.paymentDate |
+                                    date:'mediumDate' }}</span>
+                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">{{
+                                    payment.paymentDate | date:'shortTime' }}</span>
+                            </div>
+                        </td>
+                        <td class="px-8 py-6">
+                            <div
+                                class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-slate-100/50 border border-slate-200 rounded-lg group-hover:bg-white group-hover:border-slate-300 transition-all">
+                                <span class="text-[10px] font-black text-slate-500 uppercase font-mono">{{
+                                    payment.transactionReference }}</span>
+                            </div>
+                        </td>
+                        <td class="px-8 py-6">
+                            <div class="flex flex-col">
+                                <span
+                                    class="text-sm font-black text-slate-800 group-hover:text-burgundy transition-colors uppercase tracking-tight">{{
+                                    payment.planName || 'Insurance Plan' }}</span>
+                                <div class="flex items-center gap-2 mt-0.5">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-burgundy/20"></div>
+                                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{{
+                                        payment.policyNumber || 'N/A' }}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-8 py-6">
+                            <div class="flex flex-col">
+                                <span class="text-sm font-black text-slate-800">{{ payment.amount | currency }}</span>
+                                <span
+                                    class="text-[9px] font-black text-emerald-500 uppercase tracking-widest">Successful
+                                    Payment</span>
+                            </div>
+                        </td>
+                        <td class="px-8 py-6 text-right">
+                            <button (click)="downloadInvoice(payment)"
+                                class="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white border-2 border-slate-100 rounded-xl text-[11px] font-black text-slate-700 hover:bg-burgundy hover:text-white hover:border-burgundy transition-all duration-300 shadow-sm active:scale-95 group/btn">
+                                Download PDF
+                            </button>
+                        </td>
+                    </tr>
+                    } @empty {
+                    <tr>
+                        <td colspan="5" class="py-24 text-center">
+                            <div class="relative inline-block mb-6">
+                                <div class="absolute inset-0 bg-burgundy/5 rounded-full blur-2xl animate-pulse"></div>
+                                <span class="text-7xl grayscale opacity-30 relative block">💳</span>
+                            </div>
+                            <h3 class="text-xl font-black text-slate-800 mb-2">No Transactions Found</h3>
+                            <p class="text-slate-500 font-bold text-sm max-w-xs mx-auto tracking-tight">Your premium
+                                payment history will be available here once you activate your first policy.</p>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -10,8 +10,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table(name = "agents")
@@ -37,6 +39,9 @@ public class Agent {
     private Specialization specialization;
 
     private BigDecimal commissionRate;
+
+    @OneToMany(mappedBy = "agent")
+    private List<BusinessProfile> businessProfiles;
 
     public enum Specialization {
         TECHNOLOGY, CONSTRUCTION, MANUFACTURING, RETAIL

@@ -13,7 +13,7 @@ import { PolicySearchService } from '../../../../services/policy-search.service'
     standalone: true,
     imports: [FormsModule, CommonModule],
     templateUrl: './policies.html',
-    // styleUrl: './policies.css'
+    styleUrl: './policies.css'
 })
 export class PoliciesComponent implements OnInit {
     private policyService = inject(PolicyService);

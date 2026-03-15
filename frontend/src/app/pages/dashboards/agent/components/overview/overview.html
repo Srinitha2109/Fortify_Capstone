@@ -1,0 +1,107 @@
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+    <div
+        class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow group relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-16 h-16 bg-burgundy/5 rounded-bl-full -z-10"></div>
+        <span class="block text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Total Assigned</span>
+        <span class="text-3xl font-black text-burgundy">{{ requests().length }}</span>
+        <span class="block text-[10px] font-bold text-slate-400 mt-2 uppercase">Applications in your portfolio</span>
+    </div>
+    <div
+        class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow group relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-16 h-16 bg-sky-500/5 rounded-bl-full -z-10"></div>
+        <span class="block text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Pending Review</span>
+        <span class="text-3xl font-black text-sky-600">{{ pendingCount() }}</span>
+        <span class="block text-[10px] font-bold text-slate-400 mt-2 uppercase">Awaiting your action</span>
+    </div>
+    <div
+        class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow group relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-16 h-16 bg-emerald-500/5 rounded-bl-full -z-10"></div>
+        <span class="block text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Recent Approvals</span>
+        <span class="text-3xl font-black text-emerald-600">{{ approvedCount() }}</span>
+        <span class="block text-[10px] font-bold text-slate-400 mt-2 uppercase">Successfully processed</span>
+    </div>
+</div>
+
+<section
+    class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div class="px-8 py-6 border-b border-slate-50 flex justify-between items-center bg-slate-50/30">
+        <div>
+            <h2 class="text-xl font-black text-slate-800 tracking-tight">Recent Activity</h2>
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Latest application updates</p>
+        </div>
+        <a routerLink="/agent/requests"
+            class="px-4 py-2 bg-white border border-slate-200 text-burgundy text-[10px] font-black rounded-xl hover:bg-burgundy hover:text-white transition-all uppercase tracking-widest shadow-sm">View
+            All Requests</a>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+            <thead>
+                <tr class="bg-slate-50/50 border-b border-slate-100">
+                    <th class="px-8 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">Applicant /
+                        Business</th>
+                    <th class="px-8 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">Policy Plan
+                    </th>
+                    <th class="px-8 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">Requested
+                        Coverage</th>
+                    <th class="px-8 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">Status</th>
+                    <th class="px-8 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-50">
+                @for (app of recentRequests(); track app.id) {
+                <tr class="hover:bg-slate-50/30 transition-colors group">
+                    <td class="px-8 py-5">
+                        <div class="flex flex-col">
+                            <span
+                                class="text-sm font-black text-slate-700 group-hover:text-burgundy transition-colors">{{
+                                app.businessName }}</span>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">ID: {{
+                                app.policyNumber }}</span>
+                        </div>
+                    </td>
+                    <td class="px-8 py-5">
+                        <div class="flex flex-col">
+                            <span class="text-sm font-bold text-slate-600">Plan ID: {{ app.planId }}</span>
+                            <span class="text-[10px] font-black text-burgundy/60 uppercase tracking-widest">{{
+                                app.paymentPlan }}</span>
+                        </div>
+                    </td>
+                    <td class="px-8 py-5">
+                        <div class="flex flex-col">
+                            <span class="text-xs font-bold text-slate-500">{{ app.selectedCoverageAmount | currency
+                                }}</span>
+                            <span class="text-sm font-black text-burgundy">Prem: {{ app.premiumAmount | currency
+                                }}</span>
+                        </div>
+                    </td>
+                    <td class="px-8 py-5">
+                        <span class="px-2.5 py-1 text-[10px] font-black uppercase rounded-lg inline-block" [ngClass]="{
+                                      'bg-sky-100 text-sky-600': app.status === 'SUBMITTED',
+                                      'bg-amber-100 text-amber-600': app.status === 'UNDER_REVIEW',
+                                      'bg-emerald-100 text-emerald-600': app.status === 'APPROVED',
+                                      'bg-rose-100 text-rose-600': app.status === 'REJECTED'
+                                  }">
+                            {{ app.status }}
+                        </span>
+                    </td>
+                    <td class="px-8 py-5">
+                        <a [routerLink]="['/agent/requests']"
+                            class="px-4 py-2 bg-burgundy/5 text-burgundy text-[10px] font-black rounded-lg hover:bg-burgundy hover:text-white transition-all uppercase tracking-widest shadow-sm">Process</a>
+                    </td>
+                </tr>
+                } @empty {
+                <tr>
+                    <td colspan="5" class="px-8 py-20 text-center">
+                        <div class="flex flex-col items-center gap-3 grayscale opacity-30">
+                            <span class="text-4xl">📂</span>
+                            <p class="text-slate-500 font-bold uppercase text-xs tracking-widest">No applications
+                                assigned to you yet</p>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

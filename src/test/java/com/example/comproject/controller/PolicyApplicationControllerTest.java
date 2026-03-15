@@ -42,7 +42,7 @@ class PolicyApplicationControllerTest {
 
         when(applicationService.getAllApplications()).thenReturn(Arrays.asList(app));
 
-        mockMvc.perform(get("/api/policy-applications"))
+        mockMvc.perform(get("/api/policy-applications/all"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(1))
                 .andExpect(jsonPath("$[0].policyNumber").value("APP-0001"));

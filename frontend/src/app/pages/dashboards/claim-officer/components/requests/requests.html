@@ -1,0 +1,160 @@
+<div class="flex flex-col gap-8">
+    <header class="flex items-center justify-between">
+        <div>
+            <h1 class="text-3xl font-black text-slate-800 tracking-tight">Claim Requests</h1>
+            <p class="text-sm font-bold text-slate-400 mt-1 uppercase tracking-widest">Review and process your pending
+                claims</p>
+        </div>
+
+    </header>
+
+    @if (isLoading()) {
+    <div class="flex items-center justify-center py-24">
+        <div class="w-10 h-10 border-4 border-burgundy border-t-transparent rounded-full animate-spin"></div>
+    </div>
+    } @else if (pendingClaims().length === 0) {
+    <div
+        class="flex flex-col items-center justify-center py-32 bg-white rounded-[2rem] border-2 border-dashed border-slate-200 gap-6">
+        <span class="text-6xl grayscale opacity-30 text-burgundy">📂</span>
+        <div class="text-center">
+            <h3 class="text-xl font-black text-slate-700 mb-1">Queue Clear</h3>
+            <p class="text-sm font-bold text-slate-400 uppercase tracking-widest">No new claims requiring your attention
+            </p>
+        </div>
+    </div>
+    } @else {
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-10">
+        @for (claim of pendingClaims(); track claim.id) {
+        <div
+            class="bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group overflow-hidden">
+
+            <!-- Card Header (Minimal) -->
+            <div class="p-6 pb-2">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Claim Reference</span>
+                    <span
+                        class="px-2 py-0.5 text-[8px] font-black uppercase rounded-full bg-pink/10 text-pink border border-pink/20">Pending
+                        Review</span>
+                </div>
+                <h2 class="text-xl font-black text-burgundy tracking-tight">{{ claim.claimNumber }}</h2>
+                <div class="mt-2 space-y-1">
+                    <p class="text-[11px] font-black text-slate-700 uppercase tracking-tight">{{ claim.policyholderName
+                        || 'Unknown Policyholder' }}</p>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{{ claim.planName ||
+                        'Insurance Plan' }} (APP-{{ claim.policyApplicationId }})</p>
+                </div>
+            </div>
+
+
+            <!-- Description Section -->
+            <div class="px-6 py-4 flex-1">
+                <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest block mb-1">Incident
+                    Description</span>
+                <p class="text-sm font-medium text-slate-700 leading-relaxed">
+                    {{ claim.description }}
+                </p>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="px-6 py-4 grid grid-cols-2 gap-4 border-t border-slate-50">
+                <div class="bg-burgundy/[0.02] p-3 rounded-2xl border border-burgundy/5">
+                    <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest block mb-1">Requested
+                        Amount</span>
+                    <span class="text-sm font-black text-burgundy">{{ claim.claimAmount | currency }}</span>
+                </div>
+                <div class="bg-pink/[0.02] p-3 rounded-2xl border border-pink/5">
+                    <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest block mb-1">Incident
+                        Date</span>
+                    <span class="text-sm font-black text-pink">{{ claim.incidentDate | date:'mediumDate' }}</span>
+                </div>
+            </div>
+
+            <!-- Documents Area -->
+            <div class="px-6 py-5 border-t border-slate-50">
+                <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest block mb-3">Supporting
+                    Evidence</span>
+                <div class="flex flex-wrap gap-2">
+                    @for (doc of claim.documents; track doc.id) {
+                    <button (click)="openDocument(doc)"
+                        class="flex items-center gap-2 px-3 py-2 bg-slate-50 hover:bg-burgundy/5 rounded-xl border border-slate-100 hover:border-burgundy/20 transition-all text-[10px] font-bold text-slate-600 hover:text-burgundy shadow-sm group/btn">
+                        <span>{{ getFileIcon(doc.fileType) }}</span>
+                        <span class="truncate max-w-[100px]">{{ doc.fileName }}</span>
+                        <span class="opacity-0 group-hover/btn:opacity-100 transition-opacity ml-1">⬇️</span>
+                    </button>
+                    } @empty {
+                    <span class="text-[10px] italic text-slate-400">No documents attached</span>
+                    }
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="p-6 pt-2 flex gap-3">
+                <button (click)="approveClaim(claim)"
+                    class="flex-1 py-3.5 bg-burgundy hover:bg-burgundy/90 text-white text-[10px] font-black uppercase tracking-widest rounded-2xl shadow-lg shadow-burgundy/20 transition-all active:scale-95">
+                    Approve Claim
+                </button>
+                <button (click)="initiateRejection(claim)"
+                    class="flex-1 py-3.5 bg-pink/5 border border-pink/20 hover:bg-pink/10 text-pink text-[10px] font-black uppercase tracking-widest rounded-2xl transition-all active:scale-95">
+                    Reject
+                </button>
+            </div>
+        </div>
+        }
+    </div>
+    }
+
+    <!-- Rejection Modal -->
+    @if (showRejectionModal()) {
+    <div
+        class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-300">
+        <div
+            class="bg-white rounded-[2rem] shadow-2xl w-full max-w-lg overflow-hidden border border-slate-200 animate-in zoom-in-95 duration-300">
+            <div class="px-8 py-8 border-b border-slate-100 flex items-center justify-between bg-burgundy/5">
+                <div>
+                    <h2 class="text-2xl font-black text-burgundy tracking-tight">Reject Claim</h2>
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">Review Reference: {{
+                        selectedClaimForRejection()?.claimNumber }}</p>
+                </div>
+                <button (click)="showRejectionModal.set(false)"
+                    class="p-2 text-slate-400 hover:text-burgundy hover:bg-burgundy/5 rounded-full transition-all">
+                    <span class="text-2xl leading-none">×</span>
+                </button>
+            </div>
+
+            <div class="p-8">
+                <div class="space-y-6">
+                    <div class="p-4 bg-amber-50 rounded-2xl border border-amber-100/50">
+                        <p class="text-[10px] font-bold text-amber-700 leading-relaxed uppercase tracking-tight">
+                            <span class="mr-1">⚠️</span> This action will notify the policyholder that their claim has
+                            been rejected.
+                        </p>
+                    </div>
+
+                    <div>
+                        <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Reason
+                            for Rejection</label>
+                        <textarea [(ngModel)]="rejectionReason"
+                            class="form-control w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-semibold text-slate-700 outline-none min-h-[140px] placeholder:text-slate-300 resize-none"
+                            [ngClass]="{'is-invalid': formSubmitted() && !rejectionReason().trim()}"
+                            placeholder="Provide a professional explanation for the rejection..."></textarea>
+                        @if (formSubmitted() && !rejectionReason().trim()) {
+                        <div class="error-msg">Please provide a reason for rejection</div>
+                        }
+                    </div>
+
+                    <div class="flex gap-4">
+                        <button (click)="showRejectionModal.set(false)"
+                            class="flex-1 py-4 bg-slate-100 hover:bg-slate-200 text-slate-600 text-[10px] font-black uppercase tracking-widest rounded-2xl transition-all active:scale-95">
+                            Cancel
+                        </button>
+                        <button (click)="confirmRejection()" [disabled]="isSubmitting()"
+                            class="flex-1 py-4 bg-burgundy hover:bg-burgundy/90 disabled:opacity-50 disabled:cursor-not-allowed text-white text-[10px] font-black uppercase tracking-widest rounded-2xl shadow-xl shadow-burgundy/20 transition-all active:scale-95">
+                            {{ isSubmitting() ? 'Processing...' : 'Submit Rejection' }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+</div>

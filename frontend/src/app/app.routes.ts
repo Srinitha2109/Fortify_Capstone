@@ -25,11 +25,11 @@ export const routes: Routes = [
         data: { roles: ['ADMIN'] },
         children: [
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-            { path: 'dashboard', loadComponent: () => import('./pages/dashboards/admin/components/overview/overview.component').then(m => m.OverviewComponent) },
-            { path: 'requests', loadComponent: () => import('./pages/dashboards/admin/components/requests/requests.component').then(m => m.RequestsComponent) },
-            { path: 'policies', loadComponent: () => import('./pages/dashboards/admin/components/policies/policies.component').then(m => m.PoliciesComponent) },
-            { path: 'policyholders', loadComponent: () => import('./pages/dashboards/admin/components/policyholders/policyholders.component').then(m => m.PolicyholdersComponent) },
-            { path: 'users', loadComponent: () => import('./pages/dashboards/admin/components/users/users.component').then(m => m.UsersComponent) },
+            { path: 'dashboard', loadComponent: () => import('./pages/dashboards/admin/components/overview/overview').then(m => m.OverviewComponent) },
+            { path: 'requests', loadComponent: () => import('./pages/dashboards/admin/components/requests/requests').then(m => m.RequestsComponent) },
+            { path: 'policies', loadComponent: () => import('./pages/dashboards/admin/components/policies/policies').then(m => m.PoliciesComponent) },
+            { path: 'policyholders', loadComponent: () => import('./pages/dashboards/admin/components/policyholders/policyholders').then(m => m.PolicyholdersComponent) },
+            { path: 'users', loadComponent: () => import('./pages/dashboards/admin/components/users/users').then(m => m.UsersComponent) },
         ]
     },
     { path: 'admin/dashboard', redirectTo: 'admin/dashboard', pathMatch: 'full' },
@@ -55,8 +55,8 @@ export const routes: Routes = [
         data: { roles: ['AGENT'] },
         children: [
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-            { path: 'dashboard', loadComponent: () => import('./pages/dashboards/agent/components/overview/overview.component').then(m => m.OverviewComponent) },
-            { path: 'requests', loadComponent: () => import('./pages/dashboards/agent/components/requests/requests.component').then(m => m.RequestsComponent) },
+            { path: 'dashboard', loadComponent: () => import('./pages/dashboards/agent/components/overview/overview').then(m => m.OverviewComponent) },
+            { path: 'requests', loadComponent: () => import('./pages/dashboards/agent/components/requests/requests').then(m => m.RequestsComponent) },
         ]
     },
 
@@ -67,8 +67,8 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/dashboards/claim-officer/claim-officer').then(m => m.ClaimOfficerComponent),
         children: [
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-            { path: 'dashboard', loadComponent: () => import('./pages/dashboards/claim-officer/components/overview/overview.component').then(m => m.OverviewComponent) },
-            { path: 'requests', loadComponent: () => import('./pages/dashboards/claim-officer/components/requests/requests.component').then(m => m.RequestsComponent) },
+            { path: 'dashboard', loadComponent: () => import('./pages/dashboards/claim-officer/components/overview/overview').then(m => m.OverviewComponent) },
+            { path: 'requests', loadComponent: () => import('./pages/dashboards/claim-officer/components/requests/requests').then(m => m.RequestsComponent) },
         ]
     },
 ];

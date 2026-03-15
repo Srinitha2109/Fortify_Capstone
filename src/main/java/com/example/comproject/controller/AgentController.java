@@ -58,7 +58,7 @@ public class AgentController {
         if (specialization != null && !specialization.isBlank()) {
             return ResponseEntity.ok(agentService.getAvailableAgentsBySpecialization(specialization));
         }
-        return ResponseEntity.ok(agentService.getAllAgents());
+        return ResponseEntity.ok(agentService.getAvailableAgents());
     }
 
     @PreAuthorize("hasRole('AGENT')")

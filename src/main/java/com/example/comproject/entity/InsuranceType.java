@@ -3,7 +3,8 @@ package com.example.comproject.entity;
 public enum InsuranceType {
     GENERAL_LIABILITY("General Liability"),
     AUTO("Auto"),
-    WORKERS_COMPENSATION("Workers compensation");
+    WORKERS_COMPENSATION("Workers compensation"),
+    PROPERTY_DAMAGE("Property Damage");
 
     private final String displayName;
 

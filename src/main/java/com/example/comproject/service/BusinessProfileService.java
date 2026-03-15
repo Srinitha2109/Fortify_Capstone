@@ -83,6 +83,10 @@ public class BusinessProfileService {
                 .map(this::toDTO).collect(Collectors.toList());
     }
 
+    public BusinessProfileDTO getProfileById(Long id) {
+        return businessProfileRepository.findById(id).map(this::toDTO).orElse(null);
+    }
+
     public BusinessProfileDTO updateProfile(Long id, BusinessProfileDTO dto) {
         if (businessProfileRepository.existsById(id)) {
             BusinessProfile profile = businessProfileRepository.findById(id).orElseThrow();

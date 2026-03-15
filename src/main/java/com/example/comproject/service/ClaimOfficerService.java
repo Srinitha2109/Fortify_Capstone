@@ -40,10 +40,14 @@ public class ClaimOfficerService {
     public List<ClaimOfficer> getAvailableClaimOfficersBySpecialization(String specializationStr) {
         try {
             ClaimOfficer.Specialization spec = ClaimOfficer.Specialization.valueOf(specializationStr.toUpperCase());
-            return claimOfficerRepository.findBySpecialization(spec);
+            return claimOfficerRepository.findBySpecializationAndBusinessProfilesIsEmpty(spec);
         } catch (IllegalArgumentException e) {
-            // Return empty list if specialized is unknown
-            return List.of();
+            // Return all available claim officers if specialized is unknown
+            return claimOfficerRepository.findByBusinessProfilesIsEmpty();
         }
+    }
+
+    public List<ClaimOfficer> getAvailableClaimOfficers() {
+        return claimOfficerRepository.findByBusinessProfilesIsEmpty();
     }
 }

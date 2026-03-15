@@ -86,6 +86,10 @@ public class PaymentService {
         return paymentRepository.findByUserId(userId).stream().map(this::toDTO).collect(Collectors.toList());
     }
 
+    public List<PaymentDTO> getAllPayments() {
+        return paymentRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
     private PaymentDTO toDTO(Payment payment) {
         PaymentDTO dto = new PaymentDTO();
         dto.setId(payment.getId());

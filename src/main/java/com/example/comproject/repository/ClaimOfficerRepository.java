@@ -13,4 +13,10 @@ public interface ClaimOfficerRepository extends JpaRepository<ClaimOfficer, Long
     List<ClaimOfficer> findBySpecialization(ClaimOfficer.Specialization specialization);
 
     boolean existsByUserId(long id);
+
+    // ClaimOfficers matching specialization AND not yet assigned to any BusinessProfile
+    List<ClaimOfficer> findBySpecializationAndBusinessProfilesIsEmpty(ClaimOfficer.Specialization specialization);
+
+    // All ClaimOfficers not yet assigned to any BusinessProfile
+    List<ClaimOfficer> findByBusinessProfilesIsEmpty();
 }

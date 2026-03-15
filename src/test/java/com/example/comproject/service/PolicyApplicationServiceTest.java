@@ -23,7 +23,28 @@ import static org.mockito.Mockito.when;
 class PolicyApplicationServiceTest {
 
     @Mock
-    private PolicyApplicationRepository applicationRepository;
+    private com.example.comproject.repository.PolicyApplicationRepository applicationRepository;
+
+    @Mock
+    private com.example.comproject.repository.UserRepository userRepository;
+
+    @Mock
+    private com.example.comproject.repository.PolicyRepository policyRepository;
+
+    @Mock
+    private com.example.comproject.repository.BusinessProfileRepository businessProfileRepository;
+
+    @Mock
+    private com.example.comproject.repository.AgentRepository agentRepository;
+
+    @Mock
+    private com.example.comproject.repository.ClaimOfficerRepository claimOfficerRepository;
+
+    @Mock
+    private com.example.comproject.repository.ClaimRepository claimRepository;
+
+    @Mock
+    private AppNotificationService notificationService;
 
     @InjectMocks
     private PolicyApplicationService applicationService;

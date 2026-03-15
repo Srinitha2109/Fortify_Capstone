@@ -8,8 +8,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table(name = "claim_officers")
@@ -33,6 +35,9 @@ public class ClaimOfficer {
 
     @Enumerated(EnumType.STRING)
     private Specialization specialization;
+
+    @OneToMany(mappedBy = "claimOfficer")
+    private List<BusinessProfile> businessProfiles;
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }

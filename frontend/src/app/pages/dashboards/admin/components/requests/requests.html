@@ -1,0 +1,61 @@
+<div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden animate-in fade-in duration-300">
+    <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between">
+        <h2 class="text-lg font-extrabold text-burgundy tracking-tight">Registration Requests</h2>
+        <span class="px-3 py-1 bg-pink/10 text-pink text-[10px] font-black uppercase rounded-full">
+            {{ requests().length }} Pending
+        </span>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="w-full border-collapse">
+            <thead>
+                <tr class="bg-slate-50 border-b border-slate-100">
+                    <th class="px-6 py-4 text-left text-[10px] font-black text-burgundy uppercase tracking-widest">Full
+                        Name</th>
+                    <th class="px-6 py-4 text-left text-[10px] font-black text-burgundy uppercase tracking-widest">Email
+                    </th>
+                    <th class="px-6 py-4 text-left text-[10px] font-black text-burgundy uppercase tracking-widest">Role
+                    </th>
+                    <th class="px-6 py-4 text-left text-[10px] font-black text-burgundy uppercase tracking-widest">
+                        Action</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+                @for (req of requests(); track req.id) {
+                <tr class="hover:bg-slate-50/50 transition-colors">
+                    <td class="px-6 py-5">
+                        <p class="text-sm font-bold text-slate-800">{{ req.fullName }}</p>
+                        <p class="text-[10px] text-slate-500 font-semibold uppercase tracking-tighter">Request #{{
+                            req.id }}</p>
+                    </td>
+                    <td class="px-6 py-5 text-sm font-medium text-slate-600">{{ req.email }}</td>
+                    <td class="px-6 py-5">
+                        <span
+                            class="px-2 py-1 bg-burgundy/5 text-burgundy text-[9px] font-bold uppercase rounded border border-burgundy/10">{{
+                            req.role }}</span>
+                    </td>
+
+                    <td class="px-6 py-5">
+                        <div class="flex gap-2">
+                            <button (click)="approve(req.id)"
+                                class="px-3 py-1.5 bg-green-600 text-white text-[10px] font-bold uppercase rounded hover:bg-green-700 transition-colors">
+                                Approve
+                            </button>
+                            <button (click)="reject(req.id)"
+                                class="px-3 py-1.5 bg-red-600 text-white text-[10px] font-bold uppercase rounded hover:bg-red-700 transition-colors">
+                                Reject
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                } @empty {
+                <tr>
+                    <td colspan="5" class="px-6 py-20 text-center">
+                        <p class="font-bold text-slate-400 italic">No pending registration requests.</p>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
